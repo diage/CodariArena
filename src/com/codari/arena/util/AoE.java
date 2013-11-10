@@ -43,7 +43,7 @@ public class AoE {
 	}
 	
 	private void run() {
-		Bukkit.getScheduler().runTaskTimer(Codari.INSTANCE, new BukkitRunnable() {
+		BukkitRunnable runner = new BukkitRunnable() {
 			@Override
 			public void run() {
 				calculate(radius);
@@ -54,6 +54,8 @@ public class AoE {
 					super.cancel();
 				}
 			}
-		}, 1, 1);
+		};
+		
+		runner.runTaskTimer(Codari.INSTANCE, 1, 1);
 	}
 }
