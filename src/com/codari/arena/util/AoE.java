@@ -1,0 +1,59 @@
+package com.codari.arena.util;
+
+import java.util.List;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Slime;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import com.codari.api.Codari;
+
+/* This class will be used to determine nearby entities around a specified location. */
+
+public class AoE {
+	//-----Fields-----//
+	private List<Entity> nearbyEntities;
+	private Location location;
+	private double radius;
+	private boolean active;
+	
+	public AoE(Location location, double radius) {
+		this.location = location;
+		this.radius = radius;
+	}
+	
+	public void setActive() {
+		this.active = true;
+		this.run();
+	}
+	
+	public void setDeactive() {
+		this.active = false;
+	}	
+	
+	private void calculate(double radius) {
+		World world = this.location.getWorld();
+		Slime anchor = world.spawn(this.location, Slime.class);
+		anchor.setSize(0);
+		this.nearbyEntities = anchor.getNearbyEntities(this.radius, this.radius, this.radius);
+		anchor.remove();
+	}
+	
+	private void run() {
+		Bukkit.getScheduler().runTaskTimer(Codari.INSTANCE, new BukkitRunnable() {
+			@Override
+			public void run() {
+				calculate(radius);
+				if(nearbyEntities.size() > 0) {
+					Bukkit.getPluginManager().callEvent(new AoeTriggerEvent(location, nearbyEntities));
+				}
+				if(!active) {
+					super.cancel();
+				}
+			}
+		}, 1, 1);
+	}
+}
