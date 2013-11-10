@@ -8,8 +8,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import com.codari.api.Codari;
+import com.codari.arena.combatants.teams.TeamColor;
 import com.codari.arena.util.AoE;
-import com.codari.arena.util.TeamColor;
 
 public abstract class TemplateObjectivePoint implements ObjectivePoint {
 	//-----Fields-----//
