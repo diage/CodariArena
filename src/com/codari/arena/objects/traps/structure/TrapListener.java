@@ -16,7 +16,6 @@ import org.bukkit.metadata.MetadataValue;
 
 import com.codari.api.Codari;
 import com.codari.arena.combatants.teams.Team;
-import com.codari.arena.objects.traps.FireTrap;
 import com.codari.arena.util.AoeTriggerEvent;
 
 public class TrapListener implements Listener {
@@ -41,7 +40,7 @@ public class TrapListener implements Listener {
 	public void triggerInteractEvent(PlayerInteractEvent e) { //TODO - Add Team when set trap
 		if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			Block block = e.getClickedBlock();
-			List<MetadataValue> values = block.getMetadata(FireTrap.RANDOM_PASS_KEY);
+			List<MetadataValue> values = block.getMetadata(TemplateTrap.RANDOM_PASS_KEY);
 			MetadataValue metaValue = null;
 			for (MetadataValue interiorValue : values) {
 				if (interiorValue.getOwningPlugin().equals(Codari.INSTANCE)) {
@@ -52,9 +51,9 @@ public class TrapListener implements Listener {
 				return;
 			}
 			Trap Trap = (Trap) metaValue.value();
-			if (block.hasMetadata(FireTrap.META_DATA_STRING)) {
+			if (block.hasMetadata(TemplateTrap.META_DATA_STRING)) {
 				MetadataValue fireValue = null;
-				for (MetadataValue possibleValue : block.getMetadata(FireTrap.META_DATA_STRING)) {
+				for (MetadataValue possibleValue : block.getMetadata(TemplateTrap.META_DATA_STRING)) {
 					if (Codari.INSTANCE.equals(possibleValue.getOwningPlugin())) {
 						fireValue = possibleValue;
 						break;
