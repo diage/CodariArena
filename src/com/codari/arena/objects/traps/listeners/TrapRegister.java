@@ -4,8 +4,8 @@ import org.bukkit.Bukkit;
 
 import com.codari.api.Codari;
 
-public class TrapListener {
-	public TrapListener() {
+public class TrapRegister {
+	public TrapRegister() {
 		Bukkit.getPluginManager().registerEvents(new FireTrapListener(), Codari.INSTANCE);
 	}
 }
