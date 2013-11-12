@@ -1,5 +1,6 @@
 package com.codari.arena.objects.traps;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -42,7 +43,7 @@ public abstract class TemplateTrap implements Trap {
 		this.trapStates[4] = baseBlockEast.getState();
 		
 		//Create new AoE
-		this.areaOfEffect = new AoE(player.getLocation(), radius);
+		this.areaOfEffect = new AoE(player.getLocation(), radius, this);
 		
 		//Setting metadata
 		META_DATA_STRING = metaData;

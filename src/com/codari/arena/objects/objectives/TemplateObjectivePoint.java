@@ -18,7 +18,7 @@ public abstract class TemplateObjectivePoint implements ObjectivePoint {
 	//---Initialized in Constructor---//
 	private TeamColor teamColor;
 	private AoE areaOfEffect;
-	private double radius;
+	//private double radius;
 	
 	//---Coder Preference---//
 	private final String META_DATA_STRING = "SOME_STRING";
@@ -42,7 +42,7 @@ public abstract class TemplateObjectivePoint implements ObjectivePoint {
 		this.objectivePointStates[4] = baseBlockEast.getState();
 		
 		//Set radius size
-		this.radius = radius;
+		//this.radius = radius;
 	}
 	
 	//-----Getters-----//
@@ -91,7 +91,7 @@ public abstract class TemplateObjectivePoint implements ObjectivePoint {
 	
 	//-----Private Methods-----//
 	private void startAoE() {
-		this.areaOfEffect = new AoE(this.objectivePointStates[0].getLocation(), this.radius);
+		//this.areaOfEffect = new AoE(this.objectivePointStates[0].getLocation(), this.radius);
 		this.areaOfEffect.setActive();
 	}
 	
