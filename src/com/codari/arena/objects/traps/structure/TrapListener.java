@@ -52,14 +52,14 @@ public class TrapListener implements Listener {
 			}
 			Trap Trap = (Trap) metaValue.value();
 			if (block.hasMetadata(TemplateTrap.META_DATA_STRING)) {
-				MetadataValue fireValue = null;
+				MetadataValue trapValue = null;
 				for (MetadataValue possibleValue : block.getMetadata(TemplateTrap.META_DATA_STRING)) {
 					if (Codari.INSTANCE.equals(possibleValue.getOwningPlugin())) {
-						fireValue = possibleValue;
+						trapValue = possibleValue;
 						break;
 					}
 				}
-				if (fireValue != null && fireValue.asBoolean()) {
+				if (trapValue != null && trapValue.asBoolean()) {
 					Trap.set();
 				}
 			}
