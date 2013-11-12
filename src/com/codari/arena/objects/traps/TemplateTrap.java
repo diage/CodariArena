@@ -1,6 +1,9 @@
 package com.codari.arena.objects.traps;
 
-import org.bukkit.Bukkit;
+
+import javax.xml.crypto.NoSuchMechanismException;
+
+import org.apache.commons.lang3.RandomStringUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -16,7 +19,8 @@ public abstract class TemplateTrap implements Trap {
 	//-----Fields-----//
 	//---Block Configuration---//
 	private final BlockState[] trapStates = new BlockState[5];
-	public final String META_DATA_STRING;
+	public static final String META_DATA_STRING = RandomStringUtils.randomAscii(69);
+	public static final String RANDOM_PASS_KEY = RandomStringUtils.randomAscii(69);
 	
 	//---Design Preference---//
 	protected Material revealedBlockMaterial = Material.SANDSTONE;
@@ -27,7 +31,7 @@ public abstract class TemplateTrap implements Trap {
 	private AoE areaOfEffect;
 
 	//-----Constructor-----//
-	public TemplateTrap(Player player, double radius, String metaData) {
+	public TemplateTrap(Player player, double radius) {
 		//Block positions
 		Block baseBlock = player.getLocation().getBlock();
 		Block baseBlockNorth = baseBlock.getRelative(BlockFace.NORTH, 1);
@@ -44,9 +48,6 @@ public abstract class TemplateTrap implements Trap {
 		
 		//Create new AoE
 		this.areaOfEffect = new AoE(player.getLocation(), radius, this);
-		
-		//Setting metadata
-		META_DATA_STRING = metaData;
 	}
 	
 	//-----Getters-----//
@@ -62,6 +63,11 @@ public abstract class TemplateTrap implements Trap {
 	//---RandomSpawnable Object Methods---//
 	@Override
 	public void spawn() {
+		for (BlockState state : this.trapStates) {
+			if (state.hasMetadata(RANDOM_PASS_KEY)) {
+				throw new NoSuchMechanismException("THINGS ARE HAPPENING THAT SHOULDN'T BE HAPPENING.... (traps too close)");
+			}
+		}
 		this.reveal();
 		this.setActivatable();
 	}
@@ -108,10 +114,16 @@ public abstract class TemplateTrap implements Trap {
 	}
 	
 	private void setActivatable() {
+		for (BlockState state : this.trapStates) {
+			state.setMetadata(RANDOM_PASS_KEY, new FixedMetadataValue(Codari.INSTANCE, this));
+		}
 		this.trapStates[0].setMetadata(META_DATA_STRING, new FixedMetadataValue(Codari.INSTANCE, true));
 	}	
 	
 	private void setDeactivateable() {
-		this.trapStates[0].setMetadata(META_DATA_STRING, new FixedMetadataValue(Codari.INSTANCE, false));
+		for (BlockState state : this.trapStates) {
+			state.removeMetadata(RANDOM_PASS_KEY, Codari.INSTANCE);
+		}
+		this.trapStates[0].removeMetadata(META_DATA_STRING, Codari.INSTANCE);
 	}
 }

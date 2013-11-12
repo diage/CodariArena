@@ -18,12 +18,6 @@ import com.codari.arena.util.AoeTriggerEvent;
 
 public class FireTrapListener implements Listener {
 	
-	private FireTrap fireTrap;
-	
-	public FireTrapListener(FireTrap fireTrap) {
-		this.fireTrap = fireTrap;
-	}
-	
 	//-----Events-----//
 	@EventHandler
 	public void triggerAoEEvent(AoeTriggerEvent e) {
@@ -42,16 +36,27 @@ public class FireTrapListener implements Listener {
 	public void triggerInteractEvent(PlayerInteractEvent e) {
 		if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			Block block = e.getClickedBlock();
-			if (block.hasMetadata(this.fireTrap.META_DATA_STRING)) {
-				MetadataValue value = null;
-				for (MetadataValue possibleValue : block.getMetadata(this.fireTrap.META_DATA_STRING)) {
+			List<MetadataValue> values = block.getMetadata(FireTrap.RANDOM_PASS_KEY);
+			MetadataValue metaValue = null;
+			for (MetadataValue interiorValue : values) {
+				if (interiorValue.getOwningPlugin().equals(Codari.INSTANCE)) {
+					metaValue = interiorValue;
+				}
+			}
+			if (metaValue == null) {
+				return;
+			}
+			FireTrap fireTrap = (FireTrap) metaValue.value();
+			if (block.hasMetadata(FireTrap.META_DATA_STRING)) {
+				MetadataValue fireValue = null;
+				for (MetadataValue possibleValue : block.getMetadata(FireTrap.META_DATA_STRING)) {
 					if (Codari.INSTANCE.equals(possibleValue.getOwningPlugin())) {
-						value = possibleValue;
+						fireValue = possibleValue;
 						break;
 					}
 				}
-				if (value != null && value.asBoolean()) {
-					this.fireTrap.set();
+				if (fireValue != null && fireValue.asBoolean()) {
+					fireTrap.set();
 				}
 			}
 		}
