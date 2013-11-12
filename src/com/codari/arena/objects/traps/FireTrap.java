@@ -24,7 +24,7 @@ public class FireTrap extends TemplateTrap {
 			Player player = (Player)targets.get(i);
 			player.setFireTicks(this.numberOfFireTicks);
 		}		
-	}	
+	}
 
 	@Override
 	public void trigger(List<Entity> targets) {
