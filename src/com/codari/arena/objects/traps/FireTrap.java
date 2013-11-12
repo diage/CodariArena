@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 
 public class FireTrap extends TemplateTrap {
 	//-----Fields-----//
-	private int numberOfFireTicks = 200;
+	private int numberOfFireTicks = 40;
 	private Listener listener;
 
 	public FireTrap(Player player, double radius) {
