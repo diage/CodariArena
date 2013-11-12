@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import com.codari.api.Codari;
+import com.codari.arena.combatants.teams.Team;
 import com.codari.arena.combatants.teams.TeamColor;
 import com.codari.arena.util.AoE;
 
@@ -29,6 +30,7 @@ public abstract class TemplateTrap implements Trap {
 	//---Initialized in Constructor---//
 	private TeamColor teamColor;
 	private AoE areaOfEffect;
+	private Team team;
 
 	//-----Constructor-----//
 	public TemplateTrap(Player player, double radius) {
@@ -102,6 +104,16 @@ public abstract class TemplateTrap implements Trap {
 	public void deactivate() {
 		this.hide();
 		this.stopAoE();
+	}
+	
+	@Override
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+	
+	@Override
+	public Team getTeam() {
+		return this.team;
 	}
 	
 	//-----Private Methods-----//
