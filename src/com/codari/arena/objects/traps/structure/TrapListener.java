@@ -26,7 +26,7 @@ public class TrapListener implements Listener {
 		Bukkit.broadcastMessage("Something is triggering the Fire Trap!");
 		List<Entity> targets = new ArrayList<>(e.getEntities());
 		this.editList(targets);
-		this.clearTeams(targets, e.getTrap().getTeam());
+		//this.clearTeams(targets, e.getTrap().getTeam());
 		//Has to check if opposing team triggered the trap
 		if(targets.size() > 0) {
 			e.getTrap().trigger(targets);
@@ -77,6 +77,7 @@ public class TrapListener implements Listener {
 	}
 	
 	//TODO
+	@SuppressWarnings("unused")
 	private void clearTeams(List<Entity> entities, Team team) {
 		//Iterator<>
 	}
