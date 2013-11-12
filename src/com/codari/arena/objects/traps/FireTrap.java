@@ -6,6 +6,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
+import com.codari.arena.objects.traps.structure.TemplateTrap;
+
 public class FireTrap extends TemplateTrap {
 	//-----Fields-----//
 	private int numberOfFireTicks = 40;

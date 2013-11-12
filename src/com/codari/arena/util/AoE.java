@@ -10,7 +10,7 @@ import org.bukkit.entity.Slime;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.codari.api.Codari;
-import com.codari.arena.objects.traps.Trap;
+import com.codari.arena.objects.traps.structure.Trap;
 
 /* This class will be used to determine nearby entities around a specified location. */
 

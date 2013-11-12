@@ -1,4 +1,4 @@
-package com.codari.arena.objects.traps;
+package com.codari.arena.objects.traps.structure;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,6 +16,7 @@ import org.bukkit.metadata.MetadataValue;
 
 import com.codari.api.Codari;
 import com.codari.arena.combatants.teams.Team;
+import com.codari.arena.objects.traps.FireTrap;
 import com.codari.arena.util.AoeTriggerEvent;
 
 public class TrapListener implements Listener {

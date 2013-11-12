@@ -7,7 +7,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import com.codari.arena.objects.traps.Trap;
+import com.codari.arena.objects.traps.structure.Trap;
 
 public class AoeTriggerEvent extends Event {
 	//-----Static Fields-----//

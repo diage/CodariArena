@@ -1,4 +1,4 @@
-package com.codari.arena.objects.traps;
+package com.codari.arena.objects.traps.structure;
 
 import java.util.List;
 
