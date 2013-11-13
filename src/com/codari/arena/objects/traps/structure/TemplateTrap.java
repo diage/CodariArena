@@ -24,8 +24,8 @@ public abstract class TemplateTrap implements Trap {
 	public static final String RANDOM_PASS_KEY = RandomStringUtils.randomAscii(69);
 
 	//---Design Preference---//
-	protected Material revealedTrapMaterial = Material.REDSTONE;
-	protected Material setTrapMaterial = Material.REDSTONE;
+	protected Material revealedTrapMaterial = Material.REDSTONE_WIRE;
+	protected Material setTrapMaterial = Material.REDSTONE_WIRE;
 	
 	private final Material revealedTrapIndicatorMaterial = Material.CLAY;
 	protected byte clayStoneMetaDataValue = 0;
