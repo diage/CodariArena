@@ -27,7 +27,7 @@ public abstract class TemplateTrap implements Trap {
 	protected Material revealedTrapMaterial = Material.REDSTONE_WIRE;
 	protected Material setTrapMaterial = Material.REDSTONE_WIRE;
 	
-	private final Material revealedTrapIndicatorMaterial = Material.HARD_CLAY;
+	private final Material revealedTrapIndicatorMaterial = Material.STAINED_CLAY;
 	protected byte clayStoneMetaDataValue = 0;
 
 	//---Initialized in Constructor---//
