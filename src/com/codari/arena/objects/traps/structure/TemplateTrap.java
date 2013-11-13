@@ -32,6 +32,8 @@ public abstract class TemplateTrap implements Trap {
 
 	//---Initialized in Constructor---//
 	private AoE areaOfEffect;
+	
+	//---Initialized when trap is activated---//
 	private Team team;
 
 	//-----Constructor-----//

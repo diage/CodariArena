@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.metadata.MetadataValue;
 
@@ -62,6 +63,23 @@ public class TrapListener implements Listener {
 				if (trapValue != null && trapValue.asBoolean()) {
 					trap.set();
 				}
+			}
+		}
+	}
+	
+	@EventHandler
+	public void noPoweredRunes(BlockRedstoneEvent e) {
+		Block block = e.getBlock();
+		if (block.hasMetadata(TemplateTrap.META_DATA_STRING)) {
+			MetadataValue trapValue = null;
+			for (MetadataValue possibleValue : block.getMetadata(TemplateTrap.META_DATA_STRING)) {
+				if (Codari.INSTANCE.equals(possibleValue.getOwningPlugin())) {
+					trapValue = possibleValue;
+					break;
+				}
+			}
+			if (trapValue != null && trapValue.asBoolean()) {
+				e.setNewCurrent(15);
 			}
 		}
 	}
