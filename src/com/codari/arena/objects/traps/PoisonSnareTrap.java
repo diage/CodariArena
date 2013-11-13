@@ -12,11 +12,11 @@ import com.codari.arena.objects.traps.structure.TemplateTrap;
 
 public class PoisonSnareTrap extends TemplateTrap{
 	//-----Fields-----//
-	private int slowEffectDuration = 5;
+	private int slowEffectDuration = 519;
 	private int slowEffectAmplifier = 10;
 	PotionEffect potionEffectSlow = new PotionEffect(PotionEffectType.SLOW, slowEffectDuration, slowEffectAmplifier);
 	
-	private int poisonEffectDuration = 5;
+	private int poisonEffectDuration = 519;
 	private int poisonEffectAmplifier = 2;
 	PotionEffect potionEffectPoison = new PotionEffect(PotionEffectType.SLOW, poisonEffectDuration, poisonEffectAmplifier);
 
