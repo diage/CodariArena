@@ -4,14 +4,12 @@ import java.util.List;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 
 import com.codari.arena.objects.traps.structure.TemplateTrap;
 
 public class FireTrap extends TemplateTrap {
 	//-----Fields-----//
 	private int numberOfFireTicks = 40;
-	private Listener listener;
 
 	public FireTrap(Player player, double radius) {
 		super(player, radius);
@@ -29,10 +27,5 @@ public class FireTrap extends TemplateTrap {
 	@Override
 	public void trigger(List<Entity> targets) {
 		this.setTargetsOnFire(targets);
-	}
-
-	@Override
-	public Listener getListener() {
-		return this.listener;
 	}
 }

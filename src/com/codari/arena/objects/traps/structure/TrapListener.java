@@ -50,7 +50,7 @@ public class TrapListener implements Listener {
 			if (metaValue == null) {
 				return;
 			}
-			Trap Trap = (Trap) metaValue.value();
+			Trap trap = (Trap) metaValue.value();
 			if (block.hasMetadata(TemplateTrap.META_DATA_STRING)) {
 				MetadataValue trapValue = null;
 				for (MetadataValue possibleValue : block.getMetadata(TemplateTrap.META_DATA_STRING)) {
@@ -60,7 +60,7 @@ public class TrapListener implements Listener {
 					}
 				}
 				if (trapValue != null && trapValue.asBoolean()) {
-					Trap.set();
+					trap.set();
 				}
 			}
 		}

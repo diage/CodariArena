@@ -4,14 +4,12 @@ import java.util.List;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 
 import com.codari.arena.objects.traps.structure.TemplateTrap;
 
 public class ExplosionTrap extends TemplateTrap {
 	//-----Fields-----//
-	private float radiusExplosion = 2.0f;
-	private Listener listener;
+	private float powerExplosion = 2.0f;
 
 	public ExplosionTrap(Player player, double radius) {
 		super(player, radius);
@@ -20,14 +18,10 @@ public class ExplosionTrap extends TemplateTrap {
 	@Override
 	public void trigger(List<Entity> targets) {
 		for(Entity explosionTargets : targets) {
-			 explosionTargets.getWorld().createExplosion(explosionTargets.getLocation(), radiusExplosion);
+			double locationX = explosionTargets.getLocation().getX();
+			double locationY = explosionTargets.getLocation().getY();
+			double locationZ = explosionTargets.getLocation().getZ();
+			explosionTargets.getWorld().createExplosion(locationX, locationY, locationZ, powerExplosion, false, false);
 		} 
-		
 	}
-
-	@Override
-	public Listener getListener() {
-		return this.listener;
-	}
-
 }
