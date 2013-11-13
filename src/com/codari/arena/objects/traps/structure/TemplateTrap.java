@@ -19,7 +19,7 @@ import com.codari.arena.util.AoE;
 public abstract class TemplateTrap implements Trap {
 	//-----Fields-----//
 	//---Block Configuration---//
-	private final BlockState[] trapStates = new BlockState[5];
+	protected BlockState[] trapStates = new BlockState[5];
 	public static final String META_DATA_STRING = RandomStringUtils.randomAscii(69);
 	public static final String RANDOM_PASS_KEY = RandomStringUtils.randomAscii(69);
 	

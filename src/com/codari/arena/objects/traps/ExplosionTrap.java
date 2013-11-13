@@ -18,9 +18,9 @@ public class ExplosionTrap extends TemplateTrap {
 	@Override
 	public void trigger(List<Entity> targets) {
 		for(Entity explosionTargets : targets) {
-			double locationX = explosionTargets.getLocation().getX();
-			double locationY = explosionTargets.getLocation().getY();
-			double locationZ = explosionTargets.getLocation().getZ();
+			double locationX = super.trapStates[0].getLocation().getX();
+			double locationY = super.trapStates[0].getLocation().getY();
+			double locationZ = super.trapStates[0].getLocation().getZ();
 			explosionTargets.getWorld().createExplosion(locationX, locationY, locationZ, powerExplosion, false, false);
 		} 
 	}
