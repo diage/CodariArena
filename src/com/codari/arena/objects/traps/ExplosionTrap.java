@@ -16,8 +16,8 @@ public class ExplosionTrap extends TemplateTrap {
 	}
 
 	@Override
-	public void trigger(List<Entity> targets) {
-		for(Entity explosionTargets : targets) {
+	public void trigger(List<Player> players) {
+		for(Entity explosionTargets : players) {
 			double locationX = super.trapState.getLocation().getX();
 			double locationY = super.trapState.getLocation().getY();
 			double locationZ = super.trapState.getLocation().getZ();

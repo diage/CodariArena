@@ -7,7 +7,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import com.codari.arena.objects.traps.structure.Trap;
+import com.codari.arena5.objects.ArenaObject;
 
 public class AoeTriggerEvent extends Event {
 	//-----Static Fields-----//
@@ -21,12 +21,12 @@ public class AoeTriggerEvent extends Event {
 	//-----Fields-----//
 	private Location location;
 	private List<Entity> entities;
-	private Trap trap;
+	private ArenaObject arenaObject;
 	
-	public AoeTriggerEvent(Location location, List<Entity> entities, Trap trap) {
+	public AoeTriggerEvent(Location location, List<Entity> entities, ArenaObject arenaObject) {
 		this.location = location;
 		this.entities = entities;
-		this.trap = trap;
+		this.arenaObject = arenaObject;
 	}
 	
 	public Location getLocation() {
@@ -37,9 +37,9 @@ public class AoeTriggerEvent extends Event {
 		return this.entities;
 	}
 	
-	public Trap getTrap() {
-		return this.trap;
-	}	
+	public ArenaObject getArenaObject() {
+		return this.arenaObject;
+	}
 
 	@Override
 	public HandlerList getHandlers() {

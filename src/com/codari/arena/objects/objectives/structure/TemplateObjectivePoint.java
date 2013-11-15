@@ -9,7 +9,9 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 
-import com.codari.arena.combatants.teams.Team;
+import com.codari.arena.util.AoE;
+import com.codari.arena5.players.combatants.Combatant;
+import com.codari.arena5.players.teams.Team;
 
 public abstract class TemplateObjectivePoint implements ObjectivePoint{
 	//-----Fields-----//
@@ -28,7 +30,9 @@ public abstract class TemplateObjectivePoint implements ObjectivePoint{
 	private Team team;
 
 	//---Initialized in Constructor---//
-	//private AoE areaOfEffect;
+	private AoE areaOfEffect;
+	private int numberOfPointsToCaptureObjectivePoint = 100;
+	protected int pointCounter = 0;
 
 	public TemplateObjectivePoint(Player player, double radius) {
 		//Block positions
@@ -48,8 +52,8 @@ public abstract class TemplateObjectivePoint implements ObjectivePoint{
 		for(int i = 0; i < beaconBaseStates.length; i++) {
 			beaconBaseStates[i] = beaconBaseBlock[i].getState();
 		}
-
-		//areaOfEffect = new AoE(player.getLocation(), radius, this);
+		
+		areaOfEffect = new AoE(player.getLocation(), radius, this);
 	}
 
 	//-----Getters-----//
@@ -61,6 +65,7 @@ public abstract class TemplateObjectivePoint implements ObjectivePoint{
 		return this.beaconBaseStates;
 	}
 
+	//---Fixed Spawnable Object Methods---//
 	@Override
 	public void spawn() {		
 		for(BlockState states : this.beaconBaseStates) {
@@ -85,9 +90,16 @@ public abstract class TemplateObjectivePoint implements ObjectivePoint{
 		for(BlockState states : this.beaconBaseStates) {
 			states.update(true);
 		}
-		//this.areaOfEffect.setDeactive();		
+		this.areaOfEffect.setDeactive();		
 	}	
 
+	//---Objective Point Methods---//
+	@Override
+	public void combatantOff() {
+		this.pointCounter = 0;
+		//this.resetCapturePointProgress();
+	}
+	
 	@Override
 	public void setTeam(Team team) {
 		this.team = team;
@@ -99,4 +111,21 @@ public abstract class TemplateObjectivePoint implements ObjectivePoint{
 		return this.team;
 	}
 
+	public void setCapturePointProgress() {
+		if(this.pointCounter == this.numberOfPointsToCaptureObjectivePoint) {
+			//award points to the specified team
+			this.hide();
+		}
+		for(Combatant combatant : this.team.combatants()) {
+			combatant.getPlayerReference().getPlayer().setExp((float)pointCounter / numberOfPointsToCaptureObjectivePoint);
+		}		
+	}
+	
+	@SuppressWarnings("unused")
+	private void resetCapturePointProgress() {
+		for(Combatant combatant : this.team.combatants()) {
+			combatant.getPlayerReference().getPlayer().setExp(0);
+		}
+		this.team = null;
+	}
 }

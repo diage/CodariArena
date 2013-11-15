@@ -2,7 +2,6 @@ package com.codari.arena.objects.traps;
 
 import java.util.List;
 
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import com.codari.arena.objects.traps.structure.TemplateTrap;
@@ -17,15 +16,15 @@ public class FireTrap extends TemplateTrap {
 
 	//-----Private Methods-----//
 	/* Sets all targets on fire  */
-	private void setTargetsOnFire(List<Entity> targets) {
-		for(int i = 0; i < targets.size(); i++) {
-			Player player = (Player)targets.get(i);
+	private void setTargetsOnFire(List<Player> players) {
+		for(int i = 0; i < players.size(); i++) {
+			Player player = players.get(i);
 			player.setFireTicks(this.numberOfFireTicks);
 		}		
 	}
 
 	@Override
-	public void trigger(List<Entity> targets) {
-		this.setTargetsOnFire(targets);
+	public void trigger(List<Player> players) {
+		this.setTargetsOnFire(players);
 	}
 }

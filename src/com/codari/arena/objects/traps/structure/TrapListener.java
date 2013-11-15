@@ -1,10 +1,7 @@
 package com.codari.arena.objects.traps.structure;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -15,27 +12,30 @@ import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.metadata.MetadataValue;
 
-import com.codari.api.Codari;
-import com.codari.arena.combatants.teams.Team;
+import com.codari.api5.Codari;
+import com.codari.arena.objects.ObjectListener;
 import com.codari.arena.util.AoeTriggerEvent;
+import com.codari.arena5.players.teams.Team;
 
-public class TrapListener implements Listener {
-	
+public class TrapListener extends ObjectListener implements Listener {
+
 	//-----Events-----//
 	@EventHandler
 	public void triggerAoEEvent(AoeTriggerEvent e) {
-		Bukkit.broadcastMessage("Something is triggering the Fire Trap!");
-		List<Entity> targets = new ArrayList<>(e.getEntities());
-		this.editList(targets);
-		//this.clearTeams(targets, e.getTrap().getTeam());
-		//Has to check if opposing team triggered the trap
-		if(targets.size() > 0) {
-			e.getTrap().trigger(targets);
-			e.getTrap().deactivate();
+		if(e.getArenaObject() instanceof Trap) {
+			List<Player> players = this.editList(e.getEntities());
+			
+			//this.clearTeams(targets, e.getTrap().getTeam());
+			//Has to check if opposing team triggered the trap
+			if(players.size() > 0) {
+				Trap trap = (Trap)e.getArenaObject();
+				trap.trigger(players);
+				trap.deactivate();
+			}
+
 		}
 	}
 
-	
 	@EventHandler
 	//Check for activation
 	public void triggerInteractEvent(PlayerInteractEvent e) { //TODO - Add Team when set trap
@@ -66,7 +66,7 @@ public class TrapListener implements Listener {
 			}
 		}
 	}
-	
+
 	@EventHandler
 	public void noPoweredRunes(BlockRedstoneEvent e) {
 		Block block = e.getBlock();
@@ -83,17 +83,7 @@ public class TrapListener implements Listener {
 			}
 		}
 	}
-	
-	/* Filters out all non-player entities within a list. */
-	private void editList(List<Entity> entities) { //TODO
-		Iterator<Entity> iterator = entities.iterator();
-		while(iterator.hasNext()) {
-			if(!(iterator.next() instanceof Player)) {
-				iterator.remove();
-			}
-		}
-	}
-	
+
 	//TODO
 	@SuppressWarnings("unused")
 	private void clearTeams(List<Entity> entities, Team team) {

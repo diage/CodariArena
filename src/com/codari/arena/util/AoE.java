@@ -9,8 +9,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Slime;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.codari.api.Codari;
-import com.codari.arena.objects.traps.structure.Trap;
+import com.codari.api5.Codari;
+import com.codari.arena5.objects.ArenaObject;
 
 /* This class will be used to determine nearby entities around a specified location. */
 
@@ -20,12 +20,12 @@ public class AoE {
 	private Location location;
 	private double radius;
 	private boolean active;
-	private Trap trap;
+	private ArenaObject arenaObject;
 	
-	public AoE(Location location, double radius, Trap trap) {
+	public AoE(Location location, double radius, ArenaObject arenaObject) {
 		this.location = location;
 		this.radius = radius;
-		this.trap = trap;
+		this.arenaObject = arenaObject;
 	}
 	
 	public void setActive() {
@@ -51,7 +51,7 @@ public class AoE {
 			public void run() {
 				calculate(radius);
 				if(nearbyEntities.size() > 0) {
-					Bukkit.getPluginManager().callEvent(new AoeTriggerEvent(location, nearbyEntities, trap));
+					Bukkit.getPluginManager().callEvent(new AoeTriggerEvent(location, nearbyEntities, arenaObject));
 				}
 				if(!active) {
 					super.cancel();
