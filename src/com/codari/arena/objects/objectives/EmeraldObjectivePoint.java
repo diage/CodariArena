@@ -2,11 +2,18 @@ package com.codari.arena.objects.objectives;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import com.codari.arena.objects.objectives.structure.TemplateObjectivePoint;
+import com.codari.arena5.players.combatants.Combatant;
 
 public class EmeraldObjectivePoint extends TemplateObjectivePoint {
 	private final int WEIGHT_OF_OBJECTIVE_POINT = 2;
+	
+	private int effectDuration = 200;
+	private int effectAmplifier = 1;
+	private PotionEffect potionEffectRegeneration = new PotionEffect(PotionEffectType.REGENERATION, effectDuration, effectAmplifier);
 
 	public EmeraldObjectivePoint(Player player, double radius) {
 		super(player, radius);
@@ -17,7 +24,9 @@ public class EmeraldObjectivePoint extends TemplateObjectivePoint {
 
 	@Override
 	public void awardObjective() {
-		// TODO Auto-generated method stub
-		
+		for(Combatant combatant : super.getTeam().combatants() ) {
+			Player player = combatant.getPlayerReference().getPlayer();
+			player.addPotionEffect(this.potionEffectRegeneration);
+		}
 	}
 }

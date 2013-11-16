@@ -10,9 +10,10 @@ import com.codari.arena5.players.combatants.Combatant;
 
 public class DiamondObjectivePoint extends TemplateObjectivePoint {
 	private final int WEIGHT_OF_OBJECTIVE_POINT = 5;
-	private int slowEffectDuration = 55;
-	private int slowEffectAmplifier = 10;
-	private PotionEffect potionEffectSlow = new PotionEffect(PotionEffectType.SLOW, slowEffectDuration, slowEffectAmplifier);
+	
+	private int effectDuration = 200;
+	private int effectAmplifier = 1;
+	private PotionEffect potionEffectFast = new PotionEffect(PotionEffectType.SPEED, effectDuration, effectAmplifier);
 
 	public DiamondObjectivePoint(Player player, double radius) {
 		super(player, radius);
@@ -25,7 +26,7 @@ public class DiamondObjectivePoint extends TemplateObjectivePoint {
 	public void awardObjective() {
 		for(Combatant combatant : super.getTeam().combatants() ) {
 			Player player = combatant.getPlayerReference().getPlayer();
-			player.addPotionEffect(this.potionEffectSlow);
+			player.addPotionEffect(this.potionEffectFast);
 		}
 	}
 }
