@@ -2,9 +2,6 @@ package com.codari.arena.objects.objectives.structure;
 
 import java.util.List;
 
-import javax.xml.crypto.NoSuchMechanismException;
-
-import org.apache.commons.lang3.RandomStringUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -30,7 +27,6 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	private Material beaconMaterial = Material.BEACON;
 	protected Material beaconBaseMaterial = Material.IRON_BLOCK; 
 
-	public static final String RANDOM_PASS_KEY = RandomStringUtils.randomAscii(69);
 	private Team team;
 	private int teamSize = 2;
 
@@ -53,9 +49,9 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		this.beaconBaseBlock[8] = beaconBaseBlock[0].getRelative(BlockFace.SOUTH_EAST);
 
 		//States for block positions
-		this.beaconState = beaconBlock.getState();
+		this.beaconState = this.beaconBlock.getState();
 		for(int i = 0; i < beaconBaseStates.length; i++) {
-			beaconBaseStates[i] = beaconBaseBlock[i].getState();
+			this.beaconBaseStates[i] = this.beaconBaseBlock[i].getState();
 		}
 
 		areaOfEffect = new AoE(player.getLocation(), radius, this);
@@ -73,11 +69,6 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	//---Fixed Spawnable Object Methods---//
 	@Override
 	public void spawn() {		
-		for(BlockState states : this.beaconBaseStates) {
-			if(states.hasMetadata(RANDOM_PASS_KEY)) {
-				throw new NoSuchMechanismException("The Objective Base Blocks are too close!");
-			}
-		}
 		this.reveal();
 	}
 
