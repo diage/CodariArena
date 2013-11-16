@@ -8,7 +8,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public class ObjectListener {
-	/* Filters out all non-player entities within a list. */
+	/* Filters out all non-player entities within a list. 
+	 *	Next step is to convert players to combatants. 
+	 */
 	protected List<Player> editList(List<Entity> entities) { 
 		List<Player> players = new ArrayList<Player>();
 		Iterator<Entity> iterator = entities.iterator();

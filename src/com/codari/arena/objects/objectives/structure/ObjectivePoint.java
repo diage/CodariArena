@@ -13,4 +13,5 @@ public interface ObjectivePoint extends FixedSpawnableObject {
 	public void combatantOff();
 	public void setTeam(Team team);
 	public Team getTeam();
+	public void awardObjective();
 }

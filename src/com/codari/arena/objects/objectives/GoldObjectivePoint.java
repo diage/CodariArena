@@ -1,7 +1,5 @@
 package com.codari.arena.objects.objectives;
 
-import java.util.List;
-
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -12,12 +10,12 @@ public class GoldObjectivePoint extends TemplateObjectivePoint {
 	public GoldObjectivePoint(Player player, double radius) {
 		super(player, radius);
 		super.beaconBaseMaterial = Material.GOLD_BLOCK;
+		super.numberOfPointsToCaptureObjectivePoint = 160;
 	}
 
 	@Override
-	public void combatantOn(List<Player> players) {
+	public void awardObjective() {
 		// TODO Auto-generated method stub
 		
 	}
-
 }
