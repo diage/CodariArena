@@ -10,17 +10,20 @@ import com.codari.arena.objects.traps.structure.TemplateTrap;
 
 public class PoisonSnareTrap extends TemplateTrap{
 	//-----Fields-----//
+	private final int WEIGHT_OF_OBJECTIVE_POINT = 5;
+	
 	private int slowEffectDuration = 55;
 	private int slowEffectAmplifier = 10;
-	PotionEffect potionEffectSlow = new PotionEffect(PotionEffectType.SLOW, slowEffectDuration, slowEffectAmplifier);
+	private PotionEffect potionEffectSlow = new PotionEffect(PotionEffectType.SLOW, slowEffectDuration, slowEffectAmplifier);
 	
 	private int poisonEffectDuration = 519;
 	private int poisonEffectAmplifier = 10;
-	PotionEffect potionEffectPoison = new PotionEffect(PotionEffectType.POISON, poisonEffectDuration, poisonEffectAmplifier);
+	private PotionEffect potionEffectPoison = new PotionEffect(PotionEffectType.POISON, poisonEffectDuration, poisonEffectAmplifier);
 
 	public PoisonSnareTrap(Player player, double radius) {
 		super(player, radius);
 		super.clayStoneMetaDataValue = 5;
+		super.weight = WEIGHT_OF_OBJECTIVE_POINT;
 	}
 
 	@Override

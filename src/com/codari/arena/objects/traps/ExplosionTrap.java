@@ -9,10 +9,14 @@ import com.codari.arena.objects.traps.structure.TemplateTrap;
 
 public class ExplosionTrap extends TemplateTrap {
 	//-----Fields-----//
+	private final int WEIGHT_OF_OBJECTIVE_POINT = 5;
+	
 	private float powerExplosion = 2.0f;
+	
 
 	public ExplosionTrap(Player player, double radius) {
 		super(player, radius);
+		super.weight = WEIGHT_OF_OBJECTIVE_POINT;
 	}
 
 	@Override

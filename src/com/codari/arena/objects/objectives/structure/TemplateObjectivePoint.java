@@ -12,11 +12,12 @@ import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 
 import com.codari.api5.Codari;
+import com.codari.arena.objects.RandomSpawnableObjectA;
 import com.codari.arena.util.AoE;
 import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.teams.Team;
 
-public abstract class TemplateObjectivePoint implements ObjectivePoint{
+public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA implements ObjectivePoint{
 	//-----Fields-----//
 	//---Block Configuration---//
 	private int numberOfBaseBeaconBlocks = 9;
@@ -27,7 +28,7 @@ public abstract class TemplateObjectivePoint implements ObjectivePoint{
 
 	//---Beacon Materials---//
 	private Material beaconMaterial = Material.BEACON;
-	protected Material beaconBaseMaterial = Material.EMERALD; //Can be gold, diamond, emerald, or iron
+	protected Material beaconBaseMaterial = Material.IRON_BLOCK; 
 
 	public static final String RANDOM_PASS_KEY = RandomStringUtils.randomAscii(69);
 	private Team team;

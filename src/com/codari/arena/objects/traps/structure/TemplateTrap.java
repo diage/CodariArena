@@ -12,10 +12,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import com.codari.api5.Codari;
+import com.codari.arena.objects.RandomSpawnableObjectA;
 import com.codari.arena.util.AoE;
 import com.codari.arena5.players.teams.Team;
 
-public abstract class TemplateTrap implements Trap {
+public abstract class TemplateTrap extends RandomSpawnableObjectA implements Trap {
 	//-----Fields-----//
 	//---Block Configuration---//
 	protected BlockState trapState;
