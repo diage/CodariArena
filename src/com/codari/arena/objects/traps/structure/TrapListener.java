@@ -3,7 +3,6 @@ package com.codari.arena.objects.traps.structure;
 import java.util.List;
 
 import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,6 +14,7 @@ import org.bukkit.metadata.MetadataValue;
 import com.codari.api5.Codari;
 import com.codari.arena.objects.ObjectListener;
 import com.codari.arena.util.AoeTriggerEvent;
+import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.teams.Team;
 
 public class TrapListener extends ObjectListener implements Listener {
@@ -23,12 +23,11 @@ public class TrapListener extends ObjectListener implements Listener {
 	@EventHandler
 	public void triggerAoEEvent(AoeTriggerEvent e) {
 		if(e.getArenaObject() instanceof Trap) {
-			List<Player> players = this.editList(e.getEntities());
-			
-			//this.clearTeams(targets, e.getTrap().getTeam());
-			//Has to check if opposing team triggered the trap
+			Trap trap = (Trap)e.getArenaObject();
+			List<Player> players = this.editList(e.getEntities());		
+			this.clearTeams(players, trap.getTeam());
+
 			if(players.size() > 0) {
-				Trap trap = (Trap)e.getArenaObject();
 				trap.trigger(players);
 				trap.deactivate();
 			}
@@ -61,7 +60,9 @@ public class TrapListener extends ObjectListener implements Listener {
 					}
 				}
 				if (trapValue != null && trapValue.asBoolean()) {
+					Combatant combatant = Codari.INSTANCE.getArenaManager().getCombatant(e.getPlayer());
 					trap.set();
+					trap.setTeam(Codari.INSTANCE.getArenaManager().getTeam(combatant));
 				}
 			}
 		}
@@ -84,9 +85,12 @@ public class TrapListener extends ObjectListener implements Listener {
 		}
 	}
 
-	//TODO
-	@SuppressWarnings("unused")
-	private void clearTeams(List<Entity> entities, Team team) {
-		//Iterator<>
+	private void clearTeams(List<Player> players, Team team) {
+		for(Player player : players) {
+			Combatant combatant = Codari.INSTANCE.getArenaManager().getCombatant(player);
+			if(Codari.INSTANCE.getArenaManager().getTeam(combatant).equals(team)) {
+				players.remove(player);
+			}
+		}
 	}
 }

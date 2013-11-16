@@ -25,7 +25,7 @@ public class DiamondObjectivePoint extends TemplateObjectivePoint {
 	public void awardObjective() {
 		for(Combatant combatant : super.getTeam().combatants() ) {
 			Player player = combatant.getPlayerReference().getPlayer();
-			
+			player.addPotionEffect(this.potionEffectSlow);
 		}
 	}
 }
