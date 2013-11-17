@@ -68,6 +68,7 @@ public class TrapListener extends ObjectListener implements Listener {
 		}
 	}
 
+	//TODO
 	@EventHandler
 	public void noPoweredRunes(BlockRedstoneEvent e) {
 		Block block = e.getBlock();
