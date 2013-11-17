@@ -1,7 +1,5 @@
 package com.codari.arena.objects.itemspawner;
 
-import java.util.Random;
-
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -12,7 +10,6 @@ import org.bukkit.inventory.ItemStack;
 import com.codari.arena.objects.RandomSpawnableObjectA;
 import com.codari.arena.util.AoE;
 import com.codari.arena5.players.combatants.Combatant;
-import com.codari.arena5.players.role.Role;
 
 public class TemplateItemSpawner extends RandomSpawnableObjectA implements ItemSpawner {
 	//-----Fields-----//
@@ -114,75 +111,5 @@ public class TemplateItemSpawner extends RandomSpawnableObjectA implements ItemS
 	
 	private void addWeaponToInventory(Player player, ItemStack itemStack) {
 		player.getInventory().setItem(1, itemStack);
-	}
-	
-	//-----Private Classes-----//
-	private static class ItemChooser {
-		public ItemStack generateItem(Role role, ItemType itemType) {
-			switch(itemType) {
-			case POTION:
-				return generatePotion(role);
-			case WEAPON:
-				return generateWeapon(role);
-			case ARMOR:
-				return generateArmor(role);
-			}
-			return null;
-		}
-		
-		private ItemStack generatePotion(Role role) {
-			switch(role.getName()) {
-			case "MELEE":
-				return null;
-			case "RANGED":
-				return null;
-			default:
-				return null;
-			}
-		}
-		
-		private ItemStack generateWeapon(Role role) {
-			switch(role.getName()) {
-			case "MELEE":
-				return null;
-			case "RANGED":
-				return null;
-			default:
-				return null;
-			}			
-		}
-		
-		private ItemStack generateArmor(Role role) {
-			switch(role.getName()) {
-			case "MELEE":
-				return null;
-			case "RANGED":
-				return null;
-			default:
-				return null;
-			}			
-		}
-	}
-	
-	private enum ItemType {
-		POTION,
-		WEAPON,
-		ARMOR;
-		
-		private static ItemType chooseItemType() {
-			Random random = new Random(System.currentTimeMillis());
-			switch(random.nextInt(5)){
-			case 0:
-			case 1:
-			case 2:
-				return ItemType.POTION;	
-			case 3:
-				return ItemType.WEAPON;	
-			case 4:
-				return ItemType.ARMOR;
-			default:
-				return ItemType.POTION;
-			}
-		}	
 	}
 }
