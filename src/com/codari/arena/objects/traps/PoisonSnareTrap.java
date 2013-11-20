@@ -7,7 +7,9 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.codari.arena.objects.traps.structure.TemplateTrap;
+import com.codari.arena5.objects.ArenaObjectName;
 
+@ArenaObjectName("Poison_Snare_Trap")
 public class PoisonSnareTrap extends TemplateTrap{
 	//-----Fields-----//
 	private final int WEIGHT_OF_OBJECTIVE_POINT = 5;

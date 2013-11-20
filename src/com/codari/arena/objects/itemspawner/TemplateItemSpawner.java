@@ -9,8 +9,10 @@ import org.bukkit.inventory.ItemStack;
 
 import com.codari.arena.objects.RandomSpawnableObjectA;
 import com.codari.arena.util.AoE;
+import com.codari.arena5.objects.ArenaObjectName;
 import com.codari.arena5.players.combatants.Combatant;
 
+@ArenaObjectName("Item_Spawner")
 public class TemplateItemSpawner extends RandomSpawnableObjectA implements ItemSpawner {
 	//-----Fields-----//
 	private Block itemSpawnerBlock;

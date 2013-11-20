@@ -6,8 +6,10 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.codari.arena.objects.objectives.structure.TemplateObjectivePoint;
+import com.codari.arena5.objects.ArenaObjectName;
 import com.codari.arena5.players.combatants.Combatant;
 
+@ArenaObjectName("Gold_Objective_Point")
 public class GoldObjectivePoint extends TemplateObjectivePoint {
 	private final int WEIGHT_OF_OBJECTIVE_POINT = 7;
 	

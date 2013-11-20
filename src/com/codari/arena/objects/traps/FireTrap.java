@@ -5,7 +5,9 @@ import java.util.List;
 import org.bukkit.entity.Player;
 
 import com.codari.arena.objects.traps.structure.TemplateTrap;
+import com.codari.arena5.objects.ArenaObjectName;
 
+@ArenaObjectName("Fire_Trap")
 public class FireTrap extends TemplateTrap {
 	//-----Fields-----//
 	private final int WEIGHT_OF_OBJECTIVE_POINT = 5;

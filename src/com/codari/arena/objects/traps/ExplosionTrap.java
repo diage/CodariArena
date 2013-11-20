@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import com.codari.arena.objects.traps.structure.TemplateTrap;
 import com.codari.arena5.objects.ArenaObjectName;
 
-@ArenaObjectName("Explosion Trap")
+@ArenaObjectName("Explosion_Trap")
 public class ExplosionTrap extends TemplateTrap {
 	//-----Fields-----//
 	private final int WEIGHT_OF_OBJECTIVE_POINT = 5;
