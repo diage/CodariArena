@@ -55,11 +55,9 @@ public class DamageReductionSkill implements Skill {
 		Iterator<Entity> iterator = entities.iterator();
 		while(iterator.hasNext()) {
 			Entity entity = iterator.next();
-			if(!(entity instanceof Player)) {
-				iterator.remove();
-			} else { 
+			if(entity instanceof Player) {
 				players.add((Player)entity);
-			}
+			} 
 		}
 		return players;
 	}

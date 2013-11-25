@@ -14,4 +14,5 @@ public interface ObjectivePoint extends RandomSpawnableObject {
 	public void setTeam(Team team);
 	public Team getTeam();
 	public void awardObjective();
+	public void awardPoints(int points);
 }

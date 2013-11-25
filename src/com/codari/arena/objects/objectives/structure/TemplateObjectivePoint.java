@@ -1,5 +1,6 @@
 package com.codari.arena.objects.objectives.structure;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.bukkit.Material;
@@ -10,9 +11,11 @@ import org.bukkit.entity.Player;
 
 import com.codari.api5.Codari;
 import com.codari.arena.objects.RandomSpawnableObjectA;
+import com.codari.arena.rules.WinCondition2v2;
 import com.codari.arena.util.AoE;
 import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.teams.Team;
+import com.codari.arena5.rules.WinConditionTemplate;
 
 public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA implements ObjectivePoint{
 	//-----Fields-----//
@@ -124,13 +127,23 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 			}	
 		}
 	}
+	
+	@Override
+	public void awardPoints(int points) {
+		Iterator<WinConditionTemplate> winConditionsIterator = this.getTeam().getArena().getArenaBuilder().getGameRule().getWinConditions().iterator();
+		while(winConditionsIterator.hasNext()) {
+			WinConditionTemplate winCondition = winConditionsIterator.next();
+			if(winCondition instanceof WinCondition2v2) {
+				((WinCondition2v2) winCondition).incrementPoints(this.team.getArena(), this.team, points);
+			}
+		}
+	}
 
 	private boolean checkSameTeam(List<Player> players) {
 		Team compareTeam;
 		Team teamOfFirstPlayer = Codari.INSTANCE.getArenaManager().getTeam(Codari.INSTANCE.getArenaManager().getCombatant(players.get(0)));
 		if(teamOfFirstPlayer == null) {
-			throw new NullPointerException("Player: " + 
-					Codari.INSTANCE.getArenaManager().getCombatant(players.get(0)).toString() + 
+			throw new NullPointerException("Player: " + players.get(0).toString() + 
 					" is trying to capture an objective point but is not part of any team!");
 		}
 		for(Player player : players) {

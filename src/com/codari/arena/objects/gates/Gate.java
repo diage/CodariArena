@@ -25,7 +25,7 @@ public class Gate implements ImmediatePersistentObject {
 		return this.redStoneBlockState;
 	}
 
-	//----Immediate Persistent Object Methods---//
+	//---Immediate Persistent Object Methods---//
 	@Override
 	public void interact() {
 		

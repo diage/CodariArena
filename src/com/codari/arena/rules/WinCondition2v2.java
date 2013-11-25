@@ -2,7 +2,10 @@ package com.codari.arena.rules;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.bukkit.entity.Player;
 
 import com.codari.arena5.Arena;
 import com.codari.arena5.players.combatants.Combatant;
@@ -24,9 +27,16 @@ public class WinCondition2v2 extends WinConditionTemplate {
 	public void incrementPoints(Arena arena, Team team, int points) {
 		if(isInitialized) {
 			this.teamPoints.get(team.getTeamName()).incrementPoints(points);
+			List<Player> players = team.getPlayers();
+			for(Player player : players) {
+				player.sendMessage("Your team is at " + teamPoints.get(team.getTeamName()).getPoints() + " points!");
+			}
 			if(this.teamPoints.get(team.getTeamName()).getPoints() >= NUMBER_OF_POINTS_TO_WIN) {
 				this.conditionMet = true;
 				this.winnerTeam = team;
+				for(Player player: players) {
+					player.sendMessage("Congratulations. You guys have won the match!");
+				}
 			}
 		}
 	}
@@ -34,6 +44,10 @@ public class WinCondition2v2 extends WinConditionTemplate {
 	public void decrementPoints(Arena arena, Team team, int points) {
 		if(isInitialized) {
 			this.teamPoints.get(team.getTeamName()).decrementPoints(points);
+			List<Player> players = team.getPlayers();
+			for(Player player : players) {
+				player.sendMessage("Your team is at " + teamPoints.get(team.getTeamName()).getPoints() + " points!");
+			}
 			if(this.teamPoints.get(team.getTeamName()).getPoints() < NUMBER_OF_POINTS_TO_WIN) {
 				this.conditionMet = false;
 				this.winnerTeam = null;

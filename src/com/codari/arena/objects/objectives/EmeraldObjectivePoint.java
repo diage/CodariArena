@@ -12,6 +12,7 @@ import com.codari.arena5.players.combatants.Combatant;
 @ArenaObjectName("Emerald_Objective_Point")
 public class EmeraldObjectivePoint extends TemplateObjectivePoint {
 	private final int WEIGHT_OF_OBJECTIVE_POINT = 2;
+	private final int NUMBER_OF_POINTS_AWARDED = 15;
 	
 	private int effectDuration = 200;
 	private int effectAmplifier = 1;
@@ -29,6 +30,7 @@ public class EmeraldObjectivePoint extends TemplateObjectivePoint {
 		for(Combatant combatant : super.getTeam().combatants() ) {
 			Player player = combatant.getPlayerReference().getPlayer();
 			player.addPotionEffect(this.potionEffectRegeneration);
+			super.awardPoints(NUMBER_OF_POINTS_AWARDED);
 		}
 	}
 }
