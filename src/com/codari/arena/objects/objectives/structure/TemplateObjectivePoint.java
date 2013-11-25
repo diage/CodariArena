@@ -1,6 +1,6 @@
 package com.codari.arena.objects.objectives.structure;
 
-import java.util.Iterator;
+import java.util.Collection;
 import java.util.List;
 
 import org.bukkit.Material;
@@ -130,9 +130,8 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	
 	@Override
 	public void awardPoints(int points) {
-		Iterator<WinConditionTemplate> winConditionsIterator = this.getTeam().getArena().getArenaBuilder().getGameRule().getWinConditions().iterator();
-		while(winConditionsIterator.hasNext()) {
-			WinConditionTemplate winCondition = winConditionsIterator.next();
+		Collection<WinConditionTemplate> winConditions = this.getTeam().getArena().getArenaBuilder().getGameRule().getWinConditions();
+		for(WinConditionTemplate winCondition : winConditions) {
 			if(winCondition instanceof WinCondition2v2) {
 				((WinCondition2v2) winCondition).incrementPoints(this.team.getArena(), this.team, points);
 			}
