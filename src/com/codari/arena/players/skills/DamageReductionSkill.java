@@ -23,7 +23,6 @@ public class DamageReductionSkill implements Skill {
 	private int damageRadius = 5;
 	private int damageDoneToNearbyEnemies = 10;
 
-	//TODO - Deal damage to enemies nearby
 	@Override
 	public void activateSkill(Combatant combatant) {
 		//Apply Potion Effect for damage resistance
@@ -37,7 +36,7 @@ public class DamageReductionSkill implements Skill {
 		List<Player> players = this.editList(entities);
 		if(players.size() > 1) {
 			for(Player targetPlayer: players) {
-				if(Codari.INSTANCE.getArenaManager().getTeam(Codari.INSTANCE.getArenaManager().getCombatant(targetPlayer)) != team) {
+				if(!(Codari.INSTANCE.getArenaManager().getTeam(Codari.INSTANCE.getArenaManager().getCombatant(targetPlayer)).equals(team))) {
 					double currentHealth = targetPlayer.getHealth();
 					targetPlayer.setHealth(currentHealth - damageDoneToNearbyEnemies);
 				} 
