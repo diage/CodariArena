@@ -8,7 +8,7 @@ import com.codari.arena.rules.ArenaRoleDeclaration;
 import com.codari.arena5.players.role.Role;
 
 public class RangedRoleDelegation extends TemplateRoleDelegation {
-	private Material rangedRoleDelegationMaterial = Material.GOLD_BLOCK;
+	private Material rangedRoleDelegationMaterial = Material.EMERALD_BLOCK;
 	private Role rangedRole = Codari.INSTANCE.getArenaManager().getExistingRole(ArenaRoleDeclaration.RANGED);
 	
 	public RangedRoleDelegation(Player player) {

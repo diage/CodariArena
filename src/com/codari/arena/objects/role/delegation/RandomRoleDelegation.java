@@ -10,7 +10,7 @@ import com.codari.arena.rules.ArenaRoleDeclaration;
 import com.codari.arena5.players.role.Role;
 
 public class RandomRoleDelegation extends TemplateRoleDelegation{
-	private Material randomRoleDelegationMaterial = Material.GOLD_BLOCK;
+	private Material randomRoleDelegationMaterial = Material.DIAMOND_BLOCK;
 	private Role randomRole = this.chooseRandomRole();
 
 	public RandomRoleDelegation(Player player) {
