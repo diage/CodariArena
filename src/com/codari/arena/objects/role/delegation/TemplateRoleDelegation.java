@@ -24,18 +24,26 @@ public abstract class TemplateRoleDelegation implements Listener {
 	}
 	
 	public void assignRole(Combatant combatant, Role role) {
+		Player player, teamMatePlayer;
+		Combatant teamMate = combatant.getTeam().getTeamMates(combatant).get(0);
+		player = combatant.getPlayerReference().getPlayer();
+		teamMatePlayer = teamMate.getPlayerReference().getPlayer();
+		
 		combatant.setRole(role);
-		Combatant teamate = combatant.getTeam().getTeamMates(combatant).get(0);
+		
 		switch(role.getName()) {
 		case ArenaRoleDeclaration.MELEE:
-			teamate.setRole(Codari.INSTANCE.getArenaManager().getExistingRole(ArenaRoleDeclaration.RANGED));
+			teamMate.setRole(Codari.INSTANCE.getArenaManager().getExistingRole(ArenaRoleDeclaration.RANGED));
+			player.sendMessage("You have been assigned the melee role.");
+			teamMatePlayer.sendMessage("You have been assigned the ranged role.");
 			break;
 		case ArenaRoleDeclaration.RANGED:
-			teamate.setRole(Codari.INSTANCE.getArenaManager().getExistingRole(ArenaRoleDeclaration.MELEE));
+			teamMate.setRole(Codari.INSTANCE.getArenaManager().getExistingRole(ArenaRoleDeclaration.MELEE));
+			player.sendMessage("You have been assigned the ranged role.");
+			teamMatePlayer.sendMessage("You have been assigned the melee role.");
 			break;
 		default:
-			teamate.setRole(Codari.INSTANCE.getArenaManager().getExistingRole(ArenaRoleDeclaration.RANGED));
-			break;
+			return;
 		}
 	}
 	
