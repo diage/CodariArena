@@ -1,4 +1,4 @@
-package com.codari.arena.objects.role;
+package com.codari.arena.objects.role.switchrole;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

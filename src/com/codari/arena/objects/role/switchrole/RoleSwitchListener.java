@@ -1,4 +1,4 @@
-package com.codari.arena.objects.role;
+package com.codari.arena.objects.role.switchrole;
 
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
