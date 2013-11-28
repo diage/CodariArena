@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import com.codari.arena5.Arena;
 import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.teams.Team;
-import com.codari.arena5.rules.WinConditionTemplate;
+import com.codari.arena5.rules.wincondition.WinConditionTemplate;
 
 public class WinCondition2v2 extends WinConditionTemplate {
 	//-----Fields------//

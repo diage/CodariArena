@@ -15,7 +15,7 @@ import com.codari.arena.rules.WinCondition2v2;
 import com.codari.arena.util.AoE;
 import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.teams.Team;
-import com.codari.arena5.rules.WinConditionTemplate;
+import com.codari.arena5.rules.wincondition.WinConditionTemplate;
 
 public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA implements ObjectivePoint{
 	//-----Fields-----//
