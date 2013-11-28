@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.metadata.MetadataValue;
 
 import com.codari.api5.Codari;
+import com.codari.api5.CodariI;
 import com.codari.arena.objects.ObjectListener;
 import com.codari.arena.util.AoeTriggerEvent;
 import com.codari.arena5.players.combatants.Combatant;
@@ -43,7 +44,7 @@ public class TrapListener extends ObjectListener implements Listener {
 			List<MetadataValue> values = block.getMetadata(TemplateTrap.RANDOM_PASS_KEY);
 			MetadataValue metaValue = null;
 			for (MetadataValue interiorValue : values) {
-				if (interiorValue.getOwningPlugin().equals(Codari.INSTANCE)) {
+				if (interiorValue.getOwningPlugin().equals(CodariI.INSTANCE)) {
 					metaValue = interiorValue;
 				}
 			}
@@ -54,15 +55,15 @@ public class TrapListener extends ObjectListener implements Listener {
 			if (block.hasMetadata(TemplateTrap.META_DATA_STRING)) {
 				MetadataValue trapValue = null;
 				for (MetadataValue possibleValue : block.getMetadata(TemplateTrap.META_DATA_STRING)) {
-					if (Codari.INSTANCE.equals(possibleValue.getOwningPlugin())) {
+					if (CodariI.INSTANCE.equals(possibleValue.getOwningPlugin())) {
 						trapValue = possibleValue;
 						break;
 					}
 				}
 				if (trapValue != null && trapValue.asBoolean()) {
-					Combatant combatant = Codari.INSTANCE.getArenaManager().getCombatant(e.getPlayer());
+					Combatant combatant = Codari.getArenaManager().getCombatant(e.getPlayer());
 					trap.set();
-					trap.setTeam(Codari.INSTANCE.getArenaManager().getTeam(combatant));
+					trap.setTeam(Codari.getArenaManager().getTeam(combatant));
 				}
 			}
 		}
@@ -75,7 +76,7 @@ public class TrapListener extends ObjectListener implements Listener {
 		if (block.hasMetadata(TemplateTrap.META_DATA_STRING)) {
 			MetadataValue trapValue = null;
 			for (MetadataValue possibleValue : block.getMetadata(TemplateTrap.META_DATA_STRING)) {
-				if (Codari.INSTANCE.equals(possibleValue.getOwningPlugin())) {
+				if (CodariI.INSTANCE.equals(possibleValue.getOwningPlugin())) {
 					trapValue = possibleValue;
 					break;
 				}
@@ -88,8 +89,8 @@ public class TrapListener extends ObjectListener implements Listener {
 
 	private void clearTeams(List<Player> players, Team team) {
 		for(Player player : players) {
-			Combatant combatant = Codari.INSTANCE.getArenaManager().getCombatant(player);
-			if(Codari.INSTANCE.getArenaManager().getTeam(combatant).equals(team)) {
+			Combatant combatant = Codari.getArenaManager().getCombatant(player);
+			if(Codari.getArenaManager().getTeam(combatant).equals(team)) {
 				players.remove(player);
 			}
 		}

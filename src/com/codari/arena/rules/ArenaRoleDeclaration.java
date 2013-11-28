@@ -11,11 +11,11 @@ public class ArenaRoleDeclaration implements RoleDeclaration {
 	
 	@Override
 	public String initalizeRoles() {
-		Role meleeRole = Codari.INSTANCE.getArenaManager().getNewRole(ArenaStatics.MELEE).addSkill(new DamageReductionSkill());
-		Role rangedRole = Codari.INSTANCE.getArenaManager().getNewRole(ArenaStatics.RANGED).addSkill(new TeleportSkill());
+		Role meleeRole = Codari.getArenaManager().getNewRole(ArenaStatics.MELEE).addSkill(new DamageReductionSkill());
+		Role rangedRole = Codari.getArenaManager().getNewRole(ArenaStatics.RANGED).addSkill(new TeleportSkill());
 
-		Codari.INSTANCE.getArenaManager().submitRole(ArenaStatics.ARENA_NAME, meleeRole);
-		Codari.INSTANCE.getArenaManager().submitRole(ArenaStatics.ARENA_NAME, rangedRole);
+		Codari.getArenaManager().submitRole(ArenaStatics.ARENA_NAME, meleeRole);
+		Codari.getArenaManager().submitRole(ArenaStatics.ARENA_NAME, rangedRole);
 		
 		return ArenaStatics.ARENA_NAME;
 	}

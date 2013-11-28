@@ -19,7 +19,7 @@ public class ItemSpawnerListener extends ObjectListener implements Listener {
 			ItemSpawner itemSpawner = (ItemSpawner) e.getArenaObject();
 			List<Player> players = this.editList(e.getEntities());
 			if(players.size() == 1) {
-				Combatant combatant = Codari.INSTANCE.getArenaManager().getCombatant(players.get(0));
+				Combatant combatant = Codari.getArenaManager().getCombatant(players.get(0));
 				itemSpawner.spawnItem(combatant);
 			}
 		}

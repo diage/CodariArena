@@ -9,7 +9,7 @@ import com.codari.arena5.players.role.Role;
 
 public class MeleeRoleDelegation extends TemplateRoleDelegation {
 	private Material meleeRoleDelegationMaterial = Material.GOLD_BLOCK;
-	private Role meleeRole = Codari.INSTANCE.getArenaManager().getExistingRole(null, ArenaStatics.MELEE);
+	private Role meleeRole = Codari.getArenaManager().getExistingRole(null, ArenaStatics.MELEE);
 	
 	public MeleeRoleDelegation(Player player) {
 		super(player);

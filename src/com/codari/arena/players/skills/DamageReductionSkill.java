@@ -27,16 +27,16 @@ public class DamageReductionSkill implements Skill {
 	public void activateSkill(Combatant combatant) {
 		//Apply Potion Effect for damage resistance
 		PotionEffect damageResistancePotionEffect = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, effectDuration, effectAmplification);
-		damageResistancePotionEffect.apply(combatant.getPlayerReference().getPlayer());
+		damageResistancePotionEffect.apply(combatant.getPlayer());
 		
 		//Apply damage to nearby enemies
-		Player player = combatant.getPlayerReference().getPlayer();
-		Team team = Codari.INSTANCE.getArenaManager().getTeam(combatant);
+		Player player = combatant.getPlayer();
+		Team team = Codari.getArenaManager().getTeam(combatant);
 		List<Entity> entities = player.getNearbyEntities(damageRadius, damageRadius, damageRadius);
 		List<Player> players = this.editList(entities);
 		if(players.size() > 1) {
 			for(Player targetPlayer: players) {
-				if(!(Codari.INSTANCE.getArenaManager().getTeam(Codari.INSTANCE.getArenaManager().getCombatant(targetPlayer)).equals(team))) {
+				if(!(Codari.getArenaManager().getTeam(Codari.getArenaManager().getCombatant(targetPlayer)).equals(team))) {
 					double currentHealth = targetPlayer.getHealth();
 					targetPlayer.setHealth(currentHealth - damageDoneToNearbyEnemies);
 				} 

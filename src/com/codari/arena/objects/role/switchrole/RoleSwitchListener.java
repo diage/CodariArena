@@ -25,7 +25,7 @@ public class RoleSwitchListener implements Listener {
 				Combatant combatant, teamMate;
 				
 				player = (Player) e.getPlayer();
-				combatant = Codari.INSTANCE.getArenaManager().getCombatant(player);
+				combatant = Codari.getArenaManager().getCombatant(player);
 				teamMate = combatant.getTeam().getTeamMates(combatant).get(0);
 
 				if(teamMate != null) {
@@ -34,7 +34,7 @@ public class RoleSwitchListener implements Listener {
 					
 					Enchantment enchantment = RoleObjectEnchantment.INSTANCE;
 					
-					teamMatePlayer = teamMate.getPlayerReference().getPlayer();
+					teamMatePlayer = teamMate.getPlayer();
 					playerRoleSwitchItem = player.getInventory().getItem(RoleSwitch.INVENTORY_SLOT_NUMBER);
 					teamMateRoleSwitchItem = teamMatePlayer.getInventory().getItem(RoleSwitch.INVENTORY_SLOT_NUMBER);
 					playerRole = combatant.getRole();
@@ -43,17 +43,17 @@ public class RoleSwitchListener implements Listener {
 					if(playerRoleSwitchItem.containsEnchantment(enchantment)) {
 						teamMateRole.swapRole(playerRole.swapRole(teamMateRole));
 						if(teamMate.getRole().getName().equalsIgnoreCase("Melee")) {
-							teamMate.getPlayerReference().getPlayer().getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.MELEE.getItemStack());
+							teamMate.getPlayer().getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.MELEE.getItemStack());
 							player.getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.RANGED.getItemStack());
 						} else {
-							teamMate.getPlayerReference().getPlayer().getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.RANGED.getItemStack());
+							teamMate.getPlayer().getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.RANGED.getItemStack());
 							player.getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.MELEE.getItemStack());
 						}
 					} else {
 						String roleSwitchMessage = "Your teamate would like to switch roles with you. Right click the role switch icon on the "
 								+ "first slot of your hotbar if you would like to switch.";
 						teamMateRoleSwitchItem.addEnchantment(enchantment, 1);
-						teamMate.getPlayerReference().getPlayer().sendMessage(roleSwitchMessage);
+						teamMate.getPlayer().sendMessage(roleSwitchMessage);
 					}
 				} else {
 					player.sendMessage(ChatColor.RED + "You have no teamate to switch roles with.");

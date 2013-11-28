@@ -24,13 +24,13 @@ public class RandomRoleDelegation extends TemplateRoleDelegation{
 		Random random = new Random(System.currentTimeMillis());
 		switch(random.nextInt(2)) {
 		case 0:
-			tempRole = Codari.INSTANCE.getArenaManager().getExistingRole(null, ArenaStatics.MELEE);
+			tempRole = Codari.getArenaManager().getExistingRole(null, ArenaStatics.MELEE);
 			break;
 		case 1:
-			tempRole = Codari.INSTANCE.getArenaManager().getExistingRole(null, ArenaStatics.RANGED);
+			tempRole = Codari.getArenaManager().getExistingRole(null, ArenaStatics.RANGED);
 			break;
 		default:
-			tempRole = Codari.INSTANCE.getArenaManager().getExistingRole(null, ArenaStatics.MELEE);
+			tempRole = Codari.getArenaManager().getExistingRole(null, ArenaStatics.MELEE);
 			break;
 		}
 		return tempRole;

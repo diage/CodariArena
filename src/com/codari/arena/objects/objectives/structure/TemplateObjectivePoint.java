@@ -112,7 +112,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 
 	@Override
 	public void combatantOn(List<Player> players) {
-		Team team = Codari.INSTANCE.getArenaManager().getTeam(Codari.INSTANCE.getArenaManager().getCombatant(players.get(0)));	
+		Team team = Codari.getArenaManager().getTeam(Codari.getArenaManager().getCombatant(players.get(0)));	
 		
 		if(!(this.checkSameTeam(players))) {
 			return;
@@ -140,13 +140,13 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 
 	private boolean checkSameTeam(List<Player> players) {
 		Team compareTeam;
-		Team teamOfFirstPlayer = Codari.INSTANCE.getArenaManager().getTeam(Codari.INSTANCE.getArenaManager().getCombatant(players.get(0)));
+		Team teamOfFirstPlayer = Codari.getArenaManager().getTeam(Codari.getArenaManager().getCombatant(players.get(0)));
 		if(teamOfFirstPlayer == null) {
 			throw new NullPointerException("Player: " + players.get(0).toString() + 
 					" is trying to capture an objective point but is not part of any team!");
 		}
 		for(Player player : players) {
-			compareTeam = Codari.INSTANCE.getArenaManager().getTeam(Codari.INSTANCE.getArenaManager().getCombatant(player));
+			compareTeam = Codari.getArenaManager().getTeam(Codari.getArenaManager().getCombatant(player));
 			if(!(compareTeam.equals(teamOfFirstPlayer))) {
 				return false;
 			}
@@ -162,7 +162,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 			return true;
 		}
 		for(Combatant combatant : this.team.combatants()) {
-			combatant.getPlayerReference().getPlayer().setExp((float)pointCounter / numberOfPointsToCaptureObjectivePoint);
+			combatant.getPlayer().setExp((float)pointCounter / numberOfPointsToCaptureObjectivePoint);
 		}
 		return false;
 	}
@@ -170,7 +170,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	private void resetCapturePointProgress() {
 		if(this.team != null) {
 			for(Combatant combatant : this.team.combatants()) {
-				combatant.getPlayerReference().getPlayer().setExp(0);
+				combatant.getPlayer().setExp(0);
 			}
 		}
 		this.team = null;

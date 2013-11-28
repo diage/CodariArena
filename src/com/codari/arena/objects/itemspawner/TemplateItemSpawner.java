@@ -61,13 +61,13 @@ public class TemplateItemSpawner extends RandomSpawnableObjectA implements ItemS
 		
 		switch(itemType) {
 		case POTION: 
-			this.addPotionToInventory(combatant.getPlayerReference().getPlayer(), spawnedItem);
+			this.addPotionToInventory(combatant.getPlayer(), spawnedItem);
 			break;
 		case WEAPON:
-			this.addWeaponToInventory(combatant.getPlayerReference().getPlayer(), spawnedItem);
+			this.addWeaponToInventory(combatant.getPlayer(), spawnedItem);
 			break;
 		case ARMOR:
-			this.equipArmor(combatant.getPlayerReference().getPlayer(), spawnedItem);
+			this.equipArmor(combatant.getPlayer(), spawnedItem);
 			break;			
 		}
 		

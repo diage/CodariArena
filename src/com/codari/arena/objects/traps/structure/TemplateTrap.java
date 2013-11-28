@@ -11,7 +11,7 @@ import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 
-import com.codari.api5.Codari;
+import com.codari.api5.CodariI;
 import com.codari.arena.objects.RandomSpawnableObjectA;
 import com.codari.arena.util.AoE;
 import com.codari.arena5.players.teams.Team;
@@ -125,12 +125,12 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 	}
 
 	private void setActivatable() {
-		this.trapState.setMetadata(RANDOM_PASS_KEY, new FixedMetadataValue(Codari.INSTANCE, this));
-		this.trapState.setMetadata(META_DATA_STRING, new FixedMetadataValue(Codari.INSTANCE, true));
+		this.trapState.setMetadata(RANDOM_PASS_KEY, new FixedMetadataValue(CodariI.INSTANCE, this));
+		this.trapState.setMetadata(META_DATA_STRING, new FixedMetadataValue(CodariI.INSTANCE, true));
 	}	
 
 	private void setDeactivateable() {
-		this.trapState.removeMetadata(RANDOM_PASS_KEY, Codari.INSTANCE);
-		this.trapState.removeMetadata(META_DATA_STRING, Codari.INSTANCE);
+		this.trapState.removeMetadata(RANDOM_PASS_KEY, CodariI.INSTANCE);
+		this.trapState.removeMetadata(META_DATA_STRING, CodariI.INSTANCE);
 	}
 }

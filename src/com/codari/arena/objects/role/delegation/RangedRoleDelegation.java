@@ -9,7 +9,7 @@ import com.codari.arena5.players.role.Role;
 
 public class RangedRoleDelegation extends TemplateRoleDelegation {
 	private Material rangedRoleDelegationMaterial = Material.EMERALD_BLOCK;
-	private Role rangedRole = Codari.INSTANCE.getArenaManager().getExistingRole(null, ArenaStatics.RANGED);
+	private Role rangedRole = Codari.getArenaManager().getExistingRole(null, ArenaStatics.RANGED);
 	
 	public RangedRoleDelegation(Player player) {
 		super(player);

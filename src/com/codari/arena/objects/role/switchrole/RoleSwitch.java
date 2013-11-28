@@ -11,7 +11,7 @@ public class RoleSwitch {
 	
 	public static void createRoleSwitchObject(Combatant combatant) {
 		ItemStack roleSwitchObject;
-		Player player = combatant.getPlayerReference().getPlayer();
+		Player player = combatant.getPlayer();
 		if(combatant.getRole().getName().equalsIgnoreCase("Melee")) {
 			roleSwitchObject = RoleObjectItemTypes.MELEE.getItemStack();
 		} else {

@@ -16,7 +16,7 @@ public class TeleportSkill implements Skill {
 
 	@Override
 	public void activateSkill(Combatant combatant) {
-		Player player = combatant.getPlayerReference().getPlayer();
+		Player player = combatant.getPlayer();
 		Location location = player.getLocation();
 		BlockIterator blockIterator = new BlockIterator(location, numberOfBlocksAPlayerCanTeleport);
 		Block target = null;
