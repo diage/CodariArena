@@ -6,7 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import com.codari.api5.Codari;
-import com.codari.arena.rules.ArenaRoleDeclaration;
+import com.codari.arena.ArenaStatics;
 import com.codari.arena5.players.role.Role;
 
 public class RandomRoleDelegation extends TemplateRoleDelegation{
@@ -24,13 +24,13 @@ public class RandomRoleDelegation extends TemplateRoleDelegation{
 		Random random = new Random(System.currentTimeMillis());
 		switch(random.nextInt(2)) {
 		case 0:
-			tempRole = Codari.INSTANCE.getArenaManager().getExistingRole(ArenaRoleDeclaration.MELEE);
+			tempRole = Codari.INSTANCE.getArenaManager().getExistingRole(null, ArenaStatics.MELEE);
 			break;
 		case 1:
-			tempRole = Codari.INSTANCE.getArenaManager().getExistingRole(ArenaRoleDeclaration.RANGED);
+			tempRole = Codari.INSTANCE.getArenaManager().getExistingRole(null, ArenaStatics.RANGED);
 			break;
 		default:
-			tempRole = Codari.INSTANCE.getArenaManager().getExistingRole(ArenaRoleDeclaration.MELEE);
+			tempRole = Codari.INSTANCE.getArenaManager().getExistingRole(null, ArenaStatics.MELEE);
 			break;
 		}
 		return tempRole;

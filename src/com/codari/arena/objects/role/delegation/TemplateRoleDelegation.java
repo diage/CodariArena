@@ -9,7 +9,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 import com.codari.api5.Codari;
-import com.codari.arena.rules.ArenaRoleDeclaration;
+import com.codari.arena.ArenaStatics;
 import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.role.Role;
 
@@ -32,13 +32,13 @@ public abstract class TemplateRoleDelegation implements Listener {
 		combatant.setRole(role);
 		
 		switch(role.getName()) {
-		case ArenaRoleDeclaration.MELEE:
-			teamMate.setRole(Codari.INSTANCE.getArenaManager().getExistingRole(ArenaRoleDeclaration.RANGED));
+		case ArenaStatics.MELEE:
+			teamMate.setRole(Codari.INSTANCE.getArenaManager().getExistingRole(null, ArenaStatics.RANGED));
 			player.sendMessage("You have been assigned the melee role.");
 			teamMatePlayer.sendMessage("You have been assigned the ranged role.");
 			break;
-		case ArenaRoleDeclaration.RANGED:
-			teamMate.setRole(Codari.INSTANCE.getArenaManager().getExistingRole(ArenaRoleDeclaration.MELEE));
+		case ArenaStatics.RANGED:
+			teamMate.setRole(Codari.INSTANCE.getArenaManager().getExistingRole(null, ArenaStatics.MELEE));
 			player.sendMessage("You have been assigned the ranged role.");
 			teamMatePlayer.sendMessage("You have been assigned the melee role.");
 			break;
