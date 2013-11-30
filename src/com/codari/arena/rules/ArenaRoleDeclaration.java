@@ -13,7 +13,7 @@ public class ArenaRoleDeclaration implements RoleDeclaration {
 	public String initalizeRoles() {
 		Role meleeRole = Codari.getArenaManager().getNewRole(ArenaStatics.MELEE).addSkill(new DamageReductionSkill());
 		Role rangedRole = Codari.getArenaManager().getNewRole(ArenaStatics.RANGED).addSkill(new TeleportSkill());
-
+		
 		Codari.getArenaManager().submitRole(ArenaStatics.ARENA_NAME, meleeRole);
 		Codari.getArenaManager().submitRole(ArenaStatics.ARENA_NAME, rangedRole);
 		

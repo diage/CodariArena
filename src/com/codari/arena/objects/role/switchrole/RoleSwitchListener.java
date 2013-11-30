@@ -11,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 
 import com.codari.api5.Codari;
 import com.codari.arena5.players.combatants.Combatant;
-import com.codari.arena5.players.role.Role;
 
 /*TODO:
  * How to cancel role swap(Left click or right click?)
@@ -30,18 +29,19 @@ public class RoleSwitchListener implements Listener {
 
 				if(teamMate != null) {
 					ItemStack playerRoleSwitchItem, teamMateRoleSwitchItem;
-					Role playerRole, teamMateRole;
+					//Role playerRole, teamMateRole;
 					
 					Enchantment enchantment = RoleObjectEnchantment.INSTANCE;
 					
 					teamMatePlayer = teamMate.getPlayer();
 					playerRoleSwitchItem = player.getInventory().getItem(RoleSwitch.INVENTORY_SLOT_NUMBER);
 					teamMateRoleSwitchItem = teamMatePlayer.getInventory().getItem(RoleSwitch.INVENTORY_SLOT_NUMBER);
-					playerRole = combatant.getRole();
-					teamMateRole = teamMate.getRole();
+					//playerRole = combatant.getRole();
+					//teamMateRole = teamMate.getRole();
 					
 					if(playerRoleSwitchItem.containsEnchantment(enchantment)) {
-						teamMateRole.swapRole(playerRole.swapRole(teamMateRole));
+						teamMate.swapRole(combatant.swapRole(teamMate.getRole())); //Using this method will fire an event. 
+						//teamMateRole.swapRole(playerRole.swapRole(teamMateRole));
 						if(teamMate.getRole().getName().equalsIgnoreCase("Melee")) {
 							teamMate.getPlayer().getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.MELEE.getItemStack());
 							player.getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.RANGED.getItemStack());
