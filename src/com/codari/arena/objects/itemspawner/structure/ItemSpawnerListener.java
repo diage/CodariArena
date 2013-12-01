@@ -1,4 +1,4 @@
-package com.codari.arena.objects.itemspawner;
+package com.codari.arena.objects.itemspawner.structure;
 
 import java.util.List;
 

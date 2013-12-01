@@ -1,4 +1,4 @@
-package com.codari.arena.objects.itemspawner;
+package com.codari.arena.objects.itemspawner.structure;
 
 import com.codari.arena5.objects.spawnable.RandomSpawnableObject;
 import com.codari.arena5.players.combatants.Combatant;

@@ -8,6 +8,13 @@ import org.bukkit.entity.Player;
 import com.codari.arena5.objects.ArenaObjectName;
 import com.codari.arena5.objects.persistant.ImmediatePersistentObject;
 
+/**
+ * TODO:
+ * This needs fixed: This is the wrong kind of gate. For the arena to interact with it, it needs to be of type spawnable. 
+ * 
+ * @author Ryan
+ *
+ */
 @ArenaObjectName("Gate")
 public class Gate implements ImmediatePersistentObject {	
 	private Block redStoneBlock;

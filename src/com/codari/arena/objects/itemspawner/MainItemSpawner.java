@@ -8,12 +8,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.codari.arena.objects.RandomSpawnableObjectA;
+import com.codari.arena.objects.itemspawner.chooser.ItemChooser;
+import com.codari.arena.objects.itemspawner.structure.ItemSpawner;
+import com.codari.arena.objects.itemspawner.structure.ItemType;
 import com.codari.arena.util.AoE;
 import com.codari.arena5.objects.ArenaObjectName;
 import com.codari.arena5.players.combatants.Combatant;
 
 @ArenaObjectName("Item_Spawner")
-public class TemplateItemSpawner extends RandomSpawnableObjectA implements ItemSpawner {
+public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawner {
 	//-----Fields-----//
 	private Block itemSpawnerBlock;
 	private BlockState itemSpawnerBlockState;
@@ -24,7 +27,7 @@ public class TemplateItemSpawner extends RandomSpawnableObjectA implements ItemS
 	//---Initialized in Constructor---//
 	private AoE areaOfEffect;
 
-	public TemplateItemSpawner(Player player) {
+	public MainItemSpawner(Player player) {
 		this.itemSpawnerBlock = player.getLocation().getBlock().getRelative(BlockFace.UP, 4);
 		this.itemSpawnerBlockState = this.itemSpawnerBlock.getState();
 

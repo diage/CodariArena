@@ -12,7 +12,11 @@ import com.codari.api5.Codari;
 import com.codari.arena.ArenaStatics;
 import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.role.Role;
-
+/**
+ * These need complete reworks to implement the correct ArenaObject type!
+ * @author Ryan
+ *
+ */
 public abstract class TemplateRoleDelegation implements Listener {
 	private Block roleDelegationBlock;
 	protected Material material;

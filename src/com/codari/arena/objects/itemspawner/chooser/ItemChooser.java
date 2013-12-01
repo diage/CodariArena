@@ -1,4 +1,4 @@
-package com.codari.arena.objects.itemspawner;
+package com.codari.arena.objects.itemspawner.chooser;
 
 import java.util.Random;
 
@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
 
+import com.codari.arena.objects.itemspawner.structure.ItemType;
 import com.codari.arena5.players.role.Role;
 
 public class ItemChooser {
