@@ -7,9 +7,10 @@ import org.bukkit.entity.Player;
 
 import com.codari.api5.Codari;
 import com.codari.arena.ArenaStatics;
+import com.codari.arena5.objects.persistant.RoleSelectionObject;
 import com.codari.arena5.players.role.Role;
 
-public class RandomRoleDelegation extends TemplateRoleDelegation{
+public class RandomRoleDelegation extends TemplateRoleDelegation implements RoleSelectionObject {
 	private Material randomRoleDelegationMaterial = Material.DIAMOND_BLOCK;
 	private Role randomRole = this.chooseRandomRole();
 
@@ -34,6 +35,30 @@ public class RandomRoleDelegation extends TemplateRoleDelegation{
 			break;
 		}
 		return tempRole;
+	}
+
+	@Override
+	public void interact() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void reveal() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Role roleSelect() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
