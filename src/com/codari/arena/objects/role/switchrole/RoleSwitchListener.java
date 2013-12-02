@@ -1,5 +1,7 @@
 package com.codari.arena.objects.role.switchrole;
 
+import java.util.Map.Entry;
+
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -10,7 +12,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import com.codari.api5.Codari;
+import com.codari.arena5.ArenaStartEvent;
 import com.codari.arena5.players.combatants.Combatant;
+import com.codari.arena5.players.teams.Team;
 
 /*TODO:
  * How to cancel role swap(Left click or right click?)
@@ -24,26 +28,22 @@ public class RoleSwitchListener implements Listener {
 			if((e.getItem().getItemMeta().getDisplayName().equals(RoleSwitch.ROLE_SWAP_DISPLAY_NAME))) {
 				Player player, teamMatePlayer;
 				Combatant combatant, teamMate;
-				
+
 				player = (Player) e.getPlayer();
 				combatant = Codari.getArenaManager().getCombatant(player);
 				teamMate = combatant.getTeam().getTeamMates(combatant).get(0);
 
 				if(teamMate != null) {
 					ItemStack playerRoleSwitchItem, teamMateRoleSwitchItem;
-					//Role playerRole, teamMateRole;
-					
+
 					Enchantment enchantment = RoleObjectEnchantment.INSTANCE;
-					
+
 					teamMatePlayer = teamMate.getPlayer();
 					playerRoleSwitchItem = player.getInventory().getItem(RoleSwitch.INVENTORY_SLOT_NUMBER);
 					teamMateRoleSwitchItem = teamMatePlayer.getInventory().getItem(RoleSwitch.INVENTORY_SLOT_NUMBER);
-					//playerRole = combatant.getRole();
-					//teamMateRole = teamMate.getRole();
-					
+
 					if(playerRoleSwitchItem.containsEnchantment(enchantment)) {
 						teamMate.swapRole(combatant.swapRole(teamMate.getRole())); //Using this method will fire an event. 
-						//teamMateRole.swapRole(playerRole.swapRole(teamMateRole));
 						if(teamMate.getRole().getName().equalsIgnoreCase("Melee")) {
 							teamMate.getPlayer().getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.MELEE.getItemStack());
 							player.getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.RANGED.getItemStack());
@@ -63,4 +63,14 @@ public class RoleSwitchListener implements Listener {
 			}
 		}
 	}
+	@EventHandler()
+	public void onPlayerJoinArena(ArenaStartEvent e) {
+		for(Entry<String, Team> teamKey : e.getArena().getTeams().entrySet()) {
+			Team team = e.getArena().getTeams().get(teamKey);
+			for(Player player : team.getPlayers()) {
+				RoleSwitch.createRoleSwitchObject(Codari.getArenaManager().getCombatant(player));
+			}
+		}
+	}
 }
+

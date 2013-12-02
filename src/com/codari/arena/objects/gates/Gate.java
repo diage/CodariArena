@@ -6,17 +6,17 @@ import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 
 import com.codari.arena5.objects.ArenaObjectName;
-import com.codari.arena5.objects.persistant.ImmediatePersistentObject;
+import com.codari.arena5.objects.spawnable.FixedSpawnableObject;
 
 /**
  * TODO:
  * This needs fixed: This is the wrong kind of gate. For the arena to interact with it, it needs to be of type spawnable. 
- * 
+ * Fixed by Mhenlo - doublecheck this
  * @author Ryan
  *
  */
 @ArenaObjectName("Gate")
-public class Gate implements ImmediatePersistentObject {	
+public class Gate implements FixedSpawnableObject {	
 	private Block redStoneBlock;
 	private BlockState redStoneBlockState;
 	private Material redStoneMaterial = Material.REDSTONE_BLOCK;
@@ -32,10 +32,10 @@ public class Gate implements ImmediatePersistentObject {
 		return this.redStoneBlockState;
 	}
 
-	//---Immediate Persistent Object Methods---//
+	//---Fixed Spawnable Methods---//
 	@Override
-	public void interact() {
-		
+	public void spawn() {
+		this.reveal();
 	}
 
 	@Override
