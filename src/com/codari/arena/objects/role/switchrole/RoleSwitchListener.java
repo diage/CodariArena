@@ -18,8 +18,6 @@ import com.codari.arena5.players.teams.Team;
 
 /*TODO:
  * How to cancel role swap(Left click or right click?)
- * 
- * Need to add an event for joining the arena!! ->> Adds initial item. 
  */
 public class RoleSwitchListener implements Listener {
 	@EventHandler()
