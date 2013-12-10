@@ -1,7 +1,5 @@
 package com.codari.arena.commands;
 
-import java.util.Map;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -27,7 +25,7 @@ import com.codari.arena5.players.teams.Team;
  * Whether you put the checks in the queue or the Arena Start is not terribly relevant at the moment. 
  */
 
-public class JoinArenaCommand implements CommandExecutor {
+public class JoinQueueCommand implements CommandExecutor {
 
 	/* TWO PROBLEMS: Need a method to set teams in the arena and a way to set an arena for a team. 
 	 * 	--Arena.start(Team...teams) and listen for an event to fire for arena start.
@@ -39,29 +37,10 @@ public class JoinArenaCommand implements CommandExecutor {
 			Player player = (Player) sender;
 			Team team = Codari.getArenaManager().getCombatant(player).getTeam();
 			Arena arena = Codari.getArenaManager().getArena(args[0]);
+			
+			if(checkIfArenaIsValid(arena, player) && checkIfPlayerHasTeam(team, player)) {  				
+				//TODO - Add Team to QUEUE	
 
-			if(checkIfArenaIsValid(arena, player) && 					//check if arena is not null
-					checkIfPlayerHasTeam(team, player) && 				//check if the player is currently in a team
-					checkIfMatchIsNotInProgress(arena, player) &&		//check if the match is not already in progress
-					checkTeamSize(team, arena, player) &&				//check if the player's team size matches the arena's team size
-					checkIfTeamIsNotAlreadyInAnArena(team, player)) {	//check to make sure a team doesn't join two arenas at the same time
-
-				if(arena.getTeams().size() < arena.getGameRule().getTeamSize()) {		//if there isn't already a team waiting
-					arena.getTeams().put(team.getTeamName(), team);
-					for(Player teamPlayer : team.getPlayers()) {
-						teamPlayer.sendMessage("Waiting for a worthy opponent.");
-					}
-					return true;
-				} else {																//if there is a team already waiting
-					arena.getTeams().put(team.getTeamName(), team);	//This won't work at all. I'm sure you've figured that out...
-					for(Map.Entry<String, Team> teamEntry: arena.getTeams().entrySet()) {
-						Team arenaTeam = teamEntry.getValue();
-						for(Player teamPlayer : arenaTeam.getPlayers()) {
-							teamPlayer.sendMessage("Opponents found! The match will start soon.");
-						}
-					}
-					return true;
-				}
 			}
 		}
 		return false;
@@ -77,32 +56,6 @@ public class JoinArenaCommand implements CommandExecutor {
 	private static boolean checkIfPlayerHasTeam(Team team, Player player) {
 		if(team == null) {
 			player.sendMessage(ChatColor.RED + "You can't join the arena if you're not on a team!");
-			return false;
-		}
-		return true;
-	}
-
-	private static boolean checkIfMatchIsNotInProgress(Arena arena, Player player) {
-		if(arena.isMatchInProgress()) {
-			player.sendMessage(ChatColor.RED + "The arena you're trying to join is already in progress.");
-			return false;
-		}
-		return true;
-	}
-
-	private static boolean checkTeamSize(Team team, Arena arena, Player player) {
-		int teamSize = team.getTeamSize();
-		int arenaTeamSize = arena.getGameRule().getTeamSize();
-		if(teamSize != arenaTeamSize) {
-			player.sendMessage(ChatColor.RED + "You're team has to have " + arena.getGameRule().getTeamSize() + " players to join that arena!");
-			return false;
-		}
-		return true;
-	}
-
-	private static boolean checkIfTeamIsNotAlreadyInAnArena(Team team, Player player) {
-		if(team.getArena() != null) {
-			player.sendMessage(ChatColor.RED + "You can't join another arena if your team is already part of one!");
 			return false;
 		}
 		return true;
