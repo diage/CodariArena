@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import com.codari.arena.ArenaStatics;
 import com.codari.arena.objects.traps.structure.TemplateTrap;
 import com.codari.arena5.objects.ArenaObjectName;
 
@@ -22,8 +23,8 @@ public class PoisonSnareTrap extends TemplateTrap{
 	private int poisonEffectAmplifier = 10;
 	private PotionEffect potionEffectPoison = new PotionEffect(PotionEffectType.POISON, poisonEffectDuration, poisonEffectAmplifier);
 
-	public PoisonSnareTrap(Player player, double radius) {
-		super(player, radius);
+	public PoisonSnareTrap(Player player) {
+		super(player, ArenaStatics.RADIUS);
 		super.clayStoneMetaDataValue = 5;
 		super.weight = WEIGHT_OF_OBJECTIVE_POINT;
 	}

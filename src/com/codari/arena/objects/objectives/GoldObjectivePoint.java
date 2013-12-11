@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import com.codari.arena.ArenaStatics;
 import com.codari.arena.objects.objectives.structure.TemplateObjectivePoint;
 import com.codari.arena5.objects.ArenaObjectName;
 import com.codari.arena5.players.combatants.Combatant;
@@ -18,8 +19,8 @@ public class GoldObjectivePoint extends TemplateObjectivePoint {
 	private int effectAmplifier = 1;
 	private PotionEffect potionEffectIncaseDamage = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, effectDuration, effectAmplifier);
 
-	public GoldObjectivePoint(Player player, double radius) {
-		super(player, radius);
+	public GoldObjectivePoint(Player player) {
+		super(player, ArenaStatics.RADIUS);
 		super.beaconBaseMaterial = Material.GOLD_BLOCK;
 		super.numberOfPointsToCaptureObjectivePoint = 160;
 		super.weight = WEIGHT_OF_OBJECTIVE_POINT;

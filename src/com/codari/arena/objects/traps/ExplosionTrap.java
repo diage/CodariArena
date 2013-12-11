@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import com.codari.arena.ArenaStatics;
 import com.codari.arena.objects.traps.structure.TemplateTrap;
 import com.codari.arena5.objects.ArenaObjectName;
 
@@ -16,8 +17,8 @@ public class ExplosionTrap extends TemplateTrap {
 	private float powerExplosion = 2.0f;
 	
 
-	public ExplosionTrap(Player player, double radius) {
-		super(player, radius);
+	public ExplosionTrap(Player player) {
+		super(player, ArenaStatics.RADIUS);
 		super.weight = WEIGHT_OF_OBJECTIVE_POINT;
 	}
 

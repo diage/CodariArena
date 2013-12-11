@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import com.codari.arena.ArenaStatics;
 import com.codari.arena.objects.objectives.structure.TemplateObjectivePoint;
 import com.codari.arena5.objects.ArenaObjectName;
 import com.codari.arena5.players.combatants.Combatant;
@@ -18,8 +19,8 @@ public class EmeraldObjectivePoint extends TemplateObjectivePoint {
 	private int effectAmplifier = 1;
 	private PotionEffect potionEffectRegeneration = new PotionEffect(PotionEffectType.REGENERATION, effectDuration, effectAmplifier);
 
-	public EmeraldObjectivePoint(Player player, double radius) {
-		super(player, radius);
+	public EmeraldObjectivePoint(Player player) {
+		super(player, ArenaStatics.RADIUS);
 		super.beaconBaseMaterial = Material.EMERALD_BLOCK;
 		super.numberOfPointsToCaptureObjectivePoint = 320;
 		super.weight = WEIGHT_OF_OBJECTIVE_POINT;
