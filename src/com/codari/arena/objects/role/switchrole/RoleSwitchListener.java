@@ -1,5 +1,6 @@
 package com.codari.arena.objects.role.switchrole;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
@@ -71,6 +72,7 @@ public class RoleSwitchListener implements Listener {
 				if(player == null) {
 					Bukkit.broadcastMessage("Player is null!");
 				}
+				Bukkit.broadcastMessage(RandomStringUtils.randomAscii(50));
 				RoleSwitch.createRoleSwitchObject(Codari.getArenaManager().getCombatant(player));
 			}
 		}
