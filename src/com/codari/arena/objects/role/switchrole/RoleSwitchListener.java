@@ -68,6 +68,9 @@ public class RoleSwitchListener implements Listener {
 				Bukkit.broadcastMessage(ChatColor.RED + "Team is null!");
 			}
 			for(Player player : team.getPlayers()) {
+				if(player == null) {
+					Bukkit.broadcastMessage("Player is null!");
+				}
 				RoleSwitch.createRoleSwitchObject(Codari.getArenaManager().getCombatant(player));
 			}
 		}
