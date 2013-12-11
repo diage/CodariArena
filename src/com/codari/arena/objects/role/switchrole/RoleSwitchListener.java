@@ -1,7 +1,5 @@
 package com.codari.arena.objects.role.switchrole;
 
-import java.util.Map.Entry;
-
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -63,8 +61,8 @@ public class RoleSwitchListener implements Listener {
 	}
 	@EventHandler()
 	public void onPlayerJoinArena(ArenaStartEvent e) {
-		for(Entry<String, Team> teamKey : e.getArena().getTeams().entrySet()) {
-			Team team = e.getArena().getTeams().get(teamKey);
+		for(String teamName : e.getArena().getTeams().keySet()) {	//TODO
+			Team team = e.getArena().getTeams().get(teamName);
 			for(Player player : team.getPlayers()) {
 				RoleSwitch.createRoleSwitchObject(Codari.getArenaManager().getCombatant(player));
 			}
