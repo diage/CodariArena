@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -22,46 +23,48 @@ public class RoleSwitchListener implements Listener {
 	@EventHandler()
 	public void onPlayerRightClick(PlayerInteractEvent e) {
 		if(e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-			if((e.getItem().getItemMeta().getDisplayName().equals(RoleSwitch.ROLE_SWAP_DISPLAY_NAME))) {
-				Player player, teamMatePlayer;
-				Combatant combatant, teamMate;
+			if(e.getPlayer().getInventory().getItemInHand().getItemMeta().hasDisplayName()) {
+				if((e.getPlayer().getInventory().getItemInHand().getItemMeta().getDisplayName().equals(RoleSwitch.ROLE_SWAP_DISPLAY_NAME))) {
+					Player player, teamMatePlayer;
+					Combatant combatant, teamMate;
 
-				player = (Player) e.getPlayer();
-				combatant = Codari.getArenaManager().getCombatant(player);
-				teamMate = combatant.getTeam().getTeamMates(combatant).get(0);
-				
-				e.setCancelled(true);
+					player = (Player) e.getPlayer();
+					combatant = Codari.getArenaManager().getCombatant(player);
+					teamMate = combatant.getTeam().getTeamMates(combatant).get(0);
 
-				if(teamMate != null) {
-					ItemStack playerRoleSwitchItem, teamMateRoleSwitchItem;
+					e.setCancelled(true);
 
-					//Enchantment enchantment = RoleObjectEnchantment.INSTANCE;
-					Enchantment enchantment = Enchantment.KNOCKBACK;
-					
-					teamMatePlayer = teamMate.getPlayer();
-					playerRoleSwitchItem = player.getInventory().getItem(RoleSwitch.INVENTORY_SLOT_NUMBER);
-					teamMateRoleSwitchItem = teamMatePlayer.getInventory().getItem(RoleSwitch.INVENTORY_SLOT_NUMBER);
+					if(teamMate != null) {
+						ItemStack playerRoleSwitchItem, teamMateRoleSwitchItem;
 
-					if(playerRoleSwitchItem.containsEnchantment(enchantment)) {	//Problem here
-						Bukkit.broadcastMessage("Accepted role switch!");
-						teamMate.swapRole(combatant.swapRole(teamMate.getRole())); //Using this method will fire an event. 
-						if(teamMate.getRole().getName().equalsIgnoreCase("Melee")) {
-							teamMate.getPlayer().getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.MELEE.getItemStack());
-							player.getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.RANGED.getItemStack());
+						//Enchantment enchantment = RoleObjectEnchantment.INSTANCE;
+						Enchantment enchantment = Enchantment.KNOCKBACK;
+
+						teamMatePlayer = teamMate.getPlayer();
+						playerRoleSwitchItem = player.getInventory().getItem(RoleSwitch.INVENTORY_SLOT_NUMBER);
+						teamMateRoleSwitchItem = teamMatePlayer.getInventory().getItem(RoleSwitch.INVENTORY_SLOT_NUMBER);
+
+						if(playerRoleSwitchItem.containsEnchantment(enchantment)) {	//Problem here
+							Bukkit.broadcastMessage("Accepted role switch!");
+							teamMate.swapRole(combatant.swapRole(teamMate.getRole())); //Using this method will fire an event. 
+							if(teamMate.getRole().getName().equalsIgnoreCase("Melee")) {
+								teamMate.getPlayer().getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.MELEE.getItemStack());
+								player.getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.RANGED.getItemStack());
+							} else {
+								teamMate.getPlayer().getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.RANGED.getItemStack());
+								player.getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.MELEE.getItemStack());
+							}
 						} else {
-							teamMate.getPlayer().getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.RANGED.getItemStack());
-							player.getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.MELEE.getItemStack());
+							String roleSwitchMessage = "Your teamate would like to switch roles with you. Right click the role switch icon on the "
+									+ "first slot of your hotbar if you would like to switch.";
+							//teamMateRoleSwitchItem.addEnchantment(enchantment, 1);
+							teamMateRoleSwitchItem.addUnsafeEnchantment(enchantment, 1);
+							Bukkit.broadcastMessage("Added enchantment to item!");
+							teamMate.getPlayer().sendMessage(roleSwitchMessage);
 						}
 					} else {
-						String roleSwitchMessage = "Your teamate would like to switch roles with you. Right click the role switch icon on the "
-								+ "first slot of your hotbar if you would like to switch.";
-						//teamMateRoleSwitchItem.addEnchantment(enchantment, 1);
-						teamMateRoleSwitchItem.addUnsafeEnchantment(enchantment, 1);
-						Bukkit.broadcastMessage("Added enchantment to item!");
-						teamMate.getPlayer().sendMessage(roleSwitchMessage);
+						player.sendMessage(ChatColor.RED + "You have no teamate to switch roles with.");
 					}
-				} else {
-					player.sendMessage(ChatColor.RED + "You have no teamate to switch roles with.");
 				}
 			}
 		}
@@ -74,6 +77,11 @@ public class RoleSwitchListener implements Listener {
 				RoleSwitch.createRoleSwitchObject(Codari.getArenaManager().getCombatant(player));
 			}
 		}
+	}
+
+	@EventHandler() 
+	public void preventBlockPlace(BlockPlaceEvent e) {
+		e.setCancelled(true);	
 	}
 }
 
