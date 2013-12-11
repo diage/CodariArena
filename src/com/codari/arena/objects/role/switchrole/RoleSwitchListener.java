@@ -1,5 +1,6 @@
 package com.codari.arena.objects.role.switchrole;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -28,17 +29,21 @@ public class RoleSwitchListener implements Listener {
 				player = (Player) e.getPlayer();
 				combatant = Codari.getArenaManager().getCombatant(player);
 				teamMate = combatant.getTeam().getTeamMates(combatant).get(0);
+				
+				e.setCancelled(true);
 
 				if(teamMate != null) {
 					ItemStack playerRoleSwitchItem, teamMateRoleSwitchItem;
 
-					Enchantment enchantment = RoleObjectEnchantment.INSTANCE;
-
+					//Enchantment enchantment = RoleObjectEnchantment.INSTANCE;
+					Enchantment enchantment = Enchantment.KNOCKBACK;
+					
 					teamMatePlayer = teamMate.getPlayer();
 					playerRoleSwitchItem = player.getInventory().getItem(RoleSwitch.INVENTORY_SLOT_NUMBER);
 					teamMateRoleSwitchItem = teamMatePlayer.getInventory().getItem(RoleSwitch.INVENTORY_SLOT_NUMBER);
 
-					if(playerRoleSwitchItem.containsEnchantment(enchantment)) {
+					if(playerRoleSwitchItem.containsEnchantment(enchantment)) {	//Problem here
+						Bukkit.broadcastMessage("Accepted role switch!");
 						teamMate.swapRole(combatant.swapRole(teamMate.getRole())); //Using this method will fire an event. 
 						if(teamMate.getRole().getName().equalsIgnoreCase("Melee")) {
 							teamMate.getPlayer().getInventory().setItem(RoleSwitch.INVENTORY_SLOT_NUMBER, RoleObjectItemTypes.MELEE.getItemStack());
@@ -50,7 +55,9 @@ public class RoleSwitchListener implements Listener {
 					} else {
 						String roleSwitchMessage = "Your teamate would like to switch roles with you. Right click the role switch icon on the "
 								+ "first slot of your hotbar if you would like to switch.";
-						teamMateRoleSwitchItem.addEnchantment(enchantment, 1);
+						//teamMateRoleSwitchItem.addEnchantment(enchantment, 1);
+						teamMateRoleSwitchItem.addUnsafeEnchantment(enchantment, 1);
+						Bukkit.broadcastMessage("Added enchantment to item!");
 						teamMate.getPlayer().sendMessage(roleSwitchMessage);
 					}
 				} else {

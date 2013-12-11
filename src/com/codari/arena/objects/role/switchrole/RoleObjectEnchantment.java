@@ -9,7 +9,7 @@ public class RoleObjectEnchantment extends Enchantment {
 	public final static Enchantment INSTANCE = new RoleObjectEnchantment();
 	
 	private RoleObjectEnchantment() {
-		super(13371337);	
+		super(100);	
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class RoleObjectEnchantment extends Enchantment {
 
 	@Override
 	public String getName() {
-		return "SUPAH DUPAH COOL STRING";
+		return "Bob";
 	}
 
 	@Override
