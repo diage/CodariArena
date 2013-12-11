@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -25,6 +27,7 @@ public class DamageReductionSkill implements Skill {
 
 	@Override
 	public void activateSkill(Combatant combatant) {
+		Bukkit.broadcastMessage(ChatColor.GREEN + combatant.getPlayer().getName() + " is activating the DamageReductionSkill.");
 		//Apply Potion Effect for damage resistance
 		PotionEffect damageResistancePotionEffect = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, effectDuration, effectAmplification);
 		damageResistancePotionEffect.apply(combatant.getPlayer());

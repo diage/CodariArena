@@ -1,5 +1,7 @@
 package com.codari.arena.players.skills;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -16,6 +18,7 @@ public class TeleportSkill implements Skill {
 
 	@Override
 	public void activateSkill(Combatant combatant) {
+		Bukkit.broadcastMessage(ChatColor.GREEN + combatant.getPlayer().getName() + " is activating the TeleportSkill.");
 		Player player = combatant.getPlayer();
 		Location location = player.getLocation();
 		BlockIterator blockIterator = new BlockIterator(location, numberOfBlocksAPlayerCanTeleport);
