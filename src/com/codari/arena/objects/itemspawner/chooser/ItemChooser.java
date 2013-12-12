@@ -2,12 +2,14 @@ package com.codari.arena.objects.itemspawner.chooser;
 
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
 
+import com.codari.arena.ArenaStatics;
 import com.codari.arena.objects.itemspawner.structure.ItemType;
 import com.codari.arena5.players.role.Role;
 
@@ -58,11 +60,11 @@ public class ItemChooser {
 	public ItemStack generateItem(Role role, ItemType itemType) {
 		switch(itemType) {
 		case POTION:
-			return generatePotion(role);
+			return this.generatePotion(role);
 		case WEAPON:
-			return generateWeapon(role);
+			return this.generateWeapon(role);
 		case ARMOR:
-			return generateArmor(role);
+			return this.generateArmor(role);
 		}
 		return null;
 	}
@@ -70,9 +72,11 @@ public class ItemChooser {
 	//-----Generate Potion-----//
 	private ItemStack generatePotion(Role role) {
 		switch(role.getName()) {
-		case "MELEE":
+		case ArenaStatics.MELEE:
+			Bukkit.broadcastMessage("Generating Melee Potion!");
 			return generateMeleePotion();
-		case "RANGED":
+		case ArenaStatics.RANGED:
+			Bukkit.broadcastMessage("Generating Ranged Potion!");
 			return generateRangedPotion();
 		default:
 			return null;
@@ -124,9 +128,11 @@ public class ItemChooser {
 	//-----Generate Weapon-----//
 	private ItemStack generateWeapon(Role role) {
 		switch(role.getName()) {
-		case "MELEE":
+		case ArenaStatics.MELEE:
+			Bukkit.broadcastMessage("Generating Melee Weapon!");
 			return generateMeleeWeapon();
-		case "RANGED":
+		case ArenaStatics.RANGED:
+			Bukkit.broadcastMessage("Generating Ranged Weapon!");
 			return generateRangedWeapon();
 		default:
 			return null;
@@ -200,9 +206,11 @@ public class ItemChooser {
 	//-----Generate Armor-----//
 	private ItemStack generateArmor(Role role) {
 		switch(role.getName()) {
-		case "MELEE":
+		case ArenaStatics.MELEE:
+			Bukkit.broadcastMessage("Generating Melee Armor!");
 			return generateMeleeArmor();
-		case "RANGED":
+		case ArenaStatics.RANGED:
+			Bukkit.broadcastMessage("Generating Ranged Armor!");
 			return generateRangedArmor();
 		default:
 			return null;

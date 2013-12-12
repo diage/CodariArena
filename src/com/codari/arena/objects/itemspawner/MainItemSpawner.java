@@ -31,7 +31,7 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 		this.itemSpawnerBlock = player.getLocation().getBlock().getRelative(BlockFace.UP, 4);
 		this.itemSpawnerBlockState = this.itemSpawnerBlock.getState();
 
-		this.areaOfEffect = new AoE(player.getLocation(), 1, this);
+		this.areaOfEffect = new AoE(player.getLocation().getBlock().getRelative(BlockFace.UP, 4).getLocation(), 1, this);
 	}
 
 	//-----Getters-----//
@@ -46,7 +46,7 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 
 	@Override
 	public void reveal() {
-		itemSpawnerBlockState.getBlock().setType(itemSpawnerMaterial);
+		itemSpawnerBlockState.getBlock().setType(itemSpawnerMaterial); //TODO - set material based on item being spawned
 		this.areaOfEffect.setActive();
 	}
 
