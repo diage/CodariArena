@@ -2,6 +2,7 @@ package com.codari.arena.objects.role.switchrole;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -81,7 +82,9 @@ public class RoleSwitchListener implements Listener {
 
 	@EventHandler() 
 	public void preventBlockPlace(BlockPlaceEvent e) {
-		e.setCancelled(true);	
+		if(e.getPlayer().getGameMode().equals(GameMode.SURVIVAL)) {
+			e.setCancelled(true);	
+		}
 	}
 }
 
