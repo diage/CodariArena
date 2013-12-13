@@ -8,7 +8,6 @@ import org.bukkit.potion.PotionEffectType;
 import com.codari.arena.ArenaStatics;
 import com.codari.arena.objects.objectives.structure.TemplateObjectivePoint;
 import com.codari.arena5.objects.ArenaObjectName;
-import com.codari.arena5.players.combatants.Combatant;
 
 @ArenaObjectName("Iron_Objective_Point")
 public class IronObjectivePoint extends TemplateObjectivePoint {
@@ -28,8 +27,7 @@ public class IronObjectivePoint extends TemplateObjectivePoint {
 
 	@Override
 	public void awardObjective() {
-		for(Combatant combatant : super.getTeam().combatants() ) {
-			Player player = combatant.getPlayer();
+		for(Player player : super.getTeam().getPlayers()) {
 			player.addPotionEffect(this.potionEffectJump);
 			super.awardPoints(NUMBER_OF_POINTS_AWARDED);
 		}		

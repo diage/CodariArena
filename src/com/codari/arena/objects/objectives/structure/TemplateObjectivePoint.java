@@ -3,6 +3,8 @@ package com.codari.arena.objects.objectives.structure;
 import java.util.Collection;
 import java.util.List;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -115,6 +117,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		Team team = Codari.getArenaManager().getTeam(Codari.getArenaManager().getCombatant(players.get(0)));	
 		
 		if(!(this.checkSameTeam(players))) {
+			Bukkit.broadcastMessage("Players on different teams are trying to capture the capture point!");
 			return;
 		}
 		
@@ -130,6 +133,11 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	
 	@Override
 	public void awardPoints(int points) {
+		if(this.team == null) {	//TODO
+			Bukkit.broadcastMessage(ChatColor.RED + "Objective point is trying to assign points to a null team!");
+			return;
+		}
+		Bukkit.broadcastMessage(this.team.getTeamName() + " is being awarded with " + points + " points!");
 		Collection<WinConditionTemplate> winConditions = this.getTeam().getArena().getGameRule().getWinConditions();
 		for(WinConditionTemplate winCondition : winConditions) {
 			if(winCondition instanceof WinCondition2v2) {
@@ -139,15 +147,15 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	}
 
 	private boolean checkSameTeam(List<Player> players) {
-		Team compareTeam;
-		Team teamOfFirstPlayer = Codari.getArenaManager().getTeam(Codari.getArenaManager().getCombatant(players.get(0)));
+		Team compareTeam, teamOfFirstPlayer;
+		teamOfFirstPlayer = Codari.getArenaManager().getTeam(Codari.getArenaManager().getCombatant(players.get(0)));
 		if(teamOfFirstPlayer == null) {
-			throw new NullPointerException("Player: " + players.get(0).toString() + 
+			throw new NullPointerException(ChatColor.RED + "Player: " + players.get(0).toString() + 
 					" is trying to capture an objective point but is not part of any team!");
 		}
 		for(Player player : players) {
 			compareTeam = Codari.getArenaManager().getTeam(Codari.getArenaManager().getCombatant(player));
-			if(!(compareTeam.equals(teamOfFirstPlayer))) {
+			if(!(compareTeam.equals(teamOfFirstPlayer))) {	//TODO - correct equals needs to be implemented
 				return false;
 			}
 		}
@@ -157,11 +165,13 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	private boolean incrementCapturePoint() {
 		this.pointCounter++;
 		if(this.pointCounter == this.numberOfPointsToCaptureObjectivePoint) {
+			this.resetCapturePointProgress();
 			this.awardObjective();
 			this.hide();
 			return true;
 		}
 		for(Combatant combatant : this.team.combatants()) {
+			Bukkit.broadcastMessage("Setting progress bar capture point.");
 			combatant.getPlayer().setExp((float)pointCounter / numberOfPointsToCaptureObjectivePoint);
 		}
 		return false;
