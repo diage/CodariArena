@@ -74,6 +74,7 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 			break;			
 		}
 		
+		this.hide();
 	}
 	
 	private void addPotionToInventory(Player player, ItemStack itemStack) {
