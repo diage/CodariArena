@@ -161,8 +161,9 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	private boolean incrementCapturePoint() {
 		this.pointCounter++;
 		if(this.pointCounter >= this.numberOfPointsToCaptureObjectivePoint) {
-			this.resetCapturePointProgress(); //LOL....................
+			//this.resetCapturePointProgress(); LOL....................
 			this.awardObjective();
+			this.resetCapturePointProgress();
 			this.hide();
 			return true;
 		}
