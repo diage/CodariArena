@@ -75,6 +75,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	@Override
 	public void spawn() {		
 		this.reveal();
+		this.areaOfEffect.setActive();
 	}
 
 	@Override
