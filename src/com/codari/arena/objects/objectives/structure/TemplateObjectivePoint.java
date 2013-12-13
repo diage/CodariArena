@@ -118,7 +118,6 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		Team team = Codari.getArenaManager().getTeam(Codari.getArenaManager().getCombatant(players.get(0)));	
 		
 		if(!(this.checkSameTeam(players))) {
-			Bukkit.broadcastMessage("Players on different teams are trying to capture the capture point!");
 			return;
 		}
 		
@@ -134,10 +133,6 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	
 	@Override
 	public void awardPoints(int points) {
-		if(this.team == null) {	//TODO
-			Bukkit.broadcastMessage(ChatColor.RED + "Objective point is trying to assign points to a null team!");
-			return;
-		}
 		Bukkit.broadcastMessage(this.team.getTeamName() + " is being awarded with " + points + " points!");
 		Collection<WinConditionTemplate> winConditions = this.getTeam().getArena().getGameRule().getWinConditions();
 		for(WinConditionTemplate winCondition : winConditions) {
@@ -165,14 +160,13 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 
 	private boolean incrementCapturePoint() {
 		this.pointCounter++;
-		if(this.pointCounter == this.numberOfPointsToCaptureObjectivePoint) {
-			this.resetCapturePointProgress();
+		if(this.pointCounter >= this.numberOfPointsToCaptureObjectivePoint) {
+			this.resetCapturePointProgress(); //LOL....................
 			this.awardObjective();
 			this.hide();
 			return true;
 		}
 		for(Combatant combatant : this.team.combatants()) {
-			Bukkit.broadcastMessage("Setting progress bar capture point.");
 			combatant.getPlayer().setExp((float)pointCounter / numberOfPointsToCaptureObjectivePoint);
 		}
 		return false;
