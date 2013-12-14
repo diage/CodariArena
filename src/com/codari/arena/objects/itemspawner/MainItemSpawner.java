@@ -21,9 +21,9 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 	private Block itemSpawnerBlock;
 	private BlockState itemSpawnerBlockState;
 	protected Material itemSpawnerMaterial = Material.DIAMOND_BLOCK;
-	
+
 	public static ItemChooser itemChooser = new ItemChooser();
-	
+
 	//---Initialized in Constructor---//
 	private AoE areaOfEffect;
 
@@ -55,13 +55,13 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 		this.areaOfEffect.setDeactive();
 		this.itemSpawnerBlockState.update(true);
 	}
-	
+
 	@Override
 	public void spawnItem(Combatant combatant) {
 		ItemStack spawnedItem;
 		ItemType itemType = ItemType.chooseItemType();
 		spawnedItem = itemChooser.generateItem(combatant.getRole(), itemType);
-		
+
 		switch(itemType) {
 		case POTION: 
 			this.addPotionToInventory(combatant.getPlayer(), spawnedItem);
@@ -73,14 +73,24 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 			this.equipArmor(combatant.getPlayer(), spawnedItem);
 			break;			
 		}
-		
+
 		this.hide();
 	}
-	
+
 	private void addPotionToInventory(Player player, ItemStack itemStack) {
-		player.getInventory().addItem(itemStack);
+		ItemStack[] items = player.getInventory().getContents();
+		for(int i = 0; i < 5; i++) {
+			if(items[i] == null) {
+				player.getInventory().setItem(i, itemStack/*=)*/);
+				return;
+			} else if (items[i].isSimilar(itemStack)) { 
+				items[i].setAmount(items[i].getAmount() + 1);
+				player.getInventory().setItem(i, items[i]);
+				return;
+			}
+		}
 	}
-	
+
 	private void equipArmor(Player player, ItemStack itemStack) {
 		switch(itemStack.getType()) {
 		case CHAINMAIL_HELMET: 
@@ -114,7 +124,7 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 		default:
 		}
 	} 
-	
+
 	private void addWeaponToInventory(Player player, ItemStack itemStack) {
 		player.getInventory().setItem(1, itemStack);
 	}
