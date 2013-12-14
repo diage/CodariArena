@@ -12,16 +12,18 @@ import com.codari.arena5.objects.ArenaObjectName;
 
 @ArenaObjectName("Poison_Snare_Trap")
 public class PoisonSnareTrap extends TemplateTrap{
+	private static final long serialVersionUID = -8207530364005755280L;
+
 	//-----Fields-----//
 	private final int WEIGHT_OF_OBJECTIVE_POINT = 5;
 	
-	private int slowEffectDuration = 55;
-	private int slowEffectAmplifier = 10;
-	private PotionEffect potionEffectSlow = new PotionEffect(PotionEffectType.SLOW, slowEffectDuration, slowEffectAmplifier);
+	private static int slowEffectDuration = 55;
+	private static int slowEffectAmplifier = 10;
+	private static PotionEffect potionEffectSlow = new PotionEffect(PotionEffectType.SLOW, slowEffectDuration, slowEffectAmplifier);
 	
-	private int poisonEffectDuration = 519;
-	private int poisonEffectAmplifier = 10;
-	private PotionEffect potionEffectPoison = new PotionEffect(PotionEffectType.POISON, poisonEffectDuration, poisonEffectAmplifier);
+	private static int poisonEffectDuration = 519;
+	private static int poisonEffectAmplifier = 10;
+	private static PotionEffect potionEffectPoison = new PotionEffect(PotionEffectType.POISON, poisonEffectDuration, poisonEffectAmplifier);
 
 	public PoisonSnareTrap(Player player) {
 		super(player, ArenaStatics.RADIUS);

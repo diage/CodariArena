@@ -10,6 +10,8 @@ import com.codari.arena5.objects.ArenaObjectName;
 
 @ArenaObjectName("Fire_Trap")
 public class FireTrap extends TemplateTrap {
+	private static final long serialVersionUID = 6383764538907844812L;
+
 	//-----Fields-----//
 	private final int WEIGHT_OF_OBJECTIVE_POINT = 5;
 	

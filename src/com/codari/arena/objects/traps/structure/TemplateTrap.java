@@ -17,10 +17,11 @@ import com.codari.arena.util.AoE;
 import com.codari.arena5.players.teams.Team;
 
 public abstract class TemplateTrap extends RandomSpawnableObjectA implements Trap {
+	private static final long serialVersionUID = 810954548247897220L;
 	//-----Fields-----//
 	//---Block Configuration---//
-	protected BlockState trapState;
-	protected BlockState trapIndicatorState;
+	protected BlockState trapState;//TODO!!!!!!!!!!!! SERIALIZABLE
+	protected BlockState trapIndicatorState;//TODO!!!!!!!!!!!! SERIALIZABLE
 	public static final String META_DATA_STRING = RandomStringUtils.randomAscii(69);
 	public static final String RANDOM_PASS_KEY = RandomStringUtils.randomAscii(69);
 
