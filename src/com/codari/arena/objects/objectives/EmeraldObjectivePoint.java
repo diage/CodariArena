@@ -29,7 +29,8 @@ public class EmeraldObjectivePoint extends TemplateObjectivePoint {
 	public void awardObjective() {
 		for(Player player : super.getTeam().getPlayers() ) {
 			player.addPotionEffect(this.potionEffectRegeneration);
-			super.awardPoints(NUMBER_OF_POINTS_AWARDED);
+			player.setLevel(player.getLevel() + this.NUMBER_OF_POINTS_AWARDED);
+			super.awardPoints(this.NUMBER_OF_POINTS_AWARDED);
 		}
 	}
 }
