@@ -21,7 +21,7 @@ public class AoE implements Serializable{
 	private static final long serialVersionUID = -5025568447102872535L;
 	//-----Fields-----//
 	private transient List<Entity> nearbyEntities;
-	private Location location;
+	private transient Location location;
 	private double radius;
 	private boolean active;
 	private ArenaObject arenaObject;
