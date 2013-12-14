@@ -77,6 +77,8 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 			throw new IllegalStateException("World named " + this.serialBeaconBase.worldName + " is not loaded");
 		}
 		
+		this.beaconBaseStates = new BlockState[9];
+		
 		this.beaconBaseStates[0] = world.getBlockAt(this.serialBeaconBase.x, this.serialBeaconBase.y, this.serialBeaconBase.z).getState();
 		this.beaconState = this.beaconBaseStates[0].getBlock().getRelative(BlockFace.UP).getState();
 		this.beaconBaseStates[1] = beaconBaseStates[0].getBlock().getRelative(BlockFace.NORTH_WEST).getState();
