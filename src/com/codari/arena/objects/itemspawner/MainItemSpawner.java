@@ -12,9 +12,12 @@ import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import com.codari.api5.Codari;
+import com.codari.arena.ArenaStatics;
 import com.codari.arena.objects.RandomSpawnableObjectA;
 import com.codari.arena.objects.itemspawner.chooser.ItemChooser;
 import com.codari.arena.objects.itemspawner.structure.ItemSpawner;
+import com.codari.arena.objects.itemspawner.structure.ItemSpawnerListener;
 import com.codari.arena.objects.itemspawner.structure.ItemType;
 import com.codari.arena.util.AoE;
 import com.codari.arena5.objects.ArenaObjectName;
@@ -26,7 +29,10 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 	//-----Fields-----//
 	private transient BlockState itemSpawnerBlockState;
 	private final SerializableBlock serialIndicator;
-	protected Material itemSpawnerMaterial = Material.DIAMOND_BLOCK;
+	protected Material itemSpawnerMaterial;
+	private transient ItemStack meleeItem;
+	private transient ItemStack rangedItem;
+	private transient ItemType typer;
 	private boolean isSpawned;
 	public static ItemChooser itemChooser = new ItemChooser();
 	
@@ -61,7 +67,9 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 
 	@Override
 	public void reveal() {
-		itemSpawnerBlockState.getBlock().setType(itemSpawnerMaterial); //TODO - set material based on item being spawned
+		itemSpawnerBlockState.getBlock().setType(itemSpawnerMaterial);
+		ItemSpawnerListener.stopPhysics(this.itemSpawnerBlockState.getBlock());
+		this.spawnItem();
 		this.areaOfEffect.setActive();
 	}
 
@@ -69,6 +77,7 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 	public void hide() {
 		this.areaOfEffect.setDeactive();
 		this.itemSpawnerBlockState.update(true);
+		ItemSpawnerListener.resumePhysics(this.itemSpawnerBlockState.getBlock());
 		this.isSpawned = false;
 	}
 	
@@ -78,27 +87,57 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 	}		
 
 	@Override
-	public void spawnItem(Combatant combatant) {
-		ItemStack spawnedItem;
-		ItemType itemType = ItemType.chooseItemType();
-		spawnedItem = itemChooser.generateItem(combatant.getRole(), itemType);
-
-		switch(itemType) {
+	public void addItem(Combatant combatant) {
+		switch(this.typer) {
+		case POTION:
+			switch (combatant.getRole().getName()) {
+			case ArenaStatics.MELEE:
+				this.addPotionToInventory(combatant.getPlayer(), this.meleeItem);
+				break;
+			case ArenaStatics.RANGED:
+				this.addPotionToInventory(combatant.getPlayer(), this.rangedItem);
+				break;
+			}
+			break;
+		case WEAPON:
+			switch (combatant.getRole().getName()) {
+			case ArenaStatics.MELEE:
+				this.addWeaponToInventory(combatant.getPlayer(), this.meleeItem);
+				break;
+			case ArenaStatics.RANGED:
+				this.addWeaponToInventory(combatant.getPlayer(), this.rangedItem);
+				break;
+			}
+			break;
+		case ARMOR:
+			switch (combatant.getRole().getName()) {
+			case ArenaStatics.MELEE:
+				this.equipArmor(combatant.getPlayer(), this.meleeItem);
+				break;
+			case ArenaStatics.RANGED:
+				this.equipArmor(combatant.getPlayer(), this.rangedItem);
+				break;
+			}
+			break;			
+		}
+		this.hide();
+	}
+	
+	private void spawnItem() {
+		this.typer = ItemType.chooseItemType();
+		this.meleeItem = itemChooser.generateItem(Codari.getArenaManager().getExistingRole(ArenaStatics.ARENA_NAME, ArenaStatics.MELEE), this.typer);
+		this.rangedItem = itemChooser.generateItem(Codari.getArenaManager().getExistingRole(ArenaStatics.ARENA_NAME, ArenaStatics.RANGED), this.typer);
+		switch(this.typer) {
 		case POTION: 
 			this.itemSpawnerMaterial = Material.BREWING_STAND;
-			this.addPotionToInventory(combatant.getPlayer(), spawnedItem);
 			break;
 		case WEAPON:
 			this.itemSpawnerMaterial = Material.ANVIL;
-			this.addWeaponToInventory(combatant.getPlayer(), spawnedItem);
 			break;
 		case ARMOR:
 			this.itemSpawnerMaterial = Material.CHEST;
-			this.equipArmor(combatant.getPlayer(), spawnedItem);
 			break;			
 		}
-
-		this.hide();
 	}
 
 	private void addPotionToInventory(Player player, ItemStack itemStack) {
