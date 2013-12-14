@@ -21,9 +21,9 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 	private Block itemSpawnerBlock;
 	private BlockState itemSpawnerBlockState;
 	protected Material itemSpawnerMaterial = Material.DIAMOND_BLOCK;
-
+	private boolean isSpawned;
 	public static ItemChooser itemChooser = new ItemChooser();
-
+	
 	//---Initialized in Constructor---//
 	private AoE areaOfEffect;
 
@@ -41,6 +41,7 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 
 	@Override
 	public void spawn() {
+		this.isSpawned = true;
 		this.reveal();	
 	}
 
@@ -54,7 +55,13 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 	public void hide() {
 		this.areaOfEffect.setDeactive();
 		this.itemSpawnerBlockState.update(true);
+		this.isSpawned = false;
 	}
+	
+	@Override
+	public boolean isSpawned() {
+		return this.isSpawned;
+	}		
 
 	@Override
 	public void spawnItem(Combatant combatant) {

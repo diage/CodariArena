@@ -36,6 +36,7 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 	
 	//---Initialized when trap is activated---//
 	private Team team;
+	private boolean isSpawned;
 
 	//-----Constructor-----//
 	public TemplateTrap(Player player, double radius) {
@@ -66,6 +67,7 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 	//---RandomSpawnable Object Methods---//
 	@Override
 	public void spawn() {
+		this.isSpawned = true;
 		if (this.trapState.hasMetadata(RANDOM_PASS_KEY)) {
 			throw new NoSuchMechanismException("THINGS ARE HAPPENING THAT SHOULDN'T BE HAPPENING.... (traps too close)");
 		}
@@ -86,6 +88,12 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 		this.trapState.update(true);
 		this.trapIndicatorState.update(true);
 		this.areaOfEffect.setDeactive();
+		this.isSpawned = false;
+	}
+	
+	@Override
+	public boolean isSpawned() {
+		return this.isSpawned;
 	}
 
 	//---Trap Methods---//

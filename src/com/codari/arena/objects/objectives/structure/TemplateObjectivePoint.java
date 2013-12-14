@@ -32,6 +32,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	private Material beaconMaterial = Material.BEACON;
 	protected Material beaconBaseMaterial = Material.IRON_BLOCK; 
 
+	private boolean isSpawned;
 	private Team team;
 	private int teamSize = 2;
 
@@ -73,7 +74,8 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 
 	//---Fixed Spawnable Object Methods---//
 	@Override
-	public void spawn() {		
+	public void spawn() {	
+		this.isSpawned = true;
 		this.reveal();
 		this.areaOfEffect.setActive();
 	}
@@ -94,7 +96,13 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		}
 		this.areaOfEffect.setDeactive();	
 		this.resetCapturePointProgress();
+		this.isSpawned = false;
 	}	
+	
+	@Override
+	public boolean isSpawned() {
+		return this.isSpawned;
+	}
 
 	//---Objective Point Methods---//
 	@Override
