@@ -1,10 +1,16 @@
 package com.codari.arena.objects.traps.structure;
 
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+
 import javax.xml.crypto.NoSuchMechanismException;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
@@ -20,8 +26,10 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 	private static final long serialVersionUID = 810954548247897220L;
 	//-----Fields-----//
 	//---Block Configuration---//
-	protected BlockState trapState;//TODO!!!!!!!!!!!! SERIALIZABLE
-	protected BlockState trapIndicatorState;//TODO!!!!!!!!!!!! SERIALIZABLE
+	private SerializableBlock serialIndicator;
+	protected transient BlockState trapState;
+	protected transient BlockState trapIndicatorState;
+
 	public static final String META_DATA_STRING = RandomStringUtils.randomAscii(69);
 	public static final String RANDOM_PASS_KEY = RandomStringUtils.randomAscii(69);
 
@@ -49,11 +57,22 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 		//States for block positions
 		this.trapState = trapBlock.getState();
 		this.trapIndicatorState = indicatorBlock.getState();
+		this.serialIndicator = new SerializableBlock(this.trapIndicatorState);
 
 		//Create new AoE
 		this.areaOfEffect = new AoE(player.getLocation(), radius, this);
 	}
-
+	
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		World world = Bukkit.getWorld(this.serialIndicator.worldName);
+		if (world == null) {
+			throw new IllegalStateException("World named " + this.serialIndicator.worldName + " is not loaded");
+		}
+		this.trapIndicatorState = world.getBlockAt(this.serialIndicator.x, this.serialIndicator.y, this.serialIndicator.z).getState();
+		this.trapState = this.trapIndicatorState.getBlock().getRelative(BlockFace.UP).getState();
+	}
+	
 	//-----Getters-----//
 	public BlockState getTrapState() {
 		return this.trapState;
@@ -141,5 +160,18 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 	private void setDeactivateable() {
 		this.trapState.removeMetadata(RANDOM_PASS_KEY, CodariI.INSTANCE);
 		this.trapState.removeMetadata(META_DATA_STRING, CodariI.INSTANCE);
+	}
+	
+	private class SerializableBlock implements Serializable {
+		private static final long serialVersionUID = 3405908171694915925L;
+		private int x, y, z;
+		private String worldName;
+		
+		public SerializableBlock(BlockState blockState) {
+			this.worldName = blockState.getWorld().getName();
+			this.x = blockState.getX();
+			this.y = blockState.getY();
+			this.z = blockState.getZ();
+		}
 	}
 }
