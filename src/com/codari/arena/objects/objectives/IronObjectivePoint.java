@@ -11,12 +11,13 @@ import com.codari.arena5.objects.ArenaObjectName;
 
 @ArenaObjectName("Iron_Objective_Point")
 public class IronObjectivePoint extends TemplateObjectivePoint {
+	private static final long serialVersionUID = 3638585052909346303L;
 	private final int WEIGHT_OF_OBJECTIVE_POINT = 10;
 	private final int NUMBER_OF_POINTS_AWARDED = 5;
 	
-	private int effectDuration = 200;
-	private int effectAmplifier = 1;
-	private PotionEffect potionEffectJump = new PotionEffect(PotionEffectType.JUMP, effectDuration, effectAmplifier);
+	private static int effectDuration = 200;
+	private static int effectAmplifier = 1;
+	private static PotionEffect potionEffectJump = new PotionEffect(PotionEffectType.JUMP, effectDuration, effectAmplifier);
 	
 	public IronObjectivePoint(Player player) {
 		super(player, ArenaStatics.RADIUS);
@@ -28,7 +29,7 @@ public class IronObjectivePoint extends TemplateObjectivePoint {
 	@Override
 	public void awardObjective() {
 		for(Player player : super.getTeam().getPlayers()) {
-			player.addPotionEffect(this.potionEffectJump);
+			player.addPotionEffect(potionEffectJump);
 			player.setLevel(player.getLevel() + this.NUMBER_OF_POINTS_AWARDED);
 			super.awardPoints(this.NUMBER_OF_POINTS_AWARDED);
 		}		
