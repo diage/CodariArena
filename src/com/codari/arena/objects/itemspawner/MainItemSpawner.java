@@ -85,12 +85,15 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 
 		switch(itemType) {
 		case POTION: 
+			this.itemSpawnerMaterial = Material.BREWING_STAND;
 			this.addPotionToInventory(combatant.getPlayer(), spawnedItem);
 			break;
 		case WEAPON:
+			this.itemSpawnerMaterial = Material.ANVIL;
 			this.addWeaponToInventory(combatant.getPlayer(), spawnedItem);
 			break;
 		case ARMOR:
+			this.itemSpawnerMaterial = Material.CHEST;
 			this.equipArmor(combatant.getPlayer(), spawnedItem);
 			break;			
 		}
