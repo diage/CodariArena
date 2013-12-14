@@ -1,5 +1,6 @@
 package com.codari.arena.rules;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -13,11 +14,12 @@ import com.codari.arena5.players.teams.Team;
 import com.codari.arena5.rules.wincondition.WinConditionTemplate;
 
 public class WinCondition2v2 extends WinConditionTemplate {
+	private static final long serialVersionUID = 1394895801767255729L;
 	//-----Fields------//
 	private final int NUMBER_OF_POINTS_TO_WIN;
 	private Map<String, TeamPoint> teamPoints;
 	private boolean isInitialized = false;
-	private Team winnerTeam;
+	private transient Team winnerTeam;
 
 	public WinCondition2v2(int numberOfPointsToWin) {
 		this.NUMBER_OF_POINTS_TO_WIN = numberOfPointsToWin;
@@ -73,7 +75,8 @@ public class WinCondition2v2 extends WinConditionTemplate {
 		return null;
 	}
 
-	private class TeamPoint {
+	private class TeamPoint implements Serializable {
+		private static final long serialVersionUID = -8564239362109356955L;
 		private int points;
 
 		public TeamPoint() {
