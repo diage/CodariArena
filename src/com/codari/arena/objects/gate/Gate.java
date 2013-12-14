@@ -1,4 +1,4 @@
-package com.codari.arena.objects.gates;
+package com.codari.arena.objects.gate;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
