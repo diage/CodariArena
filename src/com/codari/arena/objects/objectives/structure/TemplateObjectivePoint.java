@@ -29,11 +29,12 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	private int numberOfBaseBeaconBlocks = 9;
 	protected transient BlockState[] beaconBaseStates = new BlockState[numberOfBaseBeaconBlocks];
 	private transient BlockState beaconState;
+	private transient BlockState[] glassBeam;
 	private SerializableBlock serialBeaconBase;
 
 	//---Beacon Materials---//
 	private Material beaconMaterial = Material.BEACON;
-	protected Material beaconBaseMaterial = Material.IRON_BLOCK; 
+	protected Material beaconBaseMaterial = Material.IRON_BLOCK;
 
 	private boolean isSpawned;
 	private transient Team team;
@@ -56,10 +57,17 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		this.beaconBaseStates[6] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH_WEST).getState();
 		this.beaconBaseStates[7] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH).getState();
 		this.beaconBaseStates[8] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH_EAST).getState();
+		
+		int glassHeight = this.beaconState.getWorld().getMaxHeight() - this.beaconState.getY();
+		this.glassBeam = new BlockState[glassHeight];
+		for (int i = 0; i < this.glassBeam.length; i++) {
+			this.glassBeam[i] = this.beaconState.getBlock().getRelative(BlockFace.UP, 41).getState();
+		}
 
 		this.serialBeaconBase = new SerializableBlock(this.beaconBaseStates[0]);
 		
 		this.areaOfEffect = new AoE(player.getLocation(), radius, this);
+		
 	}
 	
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
@@ -79,6 +87,12 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		this.beaconBaseStates[6] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH_WEST).getState();
 		this.beaconBaseStates[7] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH).getState();
 		this.beaconBaseStates[8] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH_EAST).getState();
+		
+		int glassHeight = this.beaconState.getWorld().getMaxHeight() - this.beaconState.getY();
+		this.glassBeam = new BlockState[glassHeight];
+		for (int i = 0; i < this.glassBeam.length; i++) {
+			this.glassBeam[i] = this.beaconState.getBlock().getRelative(BlockFace.UP, 41).getState();
+		}
 	}
 
 	//-----Getters-----//
@@ -101,16 +115,24 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	@Override
 	public void reveal() {
 		this.beaconState.getBlock().setType(beaconMaterial);
-		for(BlockState states : this.beaconBaseStates) {
-			states.getBlock().setType(beaconBaseMaterial);
-		}	
+		for (BlockState state : this.beaconBaseStates) {
+			state.getBlock().setType(beaconBaseMaterial);
+		}
+		for (BlockState state : this.glassBeam) {
+			if (state.getType() != Material.AIR) {
+				state.getBlock().setType(Material.GLASS);
+			}
+		}
 	}
 
 	@Override
 	public void hide() {
 		this.beaconState.update(true);
-		for(BlockState states : this.beaconBaseStates) {
+		for (BlockState states : this.beaconBaseStates) {
 			states.update(true);
+		}
+		for (BlockState state : this.glassBeam) {
+			state.update(true);
 		}
 		this.areaOfEffect.setDeactive();	
 		this.resetCapturePointProgress();
