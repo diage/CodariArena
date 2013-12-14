@@ -200,8 +200,8 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 
 	private void resetCapturePointProgress() {
 		if(this.team != null) {
-			for(Combatant combatant : this.team.combatants()) {
-				combatant.getPlayer().setExp(0);
+			for(Player player : this.team.getPlayers()) {
+				player.setExp(0);
 			}
 		}
 		this.team = null;
