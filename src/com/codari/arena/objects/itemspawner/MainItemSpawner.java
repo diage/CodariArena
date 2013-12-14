@@ -67,9 +67,12 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 
 	@Override
 	public void reveal() {
-		itemSpawnerBlockState.getBlock().setType(itemSpawnerMaterial);
 		ItemSpawnerListener.stopPhysics(this.itemSpawnerBlockState.getBlock());
 		this.spawnItem();
+		BlockState lowerState = this.itemSpawnerBlockState.getBlock().getRelative(BlockFace.DOWN).getState();
+		lowerState.getBlock().setType(Material.GLASS);
+		itemSpawnerBlockState.getBlock().setType(itemSpawnerMaterial);
+		lowerState.update(true);
 		this.areaOfEffect.setActive();
 	}
 

@@ -1,5 +1,6 @@
 package com.codari.arena.objects.traps.structure;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.bukkit.block.Block;
@@ -88,10 +89,11 @@ public class TrapListener extends ObjectListener implements Listener {
 	}
 
 	private void clearTeams(List<Player> players, Team team) {
-		for(Player player : players) {
+		for(Iterator<Player> pI = players.iterator();pI.hasNext();) {
+			Player player = pI.next();
 			Combatant combatant = Codari.getArenaManager().getCombatant(player);
 			if(Codari.getArenaManager().getTeam(combatant).equals(team)) {
-				players.remove(player);
+				pI.remove();
 			}
 		}
 	}
