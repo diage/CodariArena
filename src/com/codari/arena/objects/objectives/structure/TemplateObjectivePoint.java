@@ -1,11 +1,15 @@
 package com.codari.arena.objects.objectives.structure;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
@@ -20,20 +24,20 @@ import com.codari.arena5.players.teams.Team;
 import com.codari.arena5.rules.wincondition.WinConditionTemplate;
 
 public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA implements ObjectivePoint{
+	private static final long serialVersionUID = -5747948050563169564L;
 	//-----Fields-----//
 	//---Block Configuration---//
 	private int numberOfBaseBeaconBlocks = 9;
-	private Block[] beaconBaseBlock = new Block[numberOfBaseBeaconBlocks];
-	protected BlockState[] beaconBaseStates = new BlockState[numberOfBaseBeaconBlocks];
-	private Block beaconBlock;
-	private BlockState beaconState;
+	protected transient BlockState[] beaconBaseStates = new BlockState[numberOfBaseBeaconBlocks];
+	private transient BlockState beaconState;
+	private SerializableBlock serialBeaconBase;
 
 	//---Beacon Materials---//
 	private Material beaconMaterial = Material.BEACON;
 	protected Material beaconBaseMaterial = Material.IRON_BLOCK; 
 
 	private boolean isSpawned;
-	private Team team;
+	private transient Team team;
 	private int teamSize = 2;
 
 	//---Initialized in Constructor---//
@@ -43,24 +47,39 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 
 	public TemplateObjectivePoint(Player player, double radius) {
 		//Block positions
-		this.beaconBlock = player.getLocation().getBlock();
-		this.beaconBaseBlock[0] = beaconBlock.getRelative(BlockFace.DOWN);
-		this.beaconBaseBlock[1] = beaconBaseBlock[0].getRelative(BlockFace.NORTH_WEST);
-		this.beaconBaseBlock[2] = beaconBaseBlock[0].getRelative(BlockFace.NORTH);
-		this.beaconBaseBlock[3] = beaconBaseBlock[0].getRelative(BlockFace.NORTH_EAST);
-		this.beaconBaseBlock[4] = beaconBaseBlock[0].getRelative(BlockFace.WEST);
-		this.beaconBaseBlock[5] = beaconBaseBlock[0].getRelative(BlockFace.EAST);
-		this.beaconBaseBlock[6] = beaconBaseBlock[0].getRelative(BlockFace.SOUTH_WEST);
-		this.beaconBaseBlock[7] = beaconBaseBlock[0].getRelative(BlockFace.SOUTH);
-		this.beaconBaseBlock[8] = beaconBaseBlock[0].getRelative(BlockFace.SOUTH_EAST);
+		this.beaconState = player.getLocation().getBlock().getState();
+		this.beaconBaseStates[0] = beaconState.getBlock().getRelative(BlockFace.DOWN).getState();
+		this.beaconBaseStates[1] = beaconBaseStates[0].getBlock().getRelative(BlockFace.NORTH_WEST).getState();
+		this.beaconBaseStates[2] = beaconBaseStates[0].getBlock().getRelative(BlockFace.NORTH).getState();
+		this.beaconBaseStates[3] = beaconBaseStates[0].getBlock().getRelative(BlockFace.NORTH_EAST).getState();
+		this.beaconBaseStates[4] = beaconBaseStates[0].getBlock().getRelative(BlockFace.WEST).getState();
+		this.beaconBaseStates[5] = beaconBaseStates[0].getBlock().getRelative(BlockFace.EAST).getState();
+		this.beaconBaseStates[6] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH_WEST).getState();
+		this.beaconBaseStates[7] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH).getState();
+		this.beaconBaseStates[8] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH_EAST).getState();
 
-		//States for block positions
-		this.beaconState = this.beaconBlock.getState();
-		for(int i = 0; i < beaconBaseStates.length; i++) {
-			this.beaconBaseStates[i] = this.beaconBaseBlock[i].getState();
+		this.serialBeaconBase = new SerializableBlock(this.beaconBaseStates[0]);
+		
+		this.areaOfEffect = new AoE(player.getLocation(), radius, this);
+	}
+	
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		World world = Bukkit.getWorld(this.serialBeaconBase.worldName);
+		if (world == null) {
+			throw new IllegalStateException("World named " + this.serialBeaconBase.worldName + " is not loaded");
 		}
-
-		areaOfEffect = new AoE(player.getLocation(), radius, this);
+		
+		this.beaconBaseStates[0] = world.getBlockAt(this.serialBeaconBase.x, this.serialBeaconBase.y, this.serialBeaconBase.z).getState();
+		this.beaconState = this.beaconBaseStates[0].getBlock().getRelative(BlockFace.UP).getState();
+		this.beaconBaseStates[1] = beaconBaseStates[0].getBlock().getRelative(BlockFace.NORTH_WEST).getState();
+		this.beaconBaseStates[2] = beaconBaseStates[0].getBlock().getRelative(BlockFace.NORTH).getState();
+		this.beaconBaseStates[3] = beaconBaseStates[0].getBlock().getRelative(BlockFace.NORTH_EAST).getState();
+		this.beaconBaseStates[4] = beaconBaseStates[0].getBlock().getRelative(BlockFace.WEST).getState();
+		this.beaconBaseStates[5] = beaconBaseStates[0].getBlock().getRelative(BlockFace.EAST).getState();
+		this.beaconBaseStates[6] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH_WEST).getState();
+		this.beaconBaseStates[7] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH).getState();
+		this.beaconBaseStates[8] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH_EAST).getState();
 	}
 
 	//-----Getters-----//
@@ -169,7 +188,6 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	private boolean incrementCapturePoint() {
 		this.pointCounter++;
 		if(this.pointCounter >= this.numberOfPointsToCaptureObjectivePoint) {
-			//this.resetCapturePointProgress(); LOL....................
 			this.awardObjective();
 			this.resetCapturePointProgress();
 			this.hide();
@@ -188,5 +206,18 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 			}
 		}
 		this.team = null;
+	}
+	
+	private class SerializableBlock implements Serializable {
+		private static final long serialVersionUID = 2328738181942000204L;
+		private int x, y, z;
+		private String worldName;
+		
+		public SerializableBlock(BlockState blockState) {
+			this.worldName = blockState.getWorld().getName();
+			this.x = blockState.getX();
+			this.y = blockState.getY();
+			this.z = blockState.getZ();
+		}
 	}
 }
