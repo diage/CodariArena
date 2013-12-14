@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.codari.api5.Codari;
+import com.codari.api5.CodariI;
 import com.codari.arena.ArenaStatics;
 import com.codari.arena.objects.RandomSpawnableObjectA;
 import com.codari.arena.objects.itemspawner.chooser.ItemChooser;
@@ -69,10 +70,15 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 	public void reveal() {
 		ItemSpawnerListener.stopPhysics(this.itemSpawnerBlockState.getBlock());
 		this.spawnItem();
-		BlockState lowerState = this.itemSpawnerBlockState.getBlock().getRelative(BlockFace.DOWN).getState();
+		final BlockState lowerState = this.itemSpawnerBlockState.getBlock().getRelative(BlockFace.DOWN).getState();
 		lowerState.getBlock().setType(Material.GLASS);
 		itemSpawnerBlockState.getBlock().setType(itemSpawnerMaterial);
-		lowerState.update(true);
+		Bukkit.getScheduler().runTask(CodariI.INSTANCE, new Runnable() {
+			@Override
+			public void run() {
+				lowerState.update(true);
+			}
+		});
 		this.areaOfEffect.setActive();
 	}
 
