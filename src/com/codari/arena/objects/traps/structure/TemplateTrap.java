@@ -44,7 +44,7 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 	private AoE areaOfEffect;
 	
 	//---Initialized when trap is activated---//
-	private Team team;
+	private transient Team team;
 	private boolean isSpawned;
 
 	//-----Constructor-----//

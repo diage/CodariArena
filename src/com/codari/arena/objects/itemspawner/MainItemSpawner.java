@@ -1,7 +1,12 @@
 package com.codari.arena.objects.itemspawner;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
+import org.bukkit.World;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
@@ -17,9 +22,10 @@ import com.codari.arena5.players.combatants.Combatant;
 
 @ArenaObjectName("Item_Spawner")
 public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawner {
+	private static final long serialVersionUID = 5092060018825234373L;
 	//-----Fields-----//
-	private Block itemSpawnerBlock;
 	private BlockState itemSpawnerBlockState;
+	private final SerializableBlock serialIndicator;
 	protected Material itemSpawnerMaterial = Material.DIAMOND_BLOCK;
 	private boolean isSpawned;
 	public static ItemChooser itemChooser = new ItemChooser();
@@ -28,10 +34,18 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 	private AoE areaOfEffect;
 
 	public MainItemSpawner(Player player) {
-		this.itemSpawnerBlock = player.getLocation().getBlock().getRelative(BlockFace.UP, 4);
-		this.itemSpawnerBlockState = this.itemSpawnerBlock.getState();
-
-		this.areaOfEffect = new AoE(player.getLocation().getBlock().getRelative(BlockFace.UP, 4).getLocation(), 1, this);
+		this.itemSpawnerBlockState = player.getLocation().getBlock().getRelative(BlockFace.UP, 4).getState();
+		this.serialIndicator = new SerializableBlock(this.itemSpawnerBlockState);
+		this.areaOfEffect = new AoE(this.itemSpawnerBlockState.getBlock().getLocation(), 1, this);
+	}
+	
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		World world = Bukkit.getWorld(this.serialIndicator.worldName);
+		if (world == null) {
+			throw new IllegalStateException("World named " + this.serialIndicator.worldName + " is not loaded");
+		}
+		this.itemSpawnerBlockState = world.getBlockAt(this.serialIndicator.x, this.serialIndicator.y, this.serialIndicator.z).getState();
 	}
 
 	//-----Getters-----//
@@ -134,5 +148,18 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 
 	private void addWeaponToInventory(Player player, ItemStack itemStack) {
 		player.getInventory().setItem(1, itemStack);
+	}
+	
+	@SuppressWarnings("serial")
+	private class SerializableBlock implements Serializable {
+		private int x, y, z;
+		private String worldName;
+		
+		public SerializableBlock(BlockState blockState) {
+			this.worldName = blockState.getWorld().getName();
+			this.x = blockState.getX();
+			this.y = blockState.getY();
+			this.z = blockState.getZ();
+		}
 	}
 }
