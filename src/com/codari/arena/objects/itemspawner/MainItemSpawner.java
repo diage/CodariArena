@@ -133,7 +133,7 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 			this.itemSpawnerMaterial = Material.BREWING_STAND;
 			break;
 		case WEAPON:
-			this.itemSpawnerMaterial = Material.ANVIL;
+			this.itemSpawnerMaterial = Material.ENCHANTMENT_TABLE;
 			break;
 		case ARMOR:
 			this.itemSpawnerMaterial = Material.CHEST;
