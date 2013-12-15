@@ -63,8 +63,8 @@ public class TrapListener extends ObjectListener implements Listener {
 				}
 				if (trapValue != null && trapValue.asBoolean()) {
 					Combatant combatant = Codari.getArenaManager().getCombatant(e.getPlayer());
+					trap.setTeam(combatant.getTeam());
 					trap.set();
-					trap.setTeam(Codari.getArenaManager().getTeam(combatant));
 				}
 			}
 		}

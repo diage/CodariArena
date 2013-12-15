@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.codari.api5.Codari;
-import com.codari.api5.CodariI;
 import com.codari.arena.ArenaStatics;
 import com.codari.arena.objects.RandomSpawnableObjectA;
 import com.codari.arena.objects.itemspawner.chooser.ItemChooser;

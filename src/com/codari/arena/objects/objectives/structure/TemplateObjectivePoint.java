@@ -37,6 +37,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	protected Material beaconBaseMaterial = Material.IRON_BLOCK;
 
 	private boolean isSpawned;
+	private static boolean OBJECTIVE_POINT_SPAWNED;
 	private transient Team team;
 	private int teamSize = 2;
 
@@ -57,7 +58,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		this.beaconBaseStates[6] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH_WEST).getState();
 		this.beaconBaseStates[7] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH).getState();
 		this.beaconBaseStates[8] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH_EAST).getState();
-		
+
 		int glassHeight = this.beaconState.getWorld().getMaxHeight() - this.beaconState.getY();
 		this.glassBeam = new BlockState[glassHeight];
 		for (int i = 0; i < this.glassBeam.length; i++) {
@@ -65,20 +66,20 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		}
 
 		this.serialBeaconBase = new SerializableBlock(this.beaconBaseStates[0]);
-		
+
 		this.areaOfEffect = new AoE(player.getLocation(), radius, this);
-		
+
 	}
-	
+
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 		in.defaultReadObject();
 		World world = Bukkit.getWorld(this.serialBeaconBase.worldName);
 		if (world == null) {
 			throw new IllegalStateException("World named " + this.serialBeaconBase.worldName + " is not loaded");
 		}
-		
+
 		this.beaconBaseStates = new BlockState[9];
-		
+
 		this.beaconBaseStates[0] = world.getBlockAt(this.serialBeaconBase.x, this.serialBeaconBase.y, this.serialBeaconBase.z).getState();
 		this.beaconState = this.beaconBaseStates[0].getBlock().getRelative(BlockFace.UP).getState();
 		this.beaconBaseStates[1] = beaconBaseStates[0].getBlock().getRelative(BlockFace.NORTH_WEST).getState();
@@ -89,7 +90,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		this.beaconBaseStates[6] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH_WEST).getState();
 		this.beaconBaseStates[7] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH).getState();
 		this.beaconBaseStates[8] = beaconBaseStates[0].getBlock().getRelative(BlockFace.SOUTH_EAST).getState();
-		
+
 		int glassHeight = this.beaconState.getWorld().getMaxHeight() - this.beaconState.getY();
 		this.glassBeam = new BlockState[glassHeight];
 		for (int i = 0; i < this.glassBeam.length; i++) {
@@ -109,9 +110,12 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	//---Fixed Spawnable Object Methods---//
 	@Override
 	public void spawn() {	
-		this.isSpawned = true;
-		this.reveal();
-		this.areaOfEffect.setActive();
+		if(!OBJECTIVE_POINT_SPAWNED) {
+			OBJECTIVE_POINT_SPAWNED = true;
+			this.isSpawned = true;
+			this.reveal();
+			this.areaOfEffect.setActive();
+		} 
 	}
 
 	@Override
@@ -139,8 +143,9 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		this.areaOfEffect.setDeactive();	
 		this.resetCapturePointProgress();
 		this.isSpawned = false;
+		OBJECTIVE_POINT_SPAWNED = false;
 	}	
-	
+
 	@Override
 	public boolean isSpawned() {
 		return this.isSpawned;
@@ -166,11 +171,11 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	@Override
 	public void combatantOn(List<Player> players) {
 		Team team = Codari.getArenaManager().getTeam(Codari.getArenaManager().getCombatant(players.get(0)));	
-		
+
 		if(!(this.checkSameTeam(players))) {
 			return;
 		}
-		
+
 		if(this.getTeam() == null || !this.getTeam().equals(team)) {
 			this.combatantOff();
 			this.setTeam(team);
@@ -180,7 +185,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 			}	
 		}
 	}
-	
+
 	@Override
 	public void awardPoints(int points) {
 		Bukkit.broadcastMessage(this.team.getTeamName() + " is being awarded with " + points + " points!");
@@ -230,12 +235,12 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		}
 		this.team = null;
 	}
-	
+
 	private class SerializableBlock implements Serializable {
 		private static final long serialVersionUID = 2328738181942000204L;
 		private int x, y, z;
 		private String worldName;
-		
+
 		public SerializableBlock(BlockState blockState) {
 			this.worldName = blockState.getWorld().getName();
 			this.x = blockState.getX();

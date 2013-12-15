@@ -40,8 +40,7 @@ public class DamageReductionSkill implements Skill {
 		if(players.size() > 1) {
 			for(Player targetPlayer: players) {
 				if(!(Codari.getArenaManager().getTeam(Codari.getArenaManager().getCombatant(targetPlayer)).getTeamName().equals(team.getTeamName()))) {
-					double currentHealth = targetPlayer.getHealth();
-					targetPlayer.setHealth(currentHealth - damageDoneToNearbyEnemies);
+					targetPlayer.damage(damageDoneToNearbyEnemies, player);
 				} 
 			}
 		}
