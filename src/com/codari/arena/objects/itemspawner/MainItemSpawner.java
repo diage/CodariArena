@@ -142,7 +142,7 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 
 	private void addPotionToInventory(Player player, ItemStack itemStack) {
 		ItemStack[] items = player.getInventory().getContents();
-		for(int i = 0; i < 5; i++) {
+		for(int i = 1; i < 6; i++) {
 			if(items[i] == null) {
 				player.getInventory().setItem(i, itemStack/*=)*/);
 				return;
@@ -189,7 +189,7 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 	} 
 
 	private void addWeaponToInventory(Player player, ItemStack itemStack) {
-		player.getInventory().setItem(1, itemStack);
+		player.getInventory().setItem(7, itemStack);
 	}
 	
 	@SuppressWarnings("serial")

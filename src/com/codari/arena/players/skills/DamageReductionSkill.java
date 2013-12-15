@@ -48,7 +48,7 @@ public class DamageReductionSkill implements Skill {
 
 	@Override
 	public SkillActivation getSkillActivation() {
-		return SkillActivation.BLOCK;
+		return SkillActivation.SKILL;
 	}
 	
 	private List<Player> editList(List<Entity> entities) { 

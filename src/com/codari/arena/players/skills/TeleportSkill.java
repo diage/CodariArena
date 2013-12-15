@@ -41,7 +41,7 @@ public class TeleportSkill implements Skill {
 
 	@Override
 	public SkillActivation getSkillActivation() {
-		return SkillActivation.SPRINT;
+		return SkillActivation.SKILL;
 	}
 
 }
