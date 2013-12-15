@@ -70,15 +70,7 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 	public void reveal() {
 		ItemSpawnerListener.stopPhysics(this.itemSpawnerBlockState.getBlock());
 		this.spawnItem();
-		final BlockState lowerState = this.itemSpawnerBlockState.getBlock().getRelative(BlockFace.DOWN).getState();
-		lowerState.getBlock().setType(Material.GLASS);
 		itemSpawnerBlockState.getBlock().setType(itemSpawnerMaterial);
-		Bukkit.getScheduler().runTask(CodariI.INSTANCE, new Runnable() {
-			@Override
-			public void run() {
-				lowerState.update(true);
-			}
-		});
 		this.areaOfEffect.setActive();
 	}
 
