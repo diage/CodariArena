@@ -2,6 +2,7 @@ package com.codari.arena.players.roleswitch;
 
 import org.bukkit.inventory.ItemStack;
 
+import com.codari.arena.ArenaStatics;
 import com.codari.arena5.players.combatants.Combatant;
 
 public class RoleSwitch {
@@ -10,7 +11,7 @@ public class RoleSwitch {
 	
 	public static void createRoleSwitchObject(Combatant combatant) {
 		ItemStack roleSwitchObject;
-		if(combatant.getRole().getName().equalsIgnoreCase("Melee")) {
+		if(combatant.getRole().getName().equalsIgnoreCase(ArenaStatics.MELEE)) {
 			roleSwitchObject = RoleObjectItemTypes.MELEE.getItemStack();
 		} else {
 			roleSwitchObject = RoleObjectItemTypes.RANGED.getItemStack();

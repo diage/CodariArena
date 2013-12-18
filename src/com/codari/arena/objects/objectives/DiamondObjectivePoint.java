@@ -31,7 +31,7 @@ public class DiamondObjectivePoint extends TemplateObjectivePoint {
 		for(Player player : super.getTeam().getPlayers() ) {
 			player.addPotionEffect(potionEffectFast);
 			player.setLevel(player.getLevel() + this.NUMBER_OF_POINTS_AWARDED);
-			super.awardPoints(this.NUMBER_OF_POINTS_AWARDED);
 		}
+		super.awardPoints(this.NUMBER_OF_POINTS_AWARDED);
 	}
 }

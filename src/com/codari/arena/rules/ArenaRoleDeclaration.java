@@ -8,7 +8,8 @@ import com.codari.arena5.players.role.Role;
 import com.codari.arena5.rules.roledelegation.RoleDeclaration;
 
 public class ArenaRoleDeclaration implements RoleDeclaration {
-	
+	private static final long serialVersionUID = 4136022499205468835L;
+
 	@Override
 	public String initalizeRoles() {
 		Role meleeRole = Codari.getArenaManager().getNewRole(ArenaStatics.MELEE).addSkill(new DamageReductionSkill());
