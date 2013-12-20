@@ -77,6 +77,8 @@ public class RoleHotbarListener implements Listener {
 					teamMate.getPlayer().getInventory().setItem(sloter, RoleObjectItemTypes.RANGED.getItemStack());
 					player.getInventory().setItem(sloter, RoleObjectItemTypes.MELEE.getItemStack());
 				}
+				teamMatePlayer.updateInventory();
+				player.updateInventory();
 			} else {
 				String roleSwitchMessage = "Your teamate would like to switch roles with you. Right click the role switch icon on the "
 						+ "first slot of your hotbar if you would like to switch.";
