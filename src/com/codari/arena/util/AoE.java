@@ -69,13 +69,13 @@ public class AoE implements Serializable{
 		BukkitRunnable runner = new BukkitRunnable() {
 			@Override
 			public void run() {
+				if(!active) {
+					super.cancel();
+				}				
 				List<Entity> nearby;
 				nearby = calculate(radius);
 				if(nearby.size() > 0) {
 					Bukkit.getPluginManager().callEvent(new AoeTriggerEvent(location, nearby, arenaObject));
-				}
-				if(!active) {
-					super.cancel();
 				}
 			}
 		};
