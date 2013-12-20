@@ -3,6 +3,7 @@ package com.codari.arena.util;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -31,6 +32,7 @@ public class AoE implements Serializable{
 		this.location = location;
 		this.radius = radius;
 		this.arenaObject = arenaObject;
+		this.nearbyEntities = new ArrayList<>();
 		
 		this.serialLocation = new SerializableLocation(this.location);
 	}
@@ -50,24 +52,27 @@ public class AoE implements Serializable{
 	}
 	
 	public void setDeactive() {
+		Bukkit.broadcastMessage("AoE in the " + arenaObject.getClass().getSimpleName() + " is being turned off.");
 		this.active = false;
 	}	
 	
-	private void calculate(double radius) {
+	private List<Entity> calculate(double radius) {
 		World world = this.location.getWorld();
 		Slime anchor = world.spawn(this.location, Slime.class);
 		anchor.setSize(0);
 		this.nearbyEntities = anchor.getNearbyEntities(this.radius, this.radius, this.radius);
 		anchor.remove();
+		return this.nearbyEntities;
 	}
 	
 	private void run() {
 		BukkitRunnable runner = new BukkitRunnable() {
 			@Override
 			public void run() {
-				calculate(radius);
-				if(nearbyEntities.size() > 0) {
-					Bukkit.getPluginManager().callEvent(new AoeTriggerEvent(location, nearbyEntities, arenaObject));
+				List<Entity> nearby;
+				nearby = calculate(radius);
+				if(nearby.size() > 0) {
+					Bukkit.getPluginManager().callEvent(new AoeTriggerEvent(location, nearby, arenaObject));
 				}
 				if(!active) {
 					super.cancel();

@@ -69,7 +69,7 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 	public void reveal() {
 		ItemSpawnerListener.stopPhysics(this.itemSpawnerBlockState.getBlock());
 		this.spawnItem();
-		itemSpawnerBlockState.getBlock().setType(itemSpawnerMaterial);
+		this.itemSpawnerBlockState.getBlock().setType(itemSpawnerMaterial);
 		this.areaOfEffect.setActive();
 	}
 
