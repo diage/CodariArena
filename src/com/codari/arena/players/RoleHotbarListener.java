@@ -48,6 +48,7 @@ public class RoleHotbarListener implements Listener {
 		e.getCombatant().setHotbarCooldown(GLOBAL_COOLDOWN);
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void activateRoleSwitch(HotbarSelectEvent e) {
 		Player player, teamMatePlayer;
 		Combatant combatant, teamMate;
