@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 
 import com.codari.api5.Codari;
 import com.codari.arena.ArenaStatics;
-import com.codari.arena5.arena.ArenaStartEvent;
+import com.codari.arena5.arena.events.ArenaStartEvent;
 import com.codari.arena5.players.teams.Team;
 
 /*TODO:

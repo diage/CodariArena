@@ -4,8 +4,8 @@ import com.codari.api5.Codari;
 import com.codari.arena.ArenaStatics;
 import com.codari.arena.players.skills.DamageReductionSkill;
 import com.codari.arena.players.skills.TeleportSkill;
+import com.codari.arena5.arena.rules.roledelegation.RoleDeclaration;
 import com.codari.arena5.players.role.Role;
-import com.codari.arena5.rules.roledelegation.RoleDeclaration;
 
 public class ArenaRoleDeclaration implements RoleDeclaration {
 	private static final long serialVersionUID = 4136022499205468835L;

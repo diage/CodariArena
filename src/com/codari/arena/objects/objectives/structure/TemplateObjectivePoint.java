@@ -18,9 +18,9 @@ import com.codari.api5.Codari;
 import com.codari.arena.objects.RandomSpawnableObjectA;
 import com.codari.arena.rules.WinCondition2v2;
 import com.codari.arena.util.AoE;
+import com.codari.arena5.arena.rules.wincondition.WinCondition;
 import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.teams.Team;
-import com.codari.arena5.rules.wincondition.WinConditionTemplate;
 
 public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA implements ObjectivePoint{
 	private static final long serialVersionUID = -5747948050563169564L;
@@ -189,8 +189,8 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	@Override
 	public void awardPoints(int points) {
 		Bukkit.broadcastMessage(this.team.getTeamName() + " is being awarded with " + points + " points!");
-		Collection<WinConditionTemplate> winConditions = this.getTeam().getArena().getGameRule().getWinConditions();
-		for(WinConditionTemplate winCondition : winConditions) {
+		Collection<WinCondition> winConditions = this.getTeam().getArena().getGameRule().getWinConditions();
+		for(WinCondition winCondition : winConditions) {
 			if(winCondition instanceof WinCondition2v2) {
 				((WinCondition2v2) winCondition).incrementPoints(this.team.getArena(), this.team, points);
 			}
