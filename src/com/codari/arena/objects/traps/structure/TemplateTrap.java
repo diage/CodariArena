@@ -9,6 +9,7 @@ import javax.xml.crypto.NoSuchMechanismException;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -98,8 +99,8 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 	@SuppressWarnings("deprecation")
 	@Override
 	public void reveal() {
-		this.trapState.getBlock().setType(revealedTrapMaterial);
-		this.trapIndicatorState.getBlock().setType(revealedTrapIndicatorMaterial);
+		this.trapState.getBlock().setType(this.revealedTrapMaterial);
+		this.trapIndicatorState.getBlock().setType(this.revealedTrapIndicatorMaterial);
 		this.trapIndicatorState.getBlock().setData(this.clayStoneMetaDataValue);
 	}	
 
@@ -109,6 +110,7 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 		this.trapIndicatorState.update(true);
 		this.areaOfEffect.setDeactive();
 		this.isSpawned = false;
+		Bukkit.broadcastMessage(ChatColor.DARK_PURPLE + "IT'S A TRAP!! " + this.toString());
 	}
 	
 	@Override

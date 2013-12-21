@@ -9,9 +9,9 @@ import java.util.Map;
 import org.bukkit.entity.Player;
 
 import com.codari.arena5.arena.Arena;
+import com.codari.arena5.arena.rules.wincondition.WinConditionTemplate;
 import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.teams.Team;
-import com.codari.arena5.rules.wincondition.WinConditionTemplate;
 
 public class WinCondition2v2 extends WinConditionTemplate {
 	private static final long serialVersionUID = 1394895801767255729L;
