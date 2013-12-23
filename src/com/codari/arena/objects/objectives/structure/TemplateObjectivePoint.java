@@ -211,7 +211,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		}
 		for(Player player : players) {
 			compareTeam = Codari.getArenaManager().getTeam(Codari.getArenaManager().getCombatant(player));
-			if(!(compareTeam.equals(teamOfFirstPlayer))) {	//TODO - correct equals needs to be implemented
+			if(!(compareTeam.equals(teamOfFirstPlayer))) {	
 				return false;
 			}
 		}

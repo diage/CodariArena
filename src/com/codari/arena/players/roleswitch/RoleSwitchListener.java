@@ -1,7 +1,5 @@
 package com.codari.arena.players.roleswitch;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -64,7 +62,7 @@ public class RoleSwitchListener implements Listener {
 //	}
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerJoinArena(ArenaStartEvent e) {
-		for(String teamName : e.getArena().getTeams().keySet()) {	//FIXME
+		for(String teamName : e.getArena().getTeams().keySet()) {	//FIXME - fix the iteration through the keyset
 			Team team = e.getArena().getTeams().get(teamName);	
 			team.combatants().get(0).setRole(Codari.getArenaManager().getExistingRole(ArenaStatics.ARENA_NAME, ArenaStatics.MELEE));
 			team.combatants().get(1).setRole(Codari.getArenaManager().getExistingRole(ArenaStatics.ARENA_NAME, ArenaStatics.RANGED));			

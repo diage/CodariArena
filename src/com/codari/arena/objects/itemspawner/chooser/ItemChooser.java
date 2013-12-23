@@ -300,7 +300,7 @@ public class ItemChooser {
 		case 0:
 		case 1:
 		case 2:
-			itemStack.addUnsafeEnchantment(this.itemEnchantments[RANGED_ARMOR][0], 1);	//TODO - needs testing
+			itemStack.addUnsafeEnchantment(this.itemEnchantments[RANGED_ARMOR][0], 1);	
 			break;			
 		case 3:
 		case 4:
