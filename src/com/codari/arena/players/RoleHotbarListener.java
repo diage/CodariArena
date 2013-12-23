@@ -56,12 +56,12 @@ public class RoleHotbarListener implements Listener {
 		player = e.getCombatant().getPlayer();
 		combatant = e.getCombatant();
 		teamMateCombatant = combatant.getTeam().getTeamMates(combatant).get(0);
-
+		
 		if(teamMateCombatant != null) {
+			Bukkit.broadcastMessage(ChatColor.BLUE + "Your teamate is " + teamMateCombatant.getPlayer().getName());
 			ItemStack playerRoleSwitchItem, teamMateRoleSwitchItem;
 			Enchantment enchantment = Enchantment.SILK_TOUCH;
 			int sloter = e.getOption().getInventorySlot();
-			Bukkit.broadcastMessage("Sloter is slot " + sloter); //TODO
 			teamMatePlayer = teamMateCombatant.getPlayer();
 			playerRoleSwitchItem = e.getItem();
 			teamMateRoleSwitchItem = teamMatePlayer.getInventory().getItem(sloter);

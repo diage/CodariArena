@@ -38,6 +38,7 @@ public class TrapListener extends ObjectListener implements Listener {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	//Check for activation
 	public void triggerInteractEvent(PlayerInteractEvent e) { 
