@@ -63,7 +63,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		int glassHeight = this.beaconState.getWorld().getMaxHeight() - this.beaconState.getY();
 		this.glassBeam = new BlockState[glassHeight];
 		for (int i = 0; i < this.glassBeam.length; i++) {
-			this.glassBeam[i] = this.beaconState.getBlock().getRelative(BlockFace.UP, 41).getState();
+			this.glassBeam[i] = this.beaconState.getBlock().getRelative(BlockFace.UP, 1 + i).getState();
 		}
 
 		this.serialBeaconBase = new SerializableBlock(this.beaconBaseStates[0]);
@@ -96,7 +96,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		int glassHeight = this.beaconState.getWorld().getMaxHeight() - this.beaconState.getY();
 		this.glassBeam = new BlockState[glassHeight];
 		for (int i = 0; i < this.glassBeam.length; i++) {
-			this.glassBeam[i] = this.beaconState.getBlock().getRelative(BlockFace.UP, 41).getState();
+			this.glassBeam[i] = this.beaconState.getBlock().getRelative(BlockFace.UP, 1 + i).getState();
 		}
 		
 		this.areaOfEffect = new AoE(this.beaconState.getLocation(), this.radius, this);
