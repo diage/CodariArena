@@ -42,7 +42,8 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 	protected byte clayStoneMetaDataValue = 0;
 
 	//---Initialized in Constructor---//
-	private AoE areaOfEffect;
+	private double radius;
+	private transient AoE areaOfEffect;
 	
 	//---Initialized when trap is activated---//
 	private transient Team team;
@@ -61,6 +62,7 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 		this.serialIndicator = new SerializableBlock(this.trapIndicatorState);
 
 		//Create new AoE
+		this.radius = radius;
 		this.areaOfEffect = new AoE(player.getLocation(), radius, this);
 	}
 	
@@ -72,6 +74,8 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 		}
 		this.trapIndicatorState = world.getBlockAt(this.serialIndicator.x, this.serialIndicator.y, this.serialIndicator.z).getState();
 		this.trapState = this.trapIndicatorState.getBlock().getRelative(BlockFace.UP).getState();
+		
+		this.areaOfEffect = new AoE(this.trapState.getLocation(), radius, this);
 	}
 	
 	//-----Getters-----//

@@ -37,7 +37,7 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 	public static ItemChooser itemChooser = new ItemChooser();
 	
 	//---Initialized in Constructor---//
-	private AoE areaOfEffect;
+	private transient AoE areaOfEffect;
 
 	public MainItemSpawner(Player player) {
 		this.itemSpawnerBlockState = player.getLocation().getBlock().getRelative(BlockFace.UP, 4).getState();
@@ -52,6 +52,7 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 			throw new IllegalStateException("World named " + this.serialIndicator.worldName + " is not loaded");
 		}
 		this.itemSpawnerBlockState = world.getBlockAt(this.serialIndicator.x, this.serialIndicator.y, this.serialIndicator.z).getState();
+		this.areaOfEffect = new AoE(this.itemSpawnerBlockState.getBlock().getLocation(), 1, this);
 	}
 
 	//-----Getters-----//

@@ -42,7 +42,8 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	private int teamSize = 2;
 
 	//---Initialized in Constructor---//
-	private AoE areaOfEffect;
+	private double radius;
+	private transient AoE areaOfEffect;
 	private int pointCounter = 0;
 	protected int numberOfPointsToCaptureObjectivePoint = 100;
 
@@ -66,7 +67,8 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		}
 
 		this.serialBeaconBase = new SerializableBlock(this.beaconBaseStates[0]);
-
+		
+		this.radius = radius;
 		this.areaOfEffect = new AoE(player.getLocation(), radius, this);
 
 	}
@@ -96,6 +98,8 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		for (int i = 0; i < this.glassBeam.length; i++) {
 			this.glassBeam[i] = this.beaconState.getBlock().getRelative(BlockFace.UP, 41).getState();
 		}
+		
+		this.areaOfEffect = new AoE(this.beaconState.getLocation(), this.radius, this);
 	}
 
 	//-----Getters-----//

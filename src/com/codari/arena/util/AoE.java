@@ -1,13 +1,9 @@
 package com.codari.arena.util;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -19,42 +15,19 @@ import com.codari.arena5.objects.ArenaObject;
 
 /* This class will be used to determine nearby entities around a specified location. */
 
-public class AoE implements Serializable{
-	private static final long serialVersionUID = -5025568447102872535L;
+public class AoE {
 	//-----Fields-----//
-	private transient List<Entity> nearbyEntities;
-	private transient Location location;
+	private List<Entity> nearbyEntities;
+	private Location location;
 	private double radius;
-	private transient BukkitTask task;
+	private BukkitTask task;
 	private ArenaObject arenaObject;
-	private SerializableLocation serialLocation;
 	
 	public AoE(Location location, double radius, ArenaObject arenaObject) {
-		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-		Bukkit.broadcastMessage(ChatColor.RED + "-----------------------------------");
-		Bukkit.broadcastMessage(ChatColor.RED + "===================================");
-		Bukkit.broadcastMessage(ChatColor.RED + "-----------------------------------");
-		for (int i = 0; i < stackTrace.length; i++) {
-			Bukkit.broadcastMessage(ChatColor.GREEN + stackTrace[i].toString());
-		}
-		Bukkit.broadcastMessage(ChatColor.RED + "-----------------------------------");
-		Bukkit.broadcastMessage(ChatColor.RED + "===================================");
-		Bukkit.broadcastMessage(ChatColor.RED + "-----------------------------------");
 		this.location = location;
 		this.radius = radius;
 		this.arenaObject = arenaObject;
 		this.nearbyEntities = new ArrayList<>();
-		
-		this.serialLocation = new SerializableLocation(this.location);
-	}
-	
-	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-		in.defaultReadObject();
-		World world = Bukkit.getWorld(this.serialLocation.worldName);
-		if (world == null) {
-			throw new IllegalStateException("World named " + this.serialLocation.worldName + " is not loaded");
-		}
-		this.location = world.getBlockAt(this.serialLocation.x, this.serialLocation.y, this.serialLocation.z).getLocation();
 	}
 	
 	public void setActive() {
@@ -87,18 +60,5 @@ public class AoE implements Serializable{
 		this.nearbyEntities = anchor.getNearbyEntities(this.radius, this.radius, this.radius);
 		anchor.remove();
 		return this.nearbyEntities;
-	}
-	
-	private class SerializableLocation implements Serializable {
-		private static final long serialVersionUID = 3405908171694915925L;
-		private int x, y, z;
-		private String worldName;
-		
-		public SerializableLocation(Location location) {
-			this.worldName = location.getWorld().getName();
-			this.x = location.getBlock().getX();
-			this.y = location.getBlock().getY();
-			this.z = location.getBlock().getZ();
-		}
 	}
 }
