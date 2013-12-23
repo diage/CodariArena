@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -29,6 +30,16 @@ public class AoE implements Serializable{
 	private SerializableLocation serialLocation;
 	
 	public AoE(Location location, double radius, ArenaObject arenaObject) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		Bukkit.broadcastMessage(ChatColor.RED + "-----------------------------------");
+		Bukkit.broadcastMessage(ChatColor.RED + "===================================");
+		Bukkit.broadcastMessage(ChatColor.RED + "-----------------------------------");
+		for (int i = 0; i < stackTrace.length; i++) {
+			Bukkit.broadcastMessage(ChatColor.GREEN + stackTrace[i].toString());
+		}
+		Bukkit.broadcastMessage(ChatColor.RED + "-----------------------------------");
+		Bukkit.broadcastMessage(ChatColor.RED + "===================================");
+		Bukkit.broadcastMessage(ChatColor.RED + "-----------------------------------");
 		this.location = location;
 		this.radius = radius;
 		this.arenaObject = arenaObject;
