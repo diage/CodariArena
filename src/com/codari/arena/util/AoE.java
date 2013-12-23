@@ -12,7 +12,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Slime;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import com.codari.api5.CodariI;
 import com.codari.arena5.objects.ArenaObject;
@@ -25,7 +25,7 @@ public class AoE implements Serializable{
 	private transient List<Entity> nearbyEntities;
 	private transient Location location;
 	private double radius;
-	private boolean active;
+	private transient BukkitTask task;
 	private ArenaObject arenaObject;
 	private SerializableLocation serialLocation;
 	
@@ -58,13 +58,26 @@ public class AoE implements Serializable{
 	}
 	
 	public void setActive() {
-		this.active = true;
-		this.run();
+		if (this.task == null) {
+			this.task = Bukkit.getScheduler().runTaskTimer(CodariI.INSTANCE, new Runnable() {
+				@Override
+				public void run() {
+					List<Entity> nearby;
+					nearby = calculate(radius);
+					if(nearby.size() > 0) {
+						Bukkit.getPluginManager().callEvent(new AoeTriggerEvent(location, nearby, arenaObject));
+					}
+				}
+			}, 1, 1);
+		}
 	}
 	
 	public void setDeactive() {
-		Bukkit.broadcastMessage("AoE in the " + arenaObject.getClass().getSimpleName() + " is being turned off.");
-		this.active = false;
+		if (this.task != null) {
+			Bukkit.broadcastMessage("AoE in the " + arenaObject.getClass().getSimpleName() + " is being turned off.");
+			this.task.cancel();
+			this.task = null;
+		}
 	}	
 	
 	private List<Entity> calculate(double radius) {
@@ -74,24 +87,6 @@ public class AoE implements Serializable{
 		this.nearbyEntities = anchor.getNearbyEntities(this.radius, this.radius, this.radius);
 		anchor.remove();
 		return this.nearbyEntities;
-	}
-	
-	private void run() {
-		BukkitRunnable runner = new BukkitRunnable() {
-			@Override
-			public void run() {
-				if(!active) {
-					super.cancel();
-				}				
-				List<Entity> nearby;
-				nearby = calculate(radius);
-				if(nearby.size() > 0) {
-					Bukkit.getPluginManager().callEvent(new AoeTriggerEvent(location, nearby, arenaObject));
-				}
-			}
-		};
-		
-		runner.runTaskTimer(CodariI.INSTANCE, 1, 1);
 	}
 	
 	private class SerializableLocation implements Serializable {
