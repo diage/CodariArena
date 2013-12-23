@@ -5,7 +5,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public enum RoleObjectItemTypes {
-	MELEE(Material.WOOD_DOOR),
+	MELEE(Material.RECORD_8),
 	RANGED(Material.ARROW);
 	
 	private ItemStack roleSwapObject;

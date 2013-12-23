@@ -2,7 +2,6 @@ package com.codari.arena.objects.itemspawner.chooser;
 
 import java.util.Random;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -73,10 +72,8 @@ public class ItemChooser {
 	private ItemStack generatePotion(Role role) {
 		switch(role.getName()) {
 		case ArenaStatics.MELEE:
-			Bukkit.broadcastMessage("Generating Melee Potion!");
 			return generateMeleePotion();
 		case ArenaStatics.RANGED:
-			Bukkit.broadcastMessage("Generating Ranged Potion!");
 			return generateRangedPotion();
 		default:
 			return null;
@@ -129,10 +126,8 @@ public class ItemChooser {
 	private ItemStack generateWeapon(Role role) {
 		switch(role.getName()) {
 		case ArenaStatics.MELEE:
-			Bukkit.broadcastMessage("Generating Melee Weapon!");
 			return generateMeleeWeapon();
 		case ArenaStatics.RANGED:
-			Bukkit.broadcastMessage("Generating Ranged Weapon!");
 			return generateRangedWeapon();
 		default:
 			return null;
@@ -207,10 +202,8 @@ public class ItemChooser {
 	private ItemStack generateArmor(Role role) {
 		switch(role.getName()) {
 		case ArenaStatics.MELEE:
-			Bukkit.broadcastMessage("Generating Melee Armor!");
 			return generateMeleeArmor();
 		case ArenaStatics.RANGED:
-			Bukkit.broadcastMessage("Generating Ranged Armor!");
 			return generateRangedArmor();
 		default:
 			return null;

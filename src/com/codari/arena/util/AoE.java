@@ -47,7 +47,6 @@ public class AoE {
 	
 	public void setDeactive() {
 		if (this.task != null) {
-			Bukkit.broadcastMessage("AoE in the " + arenaObject.getClass().getSimpleName() + " is being turned off.");
 			this.task.cancel();
 			this.task = null;
 		}
