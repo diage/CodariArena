@@ -39,7 +39,7 @@ public class TrapListener extends ObjectListener implements Listener {
 
 	@EventHandler
 	//Check for activation
-	public void triggerInteractEvent(PlayerInteractEvent e) { //TODO - Add Team when set trap
+	public void triggerInteractEvent(PlayerInteractEvent e) { 
 		if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			Block block = e.getClickedBlock();
 			List<MetadataValue> values = block.getMetadata(TemplateTrap.RANDOM_PASS_KEY);
