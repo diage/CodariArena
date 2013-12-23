@@ -14,7 +14,7 @@ import com.codari.arena5.objects.ArenaObjectName;
 import com.codari.arena5.objects.spawnable.FixedSpawnableObject;
 
 /**
- * TODO:
+ * FIXME:
  * This needs fixed: This is the wrong kind of gate. For the arena to interact with it, it needs to be of type spawnable. 
  * Fixed by Mhenlo - doublecheck this
  * @author Ryan

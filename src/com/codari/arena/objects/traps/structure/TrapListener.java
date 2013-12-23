@@ -70,7 +70,7 @@ public class TrapListener extends ObjectListener implements Listener {
 		}
 	}
 
-	//TODO
+	//FIXME - redstone activation has to be added to traps
 	@EventHandler
 	public void noPoweredRunes(BlockRedstoneEvent e) {
 		Block block = e.getBlock();
