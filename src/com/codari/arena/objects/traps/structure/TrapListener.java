@@ -3,6 +3,7 @@ package com.codari.arena.objects.traps.structure;
 import java.util.Iterator;
 import java.util.List;
 
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
