@@ -39,7 +39,7 @@ public class TrapListener extends ObjectListener implements Listener {
 
 	@EventHandler
 	//Check for activation
-	public void triggerInteractEvent(PlayerInteractEvent e) { //TODO - Add Team when set trap
+	public void triggerInteractEvent(PlayerInteractEvent e) { 
 		if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			Block block = e.getClickedBlock();
 			List<MetadataValue> values = block.getMetadata(TemplateTrap.RANDOM_PASS_KEY);
@@ -65,6 +65,9 @@ public class TrapListener extends ObjectListener implements Listener {
 					Combatant combatant = Codari.getArenaManager().getCombatant(e.getPlayer());
 					trap.setTeam(combatant.getTeam());
 					trap.set();
+					if (block.getType() == Material.REDSTONE_WIRE) {
+						block.setData((byte) 15, false);
+					}
 				}
 			}
 		}
