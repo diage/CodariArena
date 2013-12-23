@@ -82,6 +82,7 @@ public class RoleHotbarListener implements Listener {
 			} else {
 				teamMateRoleSwitchItem.addUnsafeEnchantment(enchantment, 1);
 				teamMatePlayer.sendMessage(ChatColor.AQUA + "Your teammate is requesting a role switch.");
+				teamMatePlayer.updateInventory();
 			}
 		} else {
 			player.sendMessage(ChatColor.RED + "You have no teamate to switch roles with.");
