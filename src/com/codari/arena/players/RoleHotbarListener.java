@@ -1,15 +1,13 @@
 package com.codari.arena.players;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.Potion;
 
-import com.codari.api5.Codari;
-import com.codari.api5.enchantment.CustomEnchantment;
 import com.codari.api5.util.BukkitUtils;
 import com.codari.api5.util.scheduler.BukkitTime;
 import com.codari.arena5.players.combatants.Combatant;
@@ -17,7 +15,7 @@ import com.codari.arena5.players.hotbar.HotbarSelectEvent;
 
 public class RoleHotbarListener implements Listener {
 	private final static long GLOBAL_COOLDOWN = BukkitTime.SECOND.tickValueOf(1);
-	private final static CustomEnchantment ROLL_SWCH = new CustomEnchantment(2525) {
+	private final static Enchantment ROLL_SWCH = Enchantment.SILK_TOUCH;/*new CustomEnchantment(2525) {
 		@Override
 		public boolean isVisible() {
 			return true;
@@ -55,7 +53,7 @@ public class RoleHotbarListener implements Listener {
 	};
 	static {
 		Codari.getEnchantmentManager().registerEnchantment(ROLL_SWCH);
-	}
+	}*/
 	
 	@EventHandler
 	private void hotbardom(HotbarSelectEvent e) {
@@ -89,21 +87,23 @@ public class RoleHotbarListener implements Listener {
 	private void activateRoleSwitch(HotbarSelectEvent e) {
 		Combatant requester = e.getCombatant();
 		Combatant requeste = requester.getTeam().getTeamMates(requester).get(0);
+		int slot = e.getOption().getInventorySlot();
 		if (requester.inArena()) {
 			ItemStack item = e.getItem();
+			//TODO DOTO
+			Bukkit.broadcastMessage("" + item.containsEnchantment(ROLL_SWCH));
 			if (item.containsEnchantment(ROLL_SWCH)) {
 				requester.swapRole(requeste.swapRole(requester.getRole()));
-				ItemStack requesterItem = requester.getPlayer().getInventory().getItem(e.getOption().getInventorySlot());
-				ItemStack requesteItem = requeste.getPlayer().getInventory().getItem(e.getOption().getInventorySlot());
+				ItemStack requesterItem = requester.getPlayer().getInventory().getItem(slot);
+				ItemStack requesteItem = requeste.getPlayer().getInventory().getItem(slot);
 				requesterItem.removeEnchantment(ROLL_SWCH);
 				requesteItem.removeEnchantment(ROLL_SWCH);
-				requester.getPlayer().getInventory().setItem(e.getOption().getInventorySlot(), requesteItem);
-				requeste.getPlayer().getInventory().setItem(e.getOption().getInventorySlot(), requesterItem);
+				requester.getPlayer().getInventory().setItem(slot, requesteItem);
+				requeste.getPlayer().getInventory().setItem(slot, requesterItem);
 				requester.getPlayer().updateInventory();
 				requeste.getPlayer().updateInventory();
 				requester.getPlayer().sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + requester.getRole().getName());
 				requeste.getPlayer().sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + requeste.getRole().getName());
-				
 			} else {
 				ItemStack requesteItem = requeste.getPlayer().getInventory().getItem(e.getOption().getInventorySlot());
 				requesteItem.addEnchantment(ROLL_SWCH, 0);
