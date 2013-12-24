@@ -148,7 +148,6 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		this.resetCapturePointProgress();
 		this.isSpawned = false;
 		OBJECTIVE_POINT_SPAWNED = false;
-		Bukkit.broadcastMessage(ChatColor.DARK_GREEN + "BYE BYE MISS AMERICAN PIE! " + this.toString());
 	}	
 
 	@Override
@@ -193,7 +192,9 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 
 	@Override
 	public void awardPoints(int points) {
-		Bukkit.broadcastMessage(this.team.getTeamName() + " is being awarded with " + points + " points!");
+		for(Player player : this.team.getPlayers()) {
+			player.sendMessage(ChatColor.RED + "You have been awarded " + ChatColor.BOLD + points + ChatColor.RESET + ChatColor.RED + " points!");
+		}
 		Collection<WinCondition> winConditions = this.getTeam().getArena().getGameRule().getWinConditions();
 		for(WinCondition winCondition : winConditions) {
 			if(winCondition instanceof WinCondition2v2) {
