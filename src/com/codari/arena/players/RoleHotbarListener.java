@@ -3,6 +3,7 @@ package com.codari.arena.players;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -22,11 +23,11 @@ public class RoleHotbarListener implements Listener {
 	private final static long GLOBAL_COOLDOWN = BukkitTime.SECOND.tickValueOf(1);
 	private final Enchantment enchantment = Enchantment.SILK_TOUCH;
 	private final Map<String, Boolean> approveRoleSwitch;
-	
+
 	public RoleHotbarListener() {
 		this.approveRoleSwitch = new HashMap<>();
 	}
-	
+
 	@EventHandler
 	private void hotbardom(HotbarSelectEvent e) {
 		switch (e.getOption()) {
@@ -54,52 +55,52 @@ public class RoleHotbarListener implements Listener {
 		}
 		e.getCombatant().setHotbarCooldown(GLOBAL_COOLDOWN);
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	private void activateRoleSwitch(HotbarSelectEvent e) {
 		Player player, teamMatePlayer;
 		Combatant combatant, teamMateCombatant;
-	
-		player = e.getCombatant().getPlayer();
+		int slotNumber = e.getOption().getInventorySlot();
+
 		combatant = e.getCombatant();
 		teamMateCombatant = combatant.getTeam().getTeamMates(combatant).get(0);
+		if(teamMateCombatant != null) {
+			player = e.getCombatant().getPlayer();
+			teamMatePlayer = teamMateCombatant.getPlayer();
+		} else {
+			Bukkit.broadcastMessage(ChatColor.DARK_RED + "INVALID TEAMS!");
+			return;
+		}
 		
 		String teamName = combatant.getTeam().getTeamName();
-		
 		if(!this.approveRoleSwitch.containsKey(teamName)) {
 			this.approveRoleSwitch.put(teamName, false);
 		}
-		
-		if(teamMateCombatant != null) {
-			int slotNumber = e.getOption().getInventorySlot();
-			teamMatePlayer = teamMateCombatant.getPlayer();
-	
-			if(this.approveRoleSwitch.get(teamName)) {
-				teamMateCombatant.swapRole(combatant.swapRole(teamMateCombatant.getRole())); 
-				teamMatePlayer.sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + teamMateCombatant.getRole().getName());
-				player.sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + combatant.getRole().getName());
-				
-				if(teamMateCombatant.getRole().getName().equalsIgnoreCase(ArenaStatics.MELEE)) {
-					teamMateCombatant.getPlayer().getInventory().setItem(slotNumber, RoleObjectItemTypes.MELEE.getItemStack());
-					player.getInventory().setItem(slotNumber, RoleObjectItemTypes.RANGED.getItemStack());
-				} else {
-					teamMateCombatant.getPlayer().getInventory().setItem(slotNumber, RoleObjectItemTypes.RANGED.getItemStack());
-					player.getInventory().setItem(slotNumber, RoleObjectItemTypes.MELEE.getItemStack());
-				}
 
-				teamMatePlayer.updateInventory();
-				player.updateInventory();
+		if(this.approveRoleSwitch.get(teamName)) {
+			teamMateCombatant.swapRole(combatant.swapRole(teamMateCombatant.getRole())); 
+			teamMatePlayer.sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + teamMateCombatant.getRole().getName());
+			player.sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + combatant.getRole().getName());
+
+			if(teamMateCombatant.getRole().getName().equalsIgnoreCase(ArenaStatics.MELEE)) {
+				teamMateCombatant.getPlayer().getInventory().setItem(slotNumber, RoleObjectItemTypes.MELEE.getItemStack());
+				player.getInventory().setItem(slotNumber, RoleObjectItemTypes.RANGED.getItemStack());
 			} else {
-				ItemStack teamMateRoleSwitchItem;
-				teamMateRoleSwitchItem = teamMatePlayer.getInventory().getItem(slotNumber);
-				teamMateRoleSwitchItem.addUnsafeEnchantment(this.enchantment, 1);
-				teamMatePlayer.updateInventory();
-				
-				this.approveRoleSwitch.put(teamName, true);
-				teamMatePlayer.sendMessage(ChatColor.AQUA + "Your teammate is requesting a role switch.");
+				teamMateCombatant.getPlayer().getInventory().setItem(slotNumber, RoleObjectItemTypes.RANGED.getItemStack());
+				player.getInventory().setItem(slotNumber, RoleObjectItemTypes.MELEE.getItemStack());
 			}
+
+			teamMatePlayer.updateInventory();
+			player.updateInventory();
 		} else {
-			player.sendMessage(ChatColor.RED + "You have no teamate to switch roles with.");
+			ItemStack teamMateRoleSwitchItem;
+			teamMateRoleSwitchItem = teamMatePlayer.getInventory().getItem(slotNumber);
+			teamMateRoleSwitchItem.addUnsafeEnchantment(this.enchantment, 1);
+			teamMatePlayer.updateInventory();
+
+			this.approveRoleSwitch.put(teamName, true);
+			teamMatePlayer.sendMessage(ChatColor.AQUA + "Your teammate is requesting a role switch.");
 		}
+
 	}
 }
