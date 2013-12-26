@@ -90,6 +90,7 @@ public class RoleHotbarListener implements Listener {
 				player.getInventory().setItem(slotNumber, RoleObjectItemTypes.MELEE.getItemStack());
 			}
 
+			this.approveRoleSwitch.put(teamName, false);
 			teamMatePlayer.updateInventory();
 			player.updateInventory();
 		} else {
