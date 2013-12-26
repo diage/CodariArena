@@ -22,7 +22,7 @@ import com.codari.arena5.players.hotbar.HotbarSelectEvent;
 public class RoleHotbarListener implements Listener {
 	private final static long GLOBAL_COOLDOWN = BukkitTime.SECOND.tickValueOf(1);
 	private final Enchantment enchantment = Enchantment.SILK_TOUCH;
-	private final Map<String, Boolean> approveRoleSwitch;
+	private final Map<String, String> approveRoleSwitch;
 
 	public RoleHotbarListener() {
 		this.approveRoleSwitch = new HashMap<>();
@@ -71,35 +71,35 @@ public class RoleHotbarListener implements Listener {
 			Bukkit.broadcastMessage(ChatColor.DARK_RED + "INVALID TEAMS!");
 			return;
 		}
-		
+
 		String teamName = combatant.getTeam().getTeamName();
-		if(!this.approveRoleSwitch.containsKey(teamName)) {
-			this.approveRoleSwitch.put(teamName, false);
-		}
+		if(this.approveRoleSwitch.containsKey(teamName)) {
+			if(player.getName() != this.approveRoleSwitch.get(teamName)) {
+				teamMateCombatant.swapRole(combatant.swapRole(teamMateCombatant.getRole())); 
+				teamMatePlayer.sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + teamMateCombatant.getRole().getName());
+				player.sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + combatant.getRole().getName());
 
-		if(this.approveRoleSwitch.get(teamName)) {
-			teamMateCombatant.swapRole(combatant.swapRole(teamMateCombatant.getRole())); 
-			teamMatePlayer.sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + teamMateCombatant.getRole().getName());
-			player.sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + combatant.getRole().getName());
+				if(teamMateCombatant.getRole().getName().equalsIgnoreCase(ArenaStatics.MELEE)) {
+					teamMateCombatant.getPlayer().getInventory().setItem(slotNumber, RoleObjectItemTypes.MELEE.getItemStack());
+					player.getInventory().setItem(slotNumber, RoleObjectItemTypes.RANGED.getItemStack());
+				} else {
+					teamMateCombatant.getPlayer().getInventory().setItem(slotNumber, RoleObjectItemTypes.RANGED.getItemStack());
+					player.getInventory().setItem(slotNumber, RoleObjectItemTypes.MELEE.getItemStack());
+				}
 
-			if(teamMateCombatant.getRole().getName().equalsIgnoreCase(ArenaStatics.MELEE)) {
-				teamMateCombatant.getPlayer().getInventory().setItem(slotNumber, RoleObjectItemTypes.MELEE.getItemStack());
-				player.getInventory().setItem(slotNumber, RoleObjectItemTypes.RANGED.getItemStack());
+				this.approveRoleSwitch.remove(teamName);
+				teamMatePlayer.updateInventory();
+				player.updateInventory();
 			} else {
-				teamMateCombatant.getPlayer().getInventory().setItem(slotNumber, RoleObjectItemTypes.RANGED.getItemStack());
-				player.getInventory().setItem(slotNumber, RoleObjectItemTypes.MELEE.getItemStack());
+				player.sendMessage(ChatColor.AQUA + "You have already requested a switch.");
 			}
-
-			this.approveRoleSwitch.put(teamName, false);
-			teamMatePlayer.updateInventory();
-			player.updateInventory();
 		} else {
 			ItemStack teamMateRoleSwitchItem;
 			teamMateRoleSwitchItem = teamMatePlayer.getInventory().getItem(slotNumber);
 			teamMateRoleSwitchItem.addUnsafeEnchantment(this.enchantment, 1);
 			teamMatePlayer.updateInventory();
 
-			this.approveRoleSwitch.put(teamName, true);
+			this.approveRoleSwitch.put(teamName, player.getName());
 			teamMatePlayer.sendMessage(ChatColor.AQUA + "Your teammate is requesting a role switch.");
 		}
 
