@@ -10,29 +10,25 @@ import org.bukkit.World;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 
+import com.codari.api5.CodariI;
+import com.codari.api5.util.scheduler.BukkitTime;
 import com.codari.arena5.objects.ArenaObjectName;
 import com.codari.arena5.objects.spawnable.FixedSpawnableObject;
 
-/**
- * FIXME - make sure gate works
- * This needs fixed: This is the wrong kind of gate. For the arena to interact with it, it needs to be of type spawnable. 
- * Fixed by Mhenlo - doublecheck this
- * @author Ryan
- *
- */
 @ArenaObjectName("Gate")
 public class Gate implements FixedSpawnableObject {
 	private static final long serialVersionUID = 502299764798303853L;
 	private transient BlockState redStoneBlockState;
 	private final SerializableBlock serialIndicator;
 	private Material redStoneMaterial = Material.REDSTONE_BLOCK;
-	
+	private final static long DESPAWN_TIME = BukkitTime.SECOND.tickValueOf(5); 
+
 	//-----Constructor-----//
 	public Gate(Player player) {
 		this.redStoneBlockState = player.getLocation().getBlock().getState();
 		this.serialIndicator = new SerializableBlock(this.redStoneBlockState);
 	}
-	
+
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 		in.defaultReadObject();
 		World world = Bukkit.getWorld(this.serialIndicator.worldName);
@@ -41,7 +37,7 @@ public class Gate implements FixedSpawnableObject {
 		}
 		this.redStoneBlockState = world.getBlockAt(this.serialIndicator.x, this.serialIndicator.y, this.serialIndicator.z).getState();
 	}
-	
+
 	//-----Constructor-----//
 	public BlockState getRedStoneBlockState() {
 		return this.redStoneBlockState;
@@ -51,6 +47,7 @@ public class Gate implements FixedSpawnableObject {
 	@Override
 	public void spawn() {
 		this.reveal();
+		this.countDown();
 	}
 
 	@Override
@@ -62,12 +59,12 @@ public class Gate implements FixedSpawnableObject {
 	public void hide() {
 		this.redStoneBlockState.update(true);
 	}
-	
+
 	private class SerializableBlock implements Serializable {
 		private static final long serialVersionUID = -684579128017548484L;
 		private int x, y, z;
 		private String worldName;
-		
+
 		public SerializableBlock(BlockState blockState) {
 			this.worldName = blockState.getWorld().getName();
 			this.x = blockState.getX();
@@ -75,4 +72,13 @@ public class Gate implements FixedSpawnableObject {
 			this.z = blockState.getZ();
 		}
 	}
-}
+
+	private void countDown() {
+		Bukkit.getScheduler().runTaskLater(CodariI.INSTANCE, new Runnable() {
+			@Override
+			public void run() {
+				hide();
+			}	
+		}, DESPAWN_TIME);
+	}
+}	
