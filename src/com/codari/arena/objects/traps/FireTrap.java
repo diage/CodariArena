@@ -1,5 +1,7 @@
 package com.codari.arena.objects.traps;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.List;
 
 import org.bukkit.entity.Player;
@@ -13,7 +15,7 @@ public class FireTrap extends TemplateTrap {
 	private static final long serialVersionUID = 6383764538907844812L;
 
 	//-----Fields-----//
-	private final int WEIGHT_OF_OBJECTIVE_POINT = 5;
+	private final static int WEIGHT_OF_OBJECTIVE_POINT = 5;
 	
 	private int numberOfFireTicks = 40;
 
@@ -34,5 +36,10 @@ public class FireTrap extends TemplateTrap {
 	@Override
 	public void trigger(List<Player> players) {
 		this.setTargetsOnFire(players);
+	}
+	
+	protected void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+		super.readObject(in);
+		super.weight = WEIGHT_OF_OBJECTIVE_POINT;
 	}
 }

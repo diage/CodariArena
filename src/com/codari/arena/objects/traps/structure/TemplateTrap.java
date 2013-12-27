@@ -65,7 +65,7 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 		this.areaOfEffect = new AoE(player.getLocation(), radius, this);
 	}
 	
-	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+	protected void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 		in.defaultReadObject();
 		World world = Bukkit.getWorld(this.serialIndicator.worldName);
 		if (world == null) {
