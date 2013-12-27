@@ -21,7 +21,7 @@ public class Gate implements FixedSpawnableObject {
 	private transient BlockState redStoneBlockState;
 	private final SerializableBlock serialIndicator;
 	private Material redStoneMaterial = Material.REDSTONE_BLOCK;
-	private final static long DESPAWN_TIME = BukkitTime.SECOND.tickValueOf(5); 
+	private static final long DESPAWN_TIME = BukkitTime.SECOND.tickValueOf(5); 
 
 	//-----Constructor-----//
 	public Gate(Player player) {

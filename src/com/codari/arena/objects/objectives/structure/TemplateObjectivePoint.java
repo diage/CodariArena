@@ -73,7 +73,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 
 	}
 
-	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+	protected void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 		in.defaultReadObject();
 		World world = Bukkit.getWorld(this.serialBeaconBase.worldName);
 		if (world == null) {
