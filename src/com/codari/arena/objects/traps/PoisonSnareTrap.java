@@ -1,5 +1,7 @@
 package com.codari.arena.objects.traps;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.List;
 
 import org.bukkit.entity.Player;
@@ -15,7 +17,7 @@ public class PoisonSnareTrap extends TemplateTrap{
 	private static final long serialVersionUID = -8207530364005755280L;
 
 	//-----Fields-----//
-	private final int WEIGHT_OF_OBJECTIVE_POINT = 5;
+	private final static int WEIGHT_OF_OBJECTIVE_POINT = 5;
 	
 	private static int slowEffectDuration = 55;
 	private static int slowEffectAmplifier = 2;
@@ -37,5 +39,10 @@ public class PoisonSnareTrap extends TemplateTrap{
 			potionEffectSlow.apply(triggerTarget);
 			potionEffectPoison.apply(triggerTarget);
 		}	
+	}
+	
+	protected void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+		super.readObject(in);
+		super.weight = WEIGHT_OF_OBJECTIVE_POINT;
 	}
 }
