@@ -18,6 +18,7 @@ import com.codari.arena.ArenaStatics;
 import com.codari.arena.players.roleswitch.RoleObjectItemTypes;
 import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.hotbar.HotbarSelectEvent;
+import com.codari.arena5.players.role.RoleSelectEvent;
 
 public class RoleHotbarListener implements Listener {
 	private final static long GLOBAL_COOLDOWN = BukkitTime.SECOND.tickValueOf(1);
@@ -76,20 +77,17 @@ public class RoleHotbarListener implements Listener {
 		if(this.approveRoleSwitch.containsKey(teamName)) {
 			if(player.getName() != this.approveRoleSwitch.get(teamName)) {
 				teamMateCombatant.swapRole(combatant.swapRole(teamMateCombatant.getRole())); 
-				teamMatePlayer.sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + teamMateCombatant.getRole().getName());
-				player.sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + combatant.getRole().getName());
-
-				if(teamMateCombatant.getRole().getName().equalsIgnoreCase(ArenaStatics.MELEE)) {
-					teamMateCombatant.getPlayer().getInventory().setItem(slotNumber, RoleObjectItemTypes.MELEE.getItemStack());
-					player.getInventory().setItem(slotNumber, RoleObjectItemTypes.RANGED.getItemStack());
-				} else {
-					teamMateCombatant.getPlayer().getInventory().setItem(slotNumber, RoleObjectItemTypes.RANGED.getItemStack());
-					player.getInventory().setItem(slotNumber, RoleObjectItemTypes.MELEE.getItemStack());
-				}
-
+				//teamMatePlayer.sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + teamMateCombatant.getRole().getName());
+				//player.sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + combatant.getRole().getName());
+				//TODO - TEST
+				//if(teamMateCombatant.getRole().getName().equalsIgnoreCase(ArenaStatics.MELEE)) {
+				//	teamMateCombatant.getPlayer().getInventory().setItem(slotNumber, RoleObjectItemTypes.MELEE.getItemStack());
+				//	player.getInventory().setItem(slotNumber, RoleObjectItemTypes.RANGED.getItemStack());
+				//} else {
+				//	teamMateCombatant.getPlayer().getInventory().setItem(slotNumber, RoleObjectItemTypes.RANGED.getItemStack());
+				//	player.getInventory().setItem(slotNumber, RoleObjectItemTypes.MELEE.getItemStack());
+				//}
 				this.approveRoleSwitch.remove(teamName);
-				teamMatePlayer.updateInventory();
-				player.updateInventory();
 			} else {
 				player.sendMessage(ChatColor.AQUA + "You have already requested a switch.");
 			}
@@ -97,11 +95,25 @@ public class RoleHotbarListener implements Listener {
 			ItemStack teamMateRoleSwitchItem;
 			teamMateRoleSwitchItem = teamMatePlayer.getInventory().getItem(slotNumber);
 			teamMateRoleSwitchItem.addUnsafeEnchantment(this.enchantment, 1);
-			teamMatePlayer.updateInventory();
 
 			this.approveRoleSwitch.put(teamName, player.getName());
 			teamMatePlayer.sendMessage(ChatColor.AQUA + "Your teammate is requesting a role switch.");
 		}
-
+		teamMatePlayer.updateInventory();
+		player.updateInventory();
+	}
+	
+	@SuppressWarnings("deprecation")
+	@EventHandler
+	private void playerSwapEvent(RoleSelectEvent e) {
+		if(e.wasSwap()) {
+			e.getCombatant().getPlayer().sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + e.getNewRole().getName());
+		} 
+		if(e.getNewRole().getName().equalsIgnoreCase(ArenaStatics.MELEE)) {
+			e.getCombatant().getPlayer().getInventory().setItem(0, RoleObjectItemTypes.MELEE.getItemStack());
+		} else {
+			e.getCombatant().getPlayer().getInventory().setItem(0, RoleObjectItemTypes.RANGED.getItemStack());
+		}
+		e.getCombatant().getPlayer().updateInventory();
 	}
 }

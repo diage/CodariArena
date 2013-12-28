@@ -42,7 +42,8 @@ public class PoisonSnareTrap extends TemplateTrap{
 	}
 	
 	protected void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-		super.readObject(in);
+		in.defaultReadObject();
+		super.readObject();
 		super.weight = WEIGHT_OF_OBJECTIVE_POINT;
 	}
 }

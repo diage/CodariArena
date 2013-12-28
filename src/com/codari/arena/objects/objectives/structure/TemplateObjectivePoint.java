@@ -1,7 +1,6 @@
 package com.codari.arena.objects.objectives.structure;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -73,8 +72,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 
 	}
 
-	protected void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-		in.defaultReadObject();
+	protected void readObject() throws IOException, ClassNotFoundException {
 		World world = Bukkit.getWorld(this.serialBeaconBase.worldName);
 		if (world == null) {
 			throw new IllegalStateException("World named " + this.serialBeaconBase.worldName + " is not loaded");

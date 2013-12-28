@@ -40,7 +40,8 @@ public class EmeraldObjectivePoint extends TemplateObjectivePoint {
 	}
 	
 	protected void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-		super.readObject(in);
+		in.defaultReadObject();
+		super.readObject();
 		super.beaconBaseMaterial = Material.EMERALD_BLOCK;
 		super.numberOfPointsToCaptureObjectivePoint = CAPTURE_TIME;
 		super.weight = WEIGHT_OF_OBJECTIVE_POINT;

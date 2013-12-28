@@ -2,7 +2,6 @@ package com.codari.arena.objects.traps.structure;
 
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 import javax.xml.crypto.NoSuchMechanismException;
@@ -65,8 +64,7 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 		this.areaOfEffect = new AoE(player.getLocation(), radius, this);
 	}
 	
-	protected void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-		in.defaultReadObject();
+	protected void readObject() throws IOException, ClassNotFoundException {
 		World world = Bukkit.getWorld(this.serialIndicator.worldName);
 		if (world == null) {
 			throw new IllegalStateException("World named " + this.serialIndicator.worldName + " is not loaded");
