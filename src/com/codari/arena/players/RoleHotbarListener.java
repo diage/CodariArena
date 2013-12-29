@@ -77,16 +77,6 @@ public class RoleHotbarListener implements Listener {
 		if(this.approveRoleSwitch.containsKey(teamName)) {
 			if(player.getName() != this.approveRoleSwitch.get(teamName)) {
 				teamMateCombatant.swapRole(combatant.swapRole(teamMateCombatant.getRole())); 
-				//teamMatePlayer.sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + teamMateCombatant.getRole().getName());
-				//player.sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + combatant.getRole().getName());
-				//TODO - TEST
-				//if(teamMateCombatant.getRole().getName().equalsIgnoreCase(ArenaStatics.MELEE)) {
-				//	teamMateCombatant.getPlayer().getInventory().setItem(slotNumber, RoleObjectItemTypes.MELEE.getItemStack());
-				//	player.getInventory().setItem(slotNumber, RoleObjectItemTypes.RANGED.getItemStack());
-				//} else {
-				//	teamMateCombatant.getPlayer().getInventory().setItem(slotNumber, RoleObjectItemTypes.RANGED.getItemStack());
-				//	player.getInventory().setItem(slotNumber, RoleObjectItemTypes.MELEE.getItemStack());
-				//}
 				this.approveRoleSwitch.remove(teamName);
 			} else {
 				player.sendMessage(ChatColor.AQUA + "You have already requested a switch.");
