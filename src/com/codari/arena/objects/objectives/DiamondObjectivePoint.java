@@ -3,6 +3,7 @@ package com.codari.arena.objects.objectives;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -23,8 +24,8 @@ public class DiamondObjectivePoint extends TemplateObjectivePoint {
 	private static int effectAmplifier = 1;
 	private static PotionEffect potionEffectFast = new PotionEffect(PotionEffectType.SPEED, effectDuration, effectAmplifier);
 
-	public DiamondObjectivePoint(Player player) {
-		super(player, ArenaStatics.RADIUS);
+	public DiamondObjectivePoint(Location location) {
+		super(location, ArenaStatics.RADIUS);
 		super.beaconBaseMaterial = Material.DIAMOND_BLOCK;
 		super.numberOfPointsToCaptureObjectivePoint = CAPTURE_TIME;
 		super.weight = WEIGHT_OF_OBJECTIVE_POINT;

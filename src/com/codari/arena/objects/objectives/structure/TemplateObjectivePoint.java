@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.BlockFace;
@@ -46,9 +47,9 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	private int pointCounter = 0;
 	protected int numberOfPointsToCaptureObjectivePoint = 100;
 
-	public TemplateObjectivePoint(Player player, double radius) {
+	public TemplateObjectivePoint(Location location, double radius) {
 		//Block positions
-		this.beaconState = player.getLocation().getBlock().getState();
+		this.beaconState = location.getBlock().getState();
 		this.beaconBaseStates[0] = beaconState.getBlock().getRelative(BlockFace.DOWN).getState();
 		this.beaconBaseStates[1] = beaconBaseStates[0].getBlock().getRelative(BlockFace.NORTH_WEST).getState();
 		this.beaconBaseStates[2] = beaconBaseStates[0].getBlock().getRelative(BlockFace.NORTH).getState();
@@ -68,7 +69,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		this.serialBeaconBase = new SerializableBlock(this.beaconBaseStates[0]);
 		
 		this.radius = radius;
-		this.areaOfEffect = new AoE(player.getLocation(), radius, this);
+		this.areaOfEffect = new AoE(location, radius, this);
 
 	}
 

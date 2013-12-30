@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import com.codari.arena.ArenaStatics;
@@ -19,8 +20,8 @@ public class FireTrap extends TemplateTrap {
 	
 	private int numberOfFireTicks = 40;
 
-	public FireTrap(Player player) {
-		super(player, ArenaStatics.RADIUS);
+	public FireTrap(Location location) {
+		super(location, ArenaStatics.RADIUS);
 		super.weight = WEIGHT_OF_OBJECTIVE_POINT;
 	}
 

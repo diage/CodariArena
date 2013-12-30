@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -21,8 +22,8 @@ public class ExplosionTrap extends TemplateTrap {
 	private float powerExplosion = 2.0f;
 	
 
-	public ExplosionTrap(Player player) {
-		super(player, ArenaStatics.RADIUS);
+	public ExplosionTrap(Location location) {
+		super(location, ArenaStatics.RADIUS);
 		super.weight = WEIGHT_OF_OBJECTIVE_POINT;
 	}
 

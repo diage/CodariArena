@@ -5,10 +5,10 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.BlockState;
-import org.bukkit.entity.Player;
 
 import com.codari.api5.CodariI;
 import com.codari.api5.util.scheduler.BukkitTime;
@@ -24,8 +24,8 @@ public class Gate implements FixedSpawnableObject {
 	private static final long DESPAWN_TIME = BukkitTime.SECOND.tickValueOf(5); 
 
 	//-----Constructor-----//
-	public Gate(Player player) {
-		this.redStoneBlockState = player.getLocation().getBlock().getState();
+	public Gate(Location location) {
+		this.redStoneBlockState = location.getBlock().getState();
 		this.serialIndicator = new SerializableBlock(this.redStoneBlockState);
 	}
 

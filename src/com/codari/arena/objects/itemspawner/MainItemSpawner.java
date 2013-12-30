@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.BlockFace;
@@ -39,8 +40,8 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 	//---Initialized in Constructor---//
 	private transient AoE areaOfEffect;
 
-	public MainItemSpawner(Player player) {
-		this.itemSpawnerBlockState = player.getLocation().getBlock().getRelative(BlockFace.UP, 4).getState();
+	public MainItemSpawner(Location location) {
+		this.itemSpawnerBlockState = location.getBlock().getRelative(BlockFace.UP, 4).getState();
 		this.serialIndicator = new SerializableBlock(this.itemSpawnerBlockState);
 		this.areaOfEffect = new AoE(this.itemSpawnerBlockState.getBlock().getLocation(), 1, this);
 	}

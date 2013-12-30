@@ -8,6 +8,7 @@ import javax.xml.crypto.NoSuchMechanismException;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -48,9 +49,9 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 	private boolean isSpawned;
 
 	//-----Constructor-----//
-	public TemplateTrap(Player player, double radius) {
+	public TemplateTrap(Location location, double radius) {
 		//Block positions
-		Block trapBlock = player.getLocation().getBlock(); 
+		Block trapBlock = location.getBlock(); 
 		Block indicatorBlock = trapBlock.getRelative(BlockFace.DOWN).getState().getBlock();
 
 
@@ -61,7 +62,7 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 
 		//Create new AoE
 		this.radius = radius;
-		this.areaOfEffect = new AoE(player.getLocation(), radius, this);
+		this.areaOfEffect = new AoE(location, radius, this);
 	}
 	
 	protected void readObject() throws IOException, ClassNotFoundException {
