@@ -48,6 +48,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	protected int numberOfPointsToCaptureObjectivePoint = 100;
 
 	public TemplateObjectivePoint(Location location, double radius) {
+		super(location);
 		//Block positions
 		this.beaconState = location.getBlock().getState();
 		this.beaconBaseStates[0] = beaconState.getBlock().getRelative(BlockFace.DOWN).getState();

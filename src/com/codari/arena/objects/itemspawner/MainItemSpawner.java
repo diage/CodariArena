@@ -41,6 +41,7 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 	private transient AoE areaOfEffect;
 
 	public MainItemSpawner(Location location) {
+		super(location);
 		this.itemSpawnerBlockState = location.getBlock().getRelative(BlockFace.UP, 4).getState();
 		this.serialIndicator = new SerializableBlock(this.itemSpawnerBlockState);
 		this.areaOfEffect = new AoE(this.itemSpawnerBlockState.getBlock().getLocation(), 1, this);

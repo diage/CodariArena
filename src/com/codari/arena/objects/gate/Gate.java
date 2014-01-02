@@ -21,10 +21,15 @@ public class Gate implements FixedSpawnableObject {
 	private transient BlockState redStoneBlockState;
 	private final SerializableBlock serialIndicator;
 	private Material redStoneMaterial = Material.REDSTONE_BLOCK;
-	private static final long DESPAWN_TIME = BukkitTime.SECOND.tickValueOf(5); 
+	private static final long DESPAWN_TIME = BukkitTime.SECOND.tickValueOf(5);
+	private final String name;
+	private final Location location;
 
 	//-----Constructor-----//
 	public Gate(Location location) {
+		this.location = location;
+		ArenaObjectName objectName = this.getClass().getAnnotation(ArenaObjectName.class);
+		this.name = objectName.value();
 		this.redStoneBlockState = location.getBlock().getState();
 		this.serialIndicator = new SerializableBlock(this.redStoneBlockState);
 	}
@@ -80,5 +85,15 @@ public class Gate implements FixedSpawnableObject {
 				hide();
 			}	
 		}, DESPAWN_TIME);
+	}
+
+	@Override
+	public String getName() {
+		return this.name;
+	}
+
+	@Override
+	public Location getLocation() {
+		return this.location;
 	}
 }	

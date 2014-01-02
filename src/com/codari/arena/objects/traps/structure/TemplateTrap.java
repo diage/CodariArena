@@ -1,6 +1,5 @@
 package com.codari.arena.objects.traps.structure;
 
-
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -49,6 +48,7 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 
 	//-----Constructor-----//
 	public TemplateTrap(Location location, double radius) {
+		super(location);
 		//Block positions
 		Block trapBlock = location.getBlock(); 
 		Block indicatorBlock = trapBlock.getRelative(BlockFace.DOWN).getState().getBlock();
