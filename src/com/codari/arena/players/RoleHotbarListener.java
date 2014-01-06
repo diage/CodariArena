@@ -31,30 +31,32 @@ public class RoleHotbarListener implements Listener {
 
 	@EventHandler
 	private void hotbardom(HotbarSelectEvent e) {
-		switch (e.getOption()) {
-		case HOTBAR_1:
-			this.activateRoleSwitch(e);
-			break;
-		case HOTBAR_2:
-		case HOTBAR_3:
-		case HOTBAR_4:
-		case HOTBAR_5:
-		case HOTBAR_6:
-			if (e.getItem() != null) {
-				Potion potion = Potion.fromItemStack(e.getItem());
-				if (potion.isSplash()) {
-					BukkitUtils.throwPotion(e.getCombatant().getPlayer(), e.getItem());
-				} else {
-					e.getCombatant().getPlayer().addPotionEffects(potion.getEffects());
+		if (e.getCombatant().inArena()) {
+			switch (e.getOption()) {
+			case HOTBAR_1:
+				this.activateRoleSwitch(e);
+				break;
+			case HOTBAR_2:
+			case HOTBAR_3:
+			case HOTBAR_4:
+			case HOTBAR_5:
+			case HOTBAR_6:
+				if (e.getItem() != null) {
+					Potion potion = Potion.fromItemStack(e.getItem());
+					if (potion.isSplash()) {
+						BukkitUtils.throwPotion(e.getCombatant().getPlayer(), e.getItem());
+					} else {
+						e.getCombatant().getPlayer().addPotionEffects(potion.getEffects());
+					}
+					e.getItem().setAmount(e.getItem().getAmount() - 1);
 				}
-				e.getItem().setAmount(e.getItem().getAmount() - 1);
+				break;
+			case HOTBAR_DROP:
+				e.getCombatant().skill();
+				break;
 			}
-			break;
-		case HOTBAR_DROP:
-			e.getCombatant().skill();
-			break;
+			e.getCombatant().setHotbarCooldown(GLOBAL_COOLDOWN);
 		}
-		e.getCombatant().setHotbarCooldown(GLOBAL_COOLDOWN);
 	}
 
 	@SuppressWarnings("deprecation")
