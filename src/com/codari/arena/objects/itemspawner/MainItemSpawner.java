@@ -66,6 +66,7 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 	public void spawn() {
 		this.isSpawned = true;
 		this.reveal();	
+		this.areaOfEffect.setActive();
 	}
 
 	@Override
@@ -73,7 +74,6 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 		ItemSpawnerListener.stopPhysics(this.itemSpawnerBlockState.getBlock());
 		this.spawnItem();
 		this.itemSpawnerBlockState.getBlock().setType(itemSpawnerMaterial);
-		this.areaOfEffect.setActive();
 	}
 
 	@Override
