@@ -2,6 +2,7 @@ package com.codari.arena.objects.objectives.structure;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -68,7 +69,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		}
 
 		this.serialBeaconBase = new SerializableBlock(this.beaconBaseStates[0]);
-		
+
 		this.radius = radius;
 		this.areaOfEffect = new AoE(location, radius, this);
 
@@ -98,7 +99,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		for (int i = 0; i < this.glassBeam.length; i++) {
 			this.glassBeam[i] = this.beaconState.getBlock().getRelative(BlockFace.UP, 1 + i).getState();
 		}
-		
+
 		this.areaOfEffect = new AoE(this.beaconState.getLocation(), this.radius, this);
 	}
 
@@ -204,18 +205,32 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	}
 
 	private boolean checkSameTeam(List<Player> players) {
-		Team compareTeam, teamOfFirstPlayer;
-		teamOfFirstPlayer = Codari.getArenaManager().getTeam(Codari.getArenaManager().getCombatant(players.get(0)));
-		if(teamOfFirstPlayer == null) {
-			throw new NullPointerException(ChatColor.RED + "Player: " + players.get(0).toString() + 
-					" is trying to capture an objective point but is not part of any team!");
-		}
+		Team teamOfFirstCombatant = null;
+		List<Combatant> combatants = new ArrayList<>();
+
 		for(Player player : players) {
-			compareTeam = Codari.getArenaManager().getTeam(Codari.getArenaManager().getCombatant(player));
-			if(!(compareTeam.equals(teamOfFirstPlayer))) {	
-				return false;
+			combatants.add(Codari.getArenaManager().getCombatant(player));
+		}
+
+		for(Combatant combatant : combatants) {
+			if(combatant.getTeam() != null) {
+				teamOfFirstCombatant = combatant.getTeam();
+				break;
 			}
 		}
+		
+		if(teamOfFirstCombatant == null) {
+			return false;
+		}
+
+		for(Combatant combatant : combatants) {
+			if(combatant.getTeam() != null) {
+				if(!(combatant.getTeam().equals(teamOfFirstCombatant))) {	
+					return false;
+				}
+			}
+		}
+
 		return true;
 	}
 
