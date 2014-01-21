@@ -11,7 +11,9 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.skills.Skill;
 import com.codari.arena5.players.skills.SkillActivation;
+import com.codari.arena5.players.skills.SkillName;
 
+@SkillName(value = "Teleport")
 public class TeleportSkill implements Skill {
 	//-----Fields-----//
 	private int numberOfBlocksAPlayerCanTeleport = 25;

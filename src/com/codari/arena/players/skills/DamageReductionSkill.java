@@ -15,8 +15,10 @@ import com.codari.api5.Codari;
 import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.skills.Skill;
 import com.codari.arena5.players.skills.SkillActivation;
+import com.codari.arena5.players.skills.SkillName;
 import com.codari.arena5.players.teams.Team;
 
+@SkillName(value = "Damage Reduction")
 public class DamageReductionSkill implements Skill {
 	//-----Fields-----//
 	private int effectDuration = 40;
@@ -62,4 +64,5 @@ public class DamageReductionSkill implements Skill {
 		}
 		return players;
 	}
+
 }
