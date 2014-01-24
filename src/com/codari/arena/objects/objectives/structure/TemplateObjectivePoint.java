@@ -40,7 +40,6 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	private boolean isSpawned;
 	private static boolean OBJECTIVE_POINT_SPAWNED;
 	private transient Team team;
-	private int teamSize = 2;
 
 	//---Initialized in Constructor---//
 	private double radius;
@@ -185,7 +184,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 			this.combatantOff();
 			this.setTeam(team);
 		} else {
-			if(players.size() == this.teamSize) {
+			if(players.size() == this.getTeam().getTeamSize()) {
 				this.incrementCapturePoint();
 			}	
 		}

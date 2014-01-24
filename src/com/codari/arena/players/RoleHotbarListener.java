@@ -101,11 +101,12 @@ public class RoleHotbarListener implements Listener {
 		if(e.wasSwap()) {
 			e.getCombatant().getPlayer().sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + e.getNewRole().getName());
 		} 
-		if(e.getNewRole().getName().equalsIgnoreCase(ArenaStatics.MELEE)) {
+		if(e.getNewRole().getName().equalsIgnoreCase(ArenaStatics.MELEE)) {	//FIXME
 			e.getCombatant().getPlayer().getInventory().setItem(0, RoleObjectItemTypes.MELEE.getItemStack());
-		} else {
+			e.getCombatant().getPlayer().updateInventory();
+		} else if(e.getNewRole().getName().equals(ArenaStatics.RANGED)) {	//FIXME
 			e.getCombatant().getPlayer().getInventory().setItem(0, RoleObjectItemTypes.RANGED.getItemStack());
+			e.getCombatant().getPlayer().updateInventory();
 		}
-		e.getCombatant().getPlayer().updateInventory();
 	}
 }
