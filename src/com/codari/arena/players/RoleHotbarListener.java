@@ -14,11 +14,8 @@ import org.bukkit.potion.Potion;
 
 import com.codari.api5.util.BukkitUtils;
 import com.codari.api5.util.scheduler.BukkitTime;
-import com.codari.arena.ArenaStatics;
-import com.codari.arena.players.roleswitch.RoleObjectItemTypes;
 import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.hotbar.HotbarSelectEvent;
-import com.codari.arena5.players.role.RoleSelectEvent;
 
 public class RoleHotbarListener implements Listener {
 	private final static long GLOBAL_COOLDOWN = BukkitTime.SECOND.tickValueOf(1);
@@ -93,20 +90,5 @@ public class RoleHotbarListener implements Listener {
 		}
 		teamMatePlayer.updateInventory();
 		player.updateInventory();
-	}
-	
-	@SuppressWarnings("deprecation")
-	@EventHandler
-	private void playerSwapEvent(RoleSelectEvent e) {
-		if(e.wasSwap()) {
-			e.getCombatant().getPlayer().sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + e.getNewRole().getName());
-		} 
-		if(e.getNewRole().getName().equalsIgnoreCase(ArenaStatics.MELEE)) {	//FIXME
-			e.getCombatant().getPlayer().getInventory().setItem(0, RoleObjectItemTypes.MELEE.getItemStack());
-			e.getCombatant().getPlayer().updateInventory();
-		} else if(e.getNewRole().getName().equals(ArenaStatics.RANGED)) {	//FIXME
-			e.getCombatant().getPlayer().getInventory().setItem(0, RoleObjectItemTypes.RANGED.getItemStack());
-			e.getCombatant().getPlayer().updateInventory();
-		}
 	}
 }

@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
 
-import com.codari.arena.objects.itemspawner.MainItemSpawner;
+import com.codari.arena.ArenaStatics;
 import com.codari.arena.objects.itemspawner.structure.ItemType;
 
 public class ItemChooser {
@@ -70,37 +70,16 @@ public class ItemChooser {
 	//-----Generate Potion-----//
 	private ItemStack generatePotion(String link) {
 		switch(link) {
-		case MainItemSpawner.MELEE_LINK:
-			return generateMeleePotion();
-		case MainItemSpawner.RANGED_LINK:
-			return generateRangedPotion();
+		case ArenaStatics.MELEE:
+			return this.generateMeleePotion();
+		case ArenaStatics.RANGED:
+			return this.generateRangedPotion();
 		default:
 			return null;
 		}
 	}
 	
 	private ItemStack generateMeleePotion() {
-		Random random = new Random(System.currentTimeMillis());
-		switch(random.nextInt(10)){
-		case 0:
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 5:
-			return this.potions[RANGED_POTION][1];
-		case 6:
-		case 7:
-		case 8: 
-			return this.potions[RANGED_POTION][2];
-		case 9: 
-			return this.potions[RANGED_POTION][0];
-		default:
-			return null;
-		}	
-	}
-	
-	private ItemStack generateRangedPotion() {
 		Random random = new Random(System.currentTimeMillis());
 		switch(random.nextInt(10)){
 		case 0:
@@ -121,12 +100,33 @@ public class ItemChooser {
 		}	
 	}
 	
+	private ItemStack generateRangedPotion() {
+		Random random = new Random(System.currentTimeMillis());
+		switch(random.nextInt(10)){
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+		case 5:
+			return this.potions[RANGED_POTION][1];
+		case 6:
+		case 7:
+		case 8: 
+			return this.potions[RANGED_POTION][2];
+		case 9: 
+			return this.potions[RANGED_POTION][0];
+		default:
+			return null;
+		}	
+	}
+	
 	//-----Generate Weapon-----//
 	private ItemStack generateWeapon(String link) {
 		switch(link) {
-		case MainItemSpawner.MELEE_LINK:
+		case ArenaStatics.MELEE:
 			return generateMeleeWeapon();
-		case MainItemSpawner.RANGED_LINK:
+		case ArenaStatics.RANGED:
 			return generateRangedWeapon();
 		default:
 			return null;
@@ -200,9 +200,9 @@ public class ItemChooser {
 	//-----Generate Armor-----//
 	private ItemStack generateArmor(String link) {
 		switch(link) {
-		case MainItemSpawner.MELEE_LINK:
+		case ArenaStatics.MELEE:
 			return generateMeleeArmor();
-		case MainItemSpawner.RANGED_LINK:
+		case ArenaStatics.RANGED:
 			return generateRangedArmor();
 		default:
 			return null;

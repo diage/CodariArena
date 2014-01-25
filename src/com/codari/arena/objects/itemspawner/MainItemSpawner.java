@@ -13,6 +13,7 @@ import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import com.codari.arena.ArenaStatics;
 import com.codari.arena.objects.RandomSpawnableObjectA;
 import com.codari.arena.objects.itemspawner.chooser.ItemChooser;
 import com.codari.arena.objects.itemspawner.structure.ItemSpawner;
@@ -22,7 +23,7 @@ import com.codari.arena.util.AoE;
 import com.codari.arena5.objects.ArenaObjectName;
 import com.codari.arena5.players.combatants.Combatant;
 
-@ArenaObjectName(value = MainItemSpawner.NAME, links = {MainItemSpawner.MELEE_LINK, MainItemSpawner.RANGED_LINK})
+@ArenaObjectName(value = MainItemSpawner.NAME, links = {ArenaStatics.MELEE, ArenaStatics.RANGED})
 public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawner {
 	private static final long serialVersionUID = 5092060018825234373L;
 	//-----Fields-----//
@@ -35,10 +36,7 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 	private boolean isSpawned;
 	public static ItemChooser itemChooser = new ItemChooser();
 	
-	//-----Links-----//
 	public static final String NAME = "Item_Spawner";
-	public static final String MELEE_LINK = "Melee";
-	public static final String RANGED_LINK = "Ranged";
 	
 	//---Initialized in Constructor---//
 	private transient AoE areaOfEffect;
@@ -97,30 +95,30 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 		switch(this.typer) {
 		case POTION:
 			switch (combatant.getRole().getLink(NAME)) {
-			case MELEE_LINK:
+			case ArenaStatics.MELEE:
 				this.addPotionToInventory(combatant.getPlayer(), this.meleeItem);
 				break;
-			case RANGED_LINK:
+			case ArenaStatics.RANGED:
 				this.addPotionToInventory(combatant.getPlayer(), this.rangedItem);
 				break;
 			}
 			break;
 		case WEAPON:
 			switch (combatant.getRole().getLink(NAME)) {
-			case MELEE_LINK:
+			case ArenaStatics.MELEE:
 				this.addWeaponToInventory(combatant.getPlayer(), this.meleeItem);
 				break;
-			case RANGED_LINK:
+			case ArenaStatics.RANGED:
 				this.addWeaponToInventory(combatant.getPlayer(), this.rangedItem);
 				break;
 			}
 			break;
 		case ARMOR:
 			switch (combatant.getRole().getLink(NAME)) {
-			case MELEE_LINK:
+			case ArenaStatics.MELEE:
 				this.equipArmor(combatant.getPlayer(), this.meleeItem);
 				break;
-			case RANGED_LINK:
+			case ArenaStatics.RANGED:
 				this.equipArmor(combatant.getPlayer(), this.rangedItem);
 				break;
 			}
@@ -131,8 +129,8 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 	
 	private void spawnItem() {
 		this.typer = ItemType.chooseItemType();
-		this.meleeItem = itemChooser.generateItem(MELEE_LINK, this.typer);
-		this.rangedItem = itemChooser.generateItem(RANGED_LINK, this.typer);
+		this.meleeItem = itemChooser.generateItem(ArenaStatics.MELEE, this.typer);
+		this.rangedItem = itemChooser.generateItem(ArenaStatics.RANGED, this.typer);
 		switch(this.typer) {
 		case POTION: 
 			this.itemSpawnerMaterial = Material.BREWING_STAND;
