@@ -34,6 +34,7 @@ public class RoleSwitchListenerObject implements ListenerFixedSpawnableObject {
 	@SuppressWarnings("deprecation")
 	@EventHandler()
 	private void playerSwapEvent(RoleSelectEvent e) {
+		
 		Bukkit.broadcastMessage(ChatColor.GREEN + "Role Select Event heard!");	//TODO
 		if(e.wasSwap()) {
 			e.getCombatant().getPlayer().sendMessage(ChatColor.GREEN + "Your role is now " + ChatColor.DARK_GREEN + e.getNewRole().getName());
@@ -44,7 +45,8 @@ public class RoleSwitchListenerObject implements ListenerFixedSpawnableObject {
 		} else if(e.getNewRole().getLink(this.name).equals(ArenaStatics.RANGED)) {	
 			e.getCombatant().getPlayer().getInventory().setItem(0, RoleObjectItemTypes.RANGED.getItemStack());
 			e.getCombatant().getPlayer().updateInventory();
-		}	
+		}
+		
 	}
 	
 	@Override

@@ -16,7 +16,7 @@ import com.codari.arena5.objects.ArenaObjectName;
 @ArenaObjectName("Iron_Objective_Point")
 public class IronObjectivePoint extends TemplateObjectivePoint {
 	private static final long serialVersionUID = 3638585052909346303L;
-	private static final int WEIGHT_OF_OBJECTIVE_POINT = 22;
+	private static final int WEIGHT_OF_OBJECTIVE_POINT = ArenaStatics.IRON_WEIGHT;
 	private static final int NUMBER_OF_POINTS_AWARDED = ArenaStatics.POINT_MULTIPLIER / (WEIGHT_OF_OBJECTIVE_POINT + ArenaStatics.POINT_OFFSET);
 	private static final int CAPTURE_TIME = (int) (ArenaStatics.BASE_TIME * (((float) ArenaStatics.DESIRED_WEIGHT) / (WEIGHT_OF_OBJECTIVE_POINT + ArenaStatics.TIME_OFFSET )));
 	
