@@ -97,7 +97,7 @@ public class TrapListener extends ObjectListener implements Listener {
 		for(Iterator<Player> pI = players.iterator();pI.hasNext();) {
 			Player player = pI.next();
 			Combatant combatant = Codari.getArenaManager().getCombatant(player);
-			if(Codari.getArenaManager().getTeam(combatant).equals(team)) {
+			if(combatant.getTeam() == null || combatant.getTeam().equals(team)) {
 				pI.remove();
 			}
 		}
