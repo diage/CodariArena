@@ -138,7 +138,9 @@ public class RoleSwitchListenerObject implements ListenerFixedSpawnableObject {
 			} else {
 				ItemStack teamMateRoleSwitchItem;
 				teamMateRoleSwitchItem = teamMatePlayer.getInventory().getItem(slotNumber);
-				teamMateRoleSwitchItem.addUnsafeEnchantment(this.enchantment, 1);
+				if(teamMateRoleSwitchItem != null) {
+					teamMateRoleSwitchItem.addUnsafeEnchantment(this.enchantment, 1);
+				}
 
 				this.approveRoleSwitch.put(teamName, player.getName());
 				teamMatePlayer.sendMessage(ChatColor.AQUA + "Your teammate is requesting a role switch.");

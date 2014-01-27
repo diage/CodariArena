@@ -74,8 +74,11 @@ public class WinCondition2v2 extends WinConditionTemplate {
 	@Override
 	public Collection<Combatant> getWinners() {
 		if(this.conditionMet) {
+			this.teamPoints.clear();
+			this.conditionMet = false;
 			return winnerTeam.combatants();
 		}
+		
 		return null;
 	}
 
