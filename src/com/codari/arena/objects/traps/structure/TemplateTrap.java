@@ -34,14 +34,14 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 	//---Design Preference---//
 	protected Material revealedTrapMaterial = Material.REDSTONE_WIRE;
 	protected Material setTrapMaterial = Material.REDSTONE_WIRE;
-	
+
 	private final Material revealedTrapIndicatorMaterial = Material.STAINED_CLAY;
 	protected byte clayStoneMetaDataValue = 0;
 
 	//---Initialized in Constructor---//
 	private double radius;
 	private transient AoE areaOfEffect;
-	
+
 	//---Initialized when trap is activated---//
 	private transient Team team;
 	private boolean isSpawned;
@@ -63,7 +63,7 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 		this.radius = radius;
 		this.areaOfEffect = new AoE(location, radius, this);
 	}
-	
+
 	protected void readObject() throws IOException, ClassNotFoundException {
 		World world = Bukkit.getWorld(this.serialIndicator.worldName);
 		if (world == null) {
@@ -71,15 +71,15 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 		}
 		this.trapIndicatorState = world.getBlockAt(this.serialIndicator.x, this.serialIndicator.y, this.serialIndicator.z).getState();
 		this.trapState = this.trapIndicatorState.getBlock().getRelative(BlockFace.UP).getState();
-		
+
 		this.areaOfEffect = new AoE(this.trapState.getLocation(), radius, this);
 	}
-	
+
 	//-----Getters-----//
 	public BlockState getTrapState() {
 		return this.trapState;
 	}
-	
+
 	public BlockState getTrapStateIndicator() {
 		return this.trapIndicatorState;
 	}
@@ -94,7 +94,7 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 			throw new NoSuchMechanismException("THINGS ARE HAPPENING THAT SHOULDN'T BE HAPPENING.... (traps too close)");
 		}
 		this.reveal();
-		this.setActivatable();
+		this.activateMetaData();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -110,9 +110,10 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 		this.trapState.update(true);
 		this.trapIndicatorState.update(true);
 		this.areaOfEffect.setDeactive();
+		this.deactivateMetaData();
 		this.isSpawned = false;
 	}
-	
+
 	@Override
 	public boolean isSpawned() {
 		return this.isSpawned;
@@ -125,7 +126,7 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 	@Override
 	public void set() {
 		this.trapState.getBlock().setType(setTrapMaterial);
-		this.setDeactivateable();
+		this.deactivateMetaData();
 		this.startAoE();
 	}
 
@@ -154,21 +155,25 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 		this.areaOfEffect.setDeactive();
 	}
 
-	private void setActivatable() {
+	private void activateMetaData() {
 		this.trapState.setMetadata(RANDOM_PASS_KEY, new FixedMetadataValue(CodariI.INSTANCE, this));
 		this.trapState.setMetadata(META_DATA_STRING, new FixedMetadataValue(CodariI.INSTANCE, true));
 	}	
 
-	private void setDeactivateable() {
-		this.trapState.removeMetadata(RANDOM_PASS_KEY, CodariI.INSTANCE);
-		this.trapState.removeMetadata(META_DATA_STRING, CodariI.INSTANCE);
+	private void deactivateMetaData() {
+		if(this.trapState.hasMetadata(RANDOM_PASS_KEY)) {
+			this.trapState.removeMetadata(RANDOM_PASS_KEY, CodariI.INSTANCE);
+		}
+		if(this.trapState.hasMetadata(META_DATA_STRING)) {
+			this.trapState.removeMetadata(META_DATA_STRING, CodariI.INSTANCE);
+		}
 	}
-	
+
 	private class SerializableBlock implements Serializable {
 		private static final long serialVersionUID = 3405908171694915925L;
 		private int x, y, z;
 		private String worldName;
-		
+
 		public SerializableBlock(BlockState blockState) {
 			this.worldName = blockState.getWorld().getName();
 			this.x = blockState.getX();
