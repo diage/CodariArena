@@ -27,8 +27,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	private static final long serialVersionUID = -5747948050563169564L;
 	//-----Fields-----//
 	//---Block Configuration---//
-	private int numberOfBaseBeaconBlocks = 9;
-	protected transient BlockState[] beaconBaseStates = new BlockState[numberOfBaseBeaconBlocks];
+	protected transient BlockState[] beaconBaseStates = new BlockState[9];
 	private transient BlockState beaconState;
 	private transient BlockState[] glassBeam;
 	private SerializableBlock serialBeaconBase;
@@ -138,8 +137,8 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 	@Override
 	public void hide() {
 		this.beaconState.update(true);
-		for (BlockState states : this.beaconBaseStates) {
-			states.update(true);
+		for (BlockState state : this.beaconBaseStates) {
+			state.update(true);
 		}
 		for (BlockState state : this.glassBeam) {
 			state.update(true);
