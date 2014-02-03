@@ -5,7 +5,8 @@ import java.io.Serializable;
 
 import javax.xml.crypto.NoSuchMechanismException;
 
-import org.apache.commons.lang3.RandomStringUtils;
+import net.minecraft.util.org.apache.commons.lang3.RandomStringUtils;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

@@ -2,7 +2,7 @@ package com.codari.arena;
 
 import java.util.Random;
 
-import org.apache.commons.lang3.RandomStringUtils;
+import net.minecraft.util.org.apache.commons.lang3.RandomStringUtils;
 
 public final class RandomClass implements Comparable<RandomClass>, Runnable {
 	private static final Random random = new Random(System.currentTimeMillis());
