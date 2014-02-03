@@ -41,6 +41,7 @@ public class RoleSwitchListenerObject implements ListenerFixedSpawnableObject {
 		this.glassBlockState = location.getBlock().getState();
 		ArenaObjectName objectName = this.getClass().getAnnotation(ArenaObjectName.class);
 		this.name = objectName.value();
+		this.enabled = false;
 		this.approveRoleSwitch = new HashMap<>();
 	}
 
@@ -49,6 +50,7 @@ public class RoleSwitchListenerObject implements ListenerFixedSpawnableObject {
 		if(this.arenaName != null && !this.enabled) {
 			Bukkit.getPluginManager().registerEvents(this, CodariI.INSTANCE);
 			this.enabled = true;
+			Bukkit.broadcastMessage(ChatColor.AQUA + "Role Switch Object enabled!");	//TODO
 		}
 	}
 
@@ -63,6 +65,7 @@ public class RoleSwitchListenerObject implements ListenerFixedSpawnableObject {
 		if(this.enabled) {
 			HandlerList.unregisterAll(this);
 			this.enabled = false;
+			Bukkit.broadcastMessage(ChatColor.BLUE + "Role Switch Object disabled!");	//TODO
 		}
 	}
 
