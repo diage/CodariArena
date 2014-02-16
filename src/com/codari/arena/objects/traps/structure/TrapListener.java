@@ -55,6 +55,14 @@ public class TrapListener extends ObjectListener implements Listener {
 				return;
 			}
 			Trap trap = (Trap) metaValue.value();
+			Combatant combatant = Codari.getArenaManager().getCombatant(e.getPlayer());
+			trap.setTeam(combatant.getTeam());
+			trap.set();
+			if (block.getType() == Material.REDSTONE_WIRE) {
+				block.setData((byte) 15, false);
+			}
+
+			/*
 			if (block.hasMetadata(TemplateTrap.META_DATA_STRING)) {
 				MetadataValue trapValue = null;
 				for (MetadataValue possibleValue : block.getMetadata(TemplateTrap.META_DATA_STRING)) {
@@ -70,24 +78,24 @@ public class TrapListener extends ObjectListener implements Listener {
 					if (block.getType() == Material.REDSTONE_WIRE) {
 						block.setData((byte) 15, false);
 					}
-				}
-			}
+				}*/
 		}
 	}
+
 
 	//FIXME - redstone activation has to be added to traps
 	@EventHandler
 	public void noPoweredRunes(BlockRedstoneEvent e) {
 		Block block = e.getBlock();
-		if (block.hasMetadata(TemplateTrap.META_DATA_STRING)) {
+		if (block.hasMetadata(TemplateTrap.RANDOM_PASS_KEY /* TemplateTrap.META_DATA_STRING */)) {
 			MetadataValue trapValue = null;
-			for (MetadataValue possibleValue : block.getMetadata(TemplateTrap.META_DATA_STRING)) {
+			for (MetadataValue possibleValue : block.getMetadata(TemplateTrap.RANDOM_PASS_KEY /* TemplateTrap.META_DATA_STRING */)) {
 				if (CodariI.INSTANCE.equals(possibleValue.getOwningPlugin())) {
 					trapValue = possibleValue;
 					break;
 				}
 			}
-			if (trapValue != null && trapValue.asBoolean()) {
+			if (trapValue != null /*&& trapValue.asBoolean()*/) {
 				e.setNewCurrent(15);
 			}
 		}

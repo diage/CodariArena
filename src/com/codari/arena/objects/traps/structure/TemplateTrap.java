@@ -29,7 +29,7 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 	protected transient BlockState trapState;
 	protected transient BlockState trapIndicatorState;
 
-	public static final String META_DATA_STRING = RandomStringUtils.randomAscii(69);
+	//public static final String META_DATA_STRING = RandomStringUtils.randomAscii(69);
 	public static final String RANDOM_PASS_KEY = RandomStringUtils.randomAscii(69);
 
 	//---Design Preference---//
@@ -158,16 +158,16 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 
 	private void activateMetaData() {
 		this.trapState.setMetadata(RANDOM_PASS_KEY, new FixedMetadataValue(CodariI.INSTANCE, this));
-		this.trapState.setMetadata(META_DATA_STRING, new FixedMetadataValue(CodariI.INSTANCE, true));
+		//this.trapState.setMetadata(META_DATA_STRING, new FixedMetadataValue(CodariI.INSTANCE, true));
 	}	
 
 	private void deactivateMetaData() {
 		if(this.trapState.hasMetadata(RANDOM_PASS_KEY)) {
 			this.trapState.removeMetadata(RANDOM_PASS_KEY, CodariI.INSTANCE);
 		}
-		if(this.trapState.hasMetadata(META_DATA_STRING)) {
-			this.trapState.removeMetadata(META_DATA_STRING, CodariI.INSTANCE);
-		}
+		//if(this.trapState.hasMetadata(META_DATA_STRING)) {
+			//this.trapState.removeMetadata(META_DATA_STRING, CodariI.INSTANCE);
+		//}
 	}
 
 	private class SerializableBlock implements Serializable {
