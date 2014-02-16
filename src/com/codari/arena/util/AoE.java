@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Slime;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.scheduler.BukkitTask;
 
 import com.codari.api5.CodariI;
@@ -54,8 +54,7 @@ public class AoE {
 	
 	private List<Entity> calculate(double radius) {
 		World world = this.location.getWorld();
-		Slime anchor = world.spawn(this.location, Slime.class);
-		anchor.setSize(0);
+		ExperienceOrb anchor = world.spawn(this.location, ExperienceOrb.class);
 		this.nearbyEntities = anchor.getNearbyEntities(this.radius, this.radius, this.radius);
 		anchor.remove();
 		return this.nearbyEntities;
