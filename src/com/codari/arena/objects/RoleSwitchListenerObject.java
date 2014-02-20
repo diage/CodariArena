@@ -79,7 +79,7 @@ public class RoleSwitchListenerObject implements ListenerFixedSpawnableObject {
 		return this.location;
 	}
 
-
+	@Override
 	public void setArenaName(String arenaName) {
 		this.arenaName = arenaName;
 	}
