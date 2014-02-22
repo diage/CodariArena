@@ -194,7 +194,7 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		for(Player player : this.team.getPlayers()) {
 			player.sendMessage(ChatColor.RED + "You have been awarded " + ChatColor.BOLD + points + ChatColor.RESET + ChatColor.RED + " points!");
 		}
-		Collection<WinCondition> winConditions = this.getTeam().getArena().getGameRule().getWinConditions();
+		Collection<WinCondition> winConditions = this.getTeam().getArena().getWinConditions();
 		for(WinCondition winCondition : winConditions) {
 			if(winCondition instanceof WinCondition2v2) {
 				((WinCondition2v2) winCondition).incrementPoints(this.team.getArena(), this.team, points);
