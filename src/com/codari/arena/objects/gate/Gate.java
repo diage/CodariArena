@@ -3,6 +3,8 @@ package com.codari.arena.objects.gate;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -63,6 +65,13 @@ public class Gate implements FixedSpawnableObject {
 	@Override
 	public void hide() {
 		this.redStoneBlockState.update(true);
+	}
+	
+	@Override
+	public Collection<BlockState> getAffectedBlocks() {
+		Collection<BlockState> affectedBlocks = new ArrayList<>();
+		affectedBlocks.add(this.redStoneBlockState);
+		return affectedBlocks;
 	}
 
 	private class SerializableBlock implements Serializable {

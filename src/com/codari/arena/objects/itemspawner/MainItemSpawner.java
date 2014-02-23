@@ -3,6 +3,8 @@ package com.codari.arena.objects.itemspawner;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -83,6 +85,13 @@ public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawn
 		this.itemSpawnerBlockState.update(true);
 		ItemSpawnerListener.resumePhysics(this.itemSpawnerBlockState.getBlock());
 		this.isSpawned = false;
+	}
+	
+	@Override
+	public Collection<BlockState> getAffectedBlocks() {
+		Collection<BlockState> affectedBlocks = new ArrayList<>();
+		affectedBlocks.add(this.itemSpawnerBlockState);
+		return affectedBlocks;
 	}
 	
 	@Override

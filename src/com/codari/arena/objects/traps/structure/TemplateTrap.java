@@ -2,6 +2,8 @@ package com.codari.arena.objects.traps.structure;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.xml.crypto.NoSuchMechanismException;
 
@@ -113,6 +115,14 @@ public abstract class TemplateTrap extends RandomSpawnableObjectA implements Tra
 		this.areaOfEffect.setDeactive();
 		this.deactivateMetaData();
 		this.isSpawned = false;
+	}
+	
+	@Override
+	public Collection<BlockState> getAffectedBlocks() {
+		Collection<BlockState> affectedBlocks = new ArrayList<>();
+		affectedBlocks.add(this.trapState);
+		affectedBlocks.add(this.trapIndicatorState);
+		return affectedBlocks;
 	}
 
 	@Override

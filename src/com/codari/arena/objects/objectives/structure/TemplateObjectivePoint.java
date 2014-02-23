@@ -147,7 +147,20 @@ public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA impl
 		this.resetCapturePointProgress();
 		this.isSpawned = false;
 		OBJECTIVE_POINT_SPAWNED = false;
-	}	
+	}
+	
+	@Override 
+	public Collection<BlockState> getAffectedBlocks() {
+		Collection<BlockState> affectedBlocks = new ArrayList<>();
+		for(BlockState blockState1 : this.beaconBaseStates) {
+			affectedBlocks.add(blockState1);
+		}
+		for(BlockState blockState2 : this.glassBeam) {
+			affectedBlocks.add(blockState2);
+		}
+		affectedBlocks.add(this.beaconState);
+		return affectedBlocks;
+	}
 
 	@Override
 	public boolean isSpawned() {

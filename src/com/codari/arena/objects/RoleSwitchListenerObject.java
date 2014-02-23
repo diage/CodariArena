@@ -1,5 +1,7 @@
 package com.codari.arena.objects;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,6 +69,13 @@ public class RoleSwitchListenerObject implements ListenerFixedSpawnableObject {
 			this.enabled = false;
 			Bukkit.broadcastMessage(ChatColor.BLUE + "Role Switch Object disabled!");	//TODO
 		}
+	}
+	
+	@Override
+	public Collection<BlockState> getAffectedBlocks() {
+		Collection<BlockState> affectedBlocks = new ArrayList<>();
+		affectedBlocks.add(this.glassBlockState);
+		return affectedBlocks;
 	}
 
 	@Override
