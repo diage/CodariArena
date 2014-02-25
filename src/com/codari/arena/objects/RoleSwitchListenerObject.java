@@ -17,10 +17,10 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 
 import com.codari.api5.CodariI;
+import com.codari.api5.annotations.ArenaObjectName;
 import com.codari.arena.ArenaStatics;
 import com.codari.arena.players.RoleHotbarListener;
 import com.codari.arena.players.roleswitch.RoleObjectItemTypes;
-import com.codari.arena5.objects.ArenaObjectName;
 import com.codari.arena5.objects.spawnable.ListenerFixedSpawnableObject;
 import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.hotbar.HotbarSelectEvent;

@@ -9,9 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import com.codari.api5.annotations.ArenaObjectName;
 import com.codari.arena.ArenaStatics;
 import com.codari.arena.objects.objectives.structure.TemplateObjectivePoint;
-import com.codari.arena5.objects.ArenaObjectName;
 
 @ArenaObjectName("Iron_Objective_Point")
 public class IronObjectivePoint extends TemplateObjectivePoint {

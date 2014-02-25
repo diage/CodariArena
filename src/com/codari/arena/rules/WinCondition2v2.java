@@ -8,9 +8,9 @@ import java.util.Map;
 
 import org.bukkit.entity.Player;
 
+import com.codari.api5.annotations.WinConditionName;
 import com.codari.arena5.arena.Arena;
 import com.codari.arena5.arena.rules.Argument;
-import com.codari.arena5.arena.rules.wincondition.WinConditionName;
 import com.codari.arena5.arena.rules.wincondition.WinConditionTemplate;
 import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.teams.Team;

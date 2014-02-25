@@ -5,7 +5,7 @@ import java.util.List;
 import org.bukkit.entity.LargeFireball;
 import org.bukkit.entity.Player;
 
-import com.codari.arena5.item.ItemAssetInformation;
+import com.codari.api5.annotations.ItemAssetInformation;
 import com.codari.arena5.item.assets.Spell;
 import com.codari.arena5.players.combatants.Combatant;
 

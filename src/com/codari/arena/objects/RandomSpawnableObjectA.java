@@ -2,7 +2,7 @@ package com.codari.arena.objects;
 
 import org.bukkit.Location;
 
-import com.codari.arena5.objects.ArenaObjectName;
+import com.codari.api5.annotations.ArenaObjectName;
 import com.codari.arena5.objects.spawnable.RandomSpawnableObject;
 
 public abstract class RandomSpawnableObjectA implements RandomSpawnableObject {

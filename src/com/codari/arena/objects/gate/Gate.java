@@ -13,8 +13,8 @@ import org.bukkit.World;
 import org.bukkit.block.BlockState;
 
 import com.codari.api5.CodariI;
+import com.codari.api5.annotations.ArenaObjectName;
 import com.codari.api5.util.scheduler.BukkitTime;
-import com.codari.arena5.objects.ArenaObjectName;
 import com.codari.arena5.objects.spawnable.FixedSpawnableObject;
 
 @ArenaObjectName("Gate")

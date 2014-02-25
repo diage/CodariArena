@@ -15,6 +15,7 @@ import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import com.codari.api5.annotations.ArenaObjectName;
 import com.codari.arena.ArenaStatics;
 import com.codari.arena.objects.RandomSpawnableObjectA;
 import com.codari.arena.objects.itemspawner.chooser.ItemChooser;
@@ -22,7 +23,6 @@ import com.codari.arena.objects.itemspawner.structure.ItemSpawner;
 import com.codari.arena.objects.itemspawner.structure.ItemSpawnerListener;
 import com.codari.arena.objects.itemspawner.structure.ItemType;
 import com.codari.arena.util.AoE;
-import com.codari.arena5.objects.ArenaObjectName;
 import com.codari.arena5.players.combatants.Combatant;
 
 @ArenaObjectName(value = MainItemSpawner.NAME, links = {ArenaStatics.MELEE, ArenaStatics.RANGED})

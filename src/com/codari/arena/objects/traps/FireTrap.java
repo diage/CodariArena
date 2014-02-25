@@ -7,9 +7,9 @@ import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import com.codari.api5.annotations.ArenaObjectName;
 import com.codari.arena.ArenaStatics;
 import com.codari.arena.objects.traps.structure.TemplateTrap;
-import com.codari.arena5.objects.ArenaObjectName;
 
 @ArenaObjectName("Fire_Trap")
 public class FireTrap extends TemplateTrap {

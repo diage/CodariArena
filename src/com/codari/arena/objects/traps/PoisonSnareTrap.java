@@ -9,9 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import com.codari.api5.annotations.ArenaObjectName;
 import com.codari.arena.ArenaStatics;
 import com.codari.arena.objects.traps.structure.TemplateTrap;
-import com.codari.arena5.objects.ArenaObjectName;
 
 @ArenaObjectName("Poison_Snare_Trap")
 public class PoisonSnareTrap extends TemplateTrap{
