@@ -8,10 +8,10 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
+import com.codari.api5.annotations.SkillName;
 import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.skills.Skill;
 import com.codari.arena5.players.skills.SkillActivation;
-import com.codari.arena5.players.skills.SkillName;
 
 @SkillName(value = "Teleport")
 public class TeleportSkill implements Skill {

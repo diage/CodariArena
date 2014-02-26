@@ -4,9 +4,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.potion.Potion;
 
+import com.codari.api5.events.HotbarSelectEvent;
 import com.codari.api5.util.BukkitUtils;
 import com.codari.api5.util.scheduler.BukkitTime;
-import com.codari.arena5.players.hotbar.HotbarSelectEvent;
 
 public class RoleHotbarListener implements Listener {
 	public final static long GLOBAL_COOLDOWN = BukkitTime.SECOND.tickValueOf(1);

@@ -18,13 +18,13 @@ import org.bukkit.inventory.ItemStack;
 
 import com.codari.api5.CodariI;
 import com.codari.api5.annotations.ArenaObjectName;
+import com.codari.api5.events.HotbarSelectEvent;
+import com.codari.api5.events.RoleSelectEvent;
 import com.codari.arena.ArenaStatics;
 import com.codari.arena.players.RoleHotbarListener;
 import com.codari.arena.players.roleswitch.RoleObjectItemTypes;
 import com.codari.arena5.objects.spawnable.ListenerFixedSpawnableObject;
 import com.codari.arena5.players.combatants.Combatant;
-import com.codari.arena5.players.hotbar.HotbarSelectEvent;
-import com.codari.arena5.players.role.RoleSelectEvent;
 
 @ArenaObjectName(value = "Role Switch Listener (2v2)", links = {ArenaStatics.MELEE, ArenaStatics.RANGED})
 public class RoleSwitchListenerObject implements ListenerFixedSpawnableObject {

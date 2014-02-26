@@ -12,10 +12,10 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.codari.api5.Codari;
+import com.codari.api5.annotations.SkillName;
 import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.skills.Skill;
 import com.codari.arena5.players.skills.SkillActivation;
-import com.codari.arena5.players.skills.SkillName;
 import com.codari.arena5.players.teams.Team;
 
 @SkillName(value = "Damage Reduction")
