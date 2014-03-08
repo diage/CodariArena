@@ -23,12 +23,12 @@ import com.codari.api5.events.RoleSelectEvent;
 import com.codari.arena.ArenaStatics;
 import com.codari.arena.players.RoleHotbarListener;
 import com.codari.arena.players.roleswitch.RoleObjectItemTypes;
+import com.codari.arena5.assets.FixedSpawnableAsset;
 import com.codari.arena5.objects.spawnable.ListenerFixedSpawnableObject;
 import com.codari.arena5.players.combatants.Combatant;
 
 @ArenaObjectName(value = "Role Switch Listener (2v2)", links = {ArenaStatics.MELEE, ArenaStatics.RANGED})
-public class RoleSwitchListenerObject implements ListenerFixedSpawnableObject {
-	private static final long serialVersionUID = -1837467493766979324L;
+public class RoleSwitchListenerObject extends FixedSpawnableAsset implements ListenerFixedSpawnableObject {
 	private final Enchantment enchantment = Enchantment.SILK_TOUCH;
 	private final Map<String, String> approveRoleSwitch;
 

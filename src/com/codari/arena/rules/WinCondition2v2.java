@@ -18,7 +18,6 @@ import com.codari.arena5.players.teams.Team;
 @WinConditionName(value = "Win Condition 2v2",
 		constructorArguments = {Argument.INTEGER_PRIMITIVE})
 public class WinCondition2v2 extends WinConditionTemplate {
-	private static final long serialVersionUID = 1394895801767255729L;
 	//-----Fields------//
 	private final int NUMBER_OF_POINTS_TO_WIN;
 	private Map<String, TeamPoint> teamPoints;

@@ -15,7 +15,6 @@ import com.codari.arena.objects.objectives.structure.TemplateObjectivePoint;
 
 @ArenaObjectName("Emerald_Objective_Point")
 public class EmeraldObjectivePoint extends TemplateObjectivePoint {
-	private static final long serialVersionUID = -4958614955612105201L;
 	private static final int WEIGHT_OF_OBJECTIVE_POINT = ArenaStatics.EMERALD_WEIGHT;
 	private static final int NUMBER_OF_POINTS_AWARDED = ArenaStatics.POINT_MULTIPLIER / (WEIGHT_OF_OBJECTIVE_POINT + ArenaStatics.POINT_OFFSET);
 	private static final int CAPTURE_TIME = (int) (ArenaStatics.BASE_TIME * (((float) ArenaStatics.DESIRED_WEIGHT) / (WEIGHT_OF_OBJECTIVE_POINT + ArenaStatics.TIME_OFFSET )));

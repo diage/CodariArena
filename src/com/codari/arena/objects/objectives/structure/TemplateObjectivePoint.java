@@ -24,7 +24,6 @@ import com.codari.arena5.players.combatants.Combatant;
 import com.codari.arena5.players.teams.Team;
 
 public abstract class TemplateObjectivePoint extends RandomSpawnableObjectA implements ObjectivePoint{
-	private static final long serialVersionUID = -5747948050563169564L;
 	//-----Fields-----//
 	//---Block Configuration---//
 	protected transient BlockState[] beaconBaseStates = new BlockState[9];

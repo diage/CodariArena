@@ -27,7 +27,6 @@ import com.codari.arena5.players.combatants.Combatant;
 
 @ArenaObjectName(value = MainItemSpawner.NAME, links = {ArenaStatics.MELEE, ArenaStatics.RANGED})
 public class MainItemSpawner extends RandomSpawnableObjectA implements ItemSpawner {
-	private static final long serialVersionUID = 5092060018825234373L;
 	//-----Fields-----//
 	private transient BlockState itemSpawnerBlockState;
 	private final SerializableBlock serialIndicator;

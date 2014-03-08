@@ -14,8 +14,6 @@ import com.codari.arena.objects.traps.structure.TemplateTrap;
 
 @ArenaObjectName("Explosion_Trap")
 public class ExplosionTrap extends TemplateTrap {
-	private static final long serialVersionUID = 1962803008489924101L;
-
 	//-----Fields-----//
 	private final static int WEIGHT_OF_OBJECTIVE_POINT = 5;
 	

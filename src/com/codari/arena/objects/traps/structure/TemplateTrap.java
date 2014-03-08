@@ -24,7 +24,6 @@ import com.codari.arena.util.AoE;
 import com.codari.arena5.players.teams.Team;
 
 public abstract class TemplateTrap extends RandomSpawnableObjectA implements Trap {
-	private static final long serialVersionUID = 810954548247897220L;
 	//-----Fields-----//
 	//---Block Configuration---//
 	private SerializableBlock serialIndicator;

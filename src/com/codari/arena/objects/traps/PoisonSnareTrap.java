@@ -15,8 +15,6 @@ import com.codari.arena.objects.traps.structure.TemplateTrap;
 
 @ArenaObjectName("Poison_Snare_Trap")
 public class PoisonSnareTrap extends TemplateTrap{
-	private static final long serialVersionUID = -8207530364005755280L;
-
 	//-----Fields-----//
 	private final static int WEIGHT_OF_OBJECTIVE_POINT = 5;
 	
